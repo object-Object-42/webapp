@@ -16,6 +16,7 @@ const items = [
   { icon: FiBriefcase, title: "Items", path: "/items" },
   { icon: FiSettings, title: "User Settings", path: "/settings" },
   { icon: FiDownload, title: "Import Data", path: "/import" },
+  { icon: FiSettings, title: "Chat", path: "/chat" },
 ];
 
 interface SidebarItemsProps {
