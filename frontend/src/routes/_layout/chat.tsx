@@ -25,7 +25,7 @@ const Chat = () => {
 
 
   useEffect(() => {
-    fetchMessages()
+    // fetchMessages()
   }, [])
 
   const renderMessages = () => {
@@ -42,30 +42,6 @@ const Chat = () => {
   const fetchMessages = () => {
     // @TODO change static into GET request
     const _messages: ChatMessage[] = [];
-
-    _messages.push({
-      content: "Guten Tag123",
-      isFromBot: true,
-      timestamp: new Date()
-    })
-
-    _messages.push({
-      content: "Wie gehts wie stehts?",
-      isFromBot: false,
-      timestamp: new Date()
-    })
-
-    _messages.push({
-      content: "Soso",
-      isFromBot: true,
-      timestamp: new Date()
-    })
-
-    _messages.push({
-      content: "Guten Tag123",
-      isFromBot: true,
-      timestamp: new Date()
-    })
 
     axios.get(`/api/v1/chats/${chatId}`).then((response) => {
       console.log(response);
@@ -88,6 +64,7 @@ const Chat = () => {
 
     // add message to chat history
     const newMessage: ChatMessage = {
+      messageId: 'unregistered',
       content: promptContent,
       isFromBot: false,
       timestamp: new Date()
@@ -115,6 +92,7 @@ const Chat = () => {
       const responseContent: ChatResponse = response.data;
 
       const newMessage: ChatMessage = {
+        messageId: 'unregistered',
         content: responseContent.message,
         isFromBot: true,
         timestamp: new Date(responseContent.created_at)
@@ -162,7 +140,12 @@ const Chat = () => {
           <HStack p={4} bg="gray.100">
             <Input bg="white" placeholder="Enter your question" value={promptContent} onChange={(e) => {
               setPromptContent(e.target.value);
-            }} />
+            }}
+            onKeyDown={(e) => {
+              const enterKeys = ['Enter', 'NumpadEnter']
+              if(enterKeys.includes(e.code)) sendPrompt()
+            }}
+             />
             <Button variant="primary" onClick={sendPrompt}>Send</Button>
           </HStack>
         </Flex>
