@@ -36,7 +36,7 @@ class ContentBase(SQLModel):
         return v
 
 class Content(ContentBase, table=True):
-    doc_id: int = Field(default=None, primary_key=True)
+    doc_id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     org_id: int = Field(foreign_key="organisation.org_id")
     created_at: datetime = Field(default_factory=datetime.utcnow)
     organisation: Organisation = Relationship(back_populates="content")
