@@ -21,6 +21,8 @@ const Chat = () => {
   const [promptContent, setPromptContent] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
 
+  const chatId = 1
+
 
   useEffect(() => {
     fetchMessages()
@@ -65,6 +67,12 @@ const Chat = () => {
       timestamp: new Date()
     })
 
+    axios.get(`/api/v1/chats/${chatId}`).then((response) => {
+      console.log(response);
+    }).catch((error) => {
+      console.error(error);
+    })
+
     setMessages(_messages)
   }
 
@@ -92,11 +100,11 @@ const Chat = () => {
     // send message to backend
     const chatPrompt: ChatPrompt = {
       prompt: promptContent,
-      level: 1,
+      level: 3,
       organisation: "current organisation or project"
     }
 
-    axios.post('/api/v1/chat', chatPrompt).then((response) => {
+    axios.post(`/api/v1/chats/${chatId}`, chatPrompt).then((response) => {
       console.log("RESPONSE:", response);
 
       if (response.status !== 200) {

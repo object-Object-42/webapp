@@ -16,7 +16,7 @@ class ChatRequest(SQLModel):
     organisation: str
 
 
-@router.post("/")
+@router.post("/{id}")
 def create_chat(*, chat_request: ChatRequest):
     """
     Create new chat message and generate response using Groq API.
@@ -48,3 +48,30 @@ def create_chat(*, chat_request: ChatRequest):
         raise HTTPException(
             status_code=500, detail=f"Error generating response: {str(e)}"
         )
+
+@router.get("/")
+def get_chats():
+    """
+    Get all available chats
+    """
+    chats = []
+    return chats
+
+@router.get("/{id}")
+def get_message(id: int):
+    """
+    Get messages of chat
+    """
+    chats = [
+        {
+            'isFromBot': False,
+            'content': f'Ich bin ein User mit chat {id}',
+            'timestamp': ''
+        },
+        {
+            'isFromBot': True,
+            'content': 'Ich bin ein Chatbot',
+            'timestamp': ''
+        }
+    ]
+    return chats
