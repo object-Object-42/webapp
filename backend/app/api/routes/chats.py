@@ -75,3 +75,7 @@ def get_message(id: int):
         }
     ]
     return chats
+
+# TODO: implement GET request for specific chat history /{chat_id}
+
+# TODO: implement GET request for /
