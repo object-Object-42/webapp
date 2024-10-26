@@ -20,7 +20,7 @@ class ChatRequest(SQLModel):
 
 
 @router.post("/{id}")
-def create_chat(*, chat_request: ChatRequest):
+def create_chat_message(*, chat_request: ChatRequest):
     """
     Create new chat message and generate response using Groq API.
     """
@@ -62,7 +62,7 @@ def get_chats(session: SessionDep):
 
 
 @router.get("/{chat_id}", response_model=ChatMessagesPublic)
-def get_messages(chat_id: int, session: SessionDep) -> ChatMessagesPublic:
+def get_chat_messages(chat_id: int, session: SessionDep) -> ChatMessagesPublic:
     """
     Get messages of chat
     """
