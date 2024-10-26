@@ -50,12 +50,15 @@ services:
     restart: "no"
     ports:
       - "5173:80"
+    image: node:22
+    command: sleep 99999
     build:
       context: ./frontend
       args:
         - VITE_API_URL=http://localhost
         - NODE_ENV=development
-
+    volumes:
+      - ./frontend:/app
   # playwright:
   #   build:
   #     context: ./frontend
