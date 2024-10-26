@@ -48,10 +48,10 @@ const ClustersPanel: FC<{
     <Panel
       title={
         <>
-          <MdGroupWork className="text-muted" /> Clusters
+          <MdGroupWork className="text-muted mr-md" /> Clusters
           {visibleClustersCount < clusters.length ? (
-            <span className="text-muted text-small">
-              ({visibleClustersCount} / {clusters.length})
+            <span className="text-muted text-small ml-sm">
+              {`(${visibleClustersCount}/${clusters.length})`}
             </span>
           ) : (
             ""

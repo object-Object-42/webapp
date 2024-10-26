@@ -9,7 +9,7 @@ const DescriptionPanel: FC<{content: string}> = ({content}) => {
       initiallyDeployed
       title={
         <>
-          <BsInfoCircle className="text-muted" /> Description
+          <BsInfoCircle className="text-muted mr-md" /> Description
         </>
       }
     >

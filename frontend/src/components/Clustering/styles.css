@@ -52,7 +52,7 @@ a:hover {
 #app-root {
   background: white;
   position: absolute;
-  inset: 90px 0 0 237px;
+  inset: 90px 0 0 240px;
 }
  
 .sigma-container {
@@ -98,7 +98,7 @@ a:hover {
  * ***************
  */
 div.ico {
-  --sigma-controls-size: 0;
+  --sigma-controls-size: 3.5rem;
 }
 div.ico > button {
   display: block;
@@ -126,6 +126,24 @@ div.ico > button > * {
   transform: translate(-50%, -50%);
 }
 
+button.btn {
+  background: white;
+  color: black;
+  border: 1px solid black;
+  outline: none;
+  border-radius: var(--border-radius);
+  padding: 0.3em 0.5em;
+  font-size: 1em;
+  font-family: Lato, sans-serif;
+  cursor: pointer;
+}
+button.btn:hover {
+  opacity: var(--hover-opacity);
+}
+button.btn > * {
+  vertical-align: baseline;
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -142,6 +160,22 @@ ul > li {
 }
 .mouse-pointer {
   cursor: pointer;
+}
+
+.ml-sm {
+ margin-left: 8px;
+}
+
+.mr-md {
+  margin-right: 16px;
+}
+
+.flex-align-right {
+  margin-left: auto
+}
+
+.flex-align-left {
+  margin-right: auto
 }
 
 /**
@@ -174,6 +208,57 @@ ul > li {
 }
 .panel h2 button:hover {
   opacity: var(--hover-opacity);
+}
+
+.caption-row input[type="checkbox"] {
+  display: none;
+}
+.caption-row input[type="checkbox"]:not(:checked) + label {
+  color: var(--dark-grey);
+}
+.caption-row input[type="checkbox"]:not(:checked) + label .circle {
+  background-color: white !important;
+}
+.caption-row label {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
+.caption-row label:hover {
+  opacity: var(--hover-opacity);
+}
+.caption-row label .circle {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  border-radius: 1.2em;
+  vertical-align: middle;
+  box-sizing: border-box;
+  background-color: var(--dark-grey);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-right: 0.2em;
+  transition: var(--transition);
+  border: 3px solid var(--dark-grey);
+}
+.caption-row label .node-label {
+  flex-grow: 1;
+}
+.caption-row label .bar {
+  position: relative;
+  background: var(--light-grey);
+  height: 3px;
+  margin-bottom: 0.2em;
+}
+.caption-row label .bar .inside-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--dark-grey);
+  transition: var(--transition);
 }
 
 /**
@@ -265,55 +350,4 @@ ul > li {
 
 .react-sigma-control {
   border: none;
-}
-
-.caption-row input[type="checkbox"] {
-  display: none;
-}
-.caption-row input[type="checkbox"]:not(:checked) + label {
-  color: var(--dark-grey);
-}
-.caption-row input[type="checkbox"]:not(:checked) + label .circle {
-  background-color: white !important;
-}
-.caption-row label {
-  display: flex;
-  flex-direction: row;
-  cursor: pointer;
-}
-.caption-row label:hover {
-  opacity: var(--hover-opacity);
-}
-.caption-row label .circle {
-  flex-shrink: 0;
-  display: inline-block;
-  width: 1.2em;
-  height: 1.2em;
-  border-radius: 1.2em;
-  vertical-align: middle;
-  box-sizing: border-box;
-  background-color: var(--dark-grey);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  margin-right: 0.2em;
-  transition: var(--transition);
-  border: 3px solid var(--dark-grey);
-}
-.caption-row label .node-label {
-  flex-grow: 1;
-}
-.caption-row label .bar {
-  position: relative;
-  background: var(--light-grey);
-  height: 3px;
-  margin-bottom: 0.2em;
-}
-.caption-row label .bar .inside-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: var(--dark-grey);
-  transition: var(--transition);
 }
