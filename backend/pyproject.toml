@@ -24,6 +24,7 @@ dependencies = [
     "groq",
     "openai",
     "elevenlabs",
+    "qdrant-client",
 ]
 
 [tool.uv]
