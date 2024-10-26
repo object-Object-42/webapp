@@ -1,7 +1,87 @@
 import uuid
+from datetime import datetime
+from typing import list
 
-from pydantic import EmailStr
+from pydantic import EmailStr, HttpUrl
 from sqlmodel import Field, Relationship, SQLModel
+
+
+class OrganisationBase(SQLModel):
+    org_name: str = Field(max_length=255)
+
+
+class Organisation(OrganisationBase, table=True):
+    org_id: int = Field(default=None, primary_key=True)
+    users: list["User"] = Relationship(
+        back_populates="organisations", link_model="UserOrganisation"
+    )
+    content: list["Content"] = Relationship(back_populates="organisation")
+
+
+class UserOrganisation(SQLModel, table=True):
+    user_id: uuid.UUID = Field(foreign_key="user.id", primary_key=True)
+    org_id: int = Field(foreign_key="organisation.org_id", primary_key=True)
+
+
+class ContentBase(SQLModel):
+    doc_name: str = Field(max_length=255)
+    content_text: str | None = None
+    url: HttpUrl | None = Field(default=None, max_length=2048)
+
+
+class Content(ContentBase, table=True):
+    doc_id: int = Field(default=None, primary_key=True)
+    org_id: int = Field(foreign_key="organisation.org_id")
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    organisation: Organisation = Relationship(back_populates="content")
+    chats: list["Chat"] = Relationship(back_populates="referenced_content")
+
+
+class ChatBase(SQLModel):
+    message_text: str
+
+
+class Chat(ChatBase, table=True):
+    chat_id: int = Field(default=None, primary_key=True)
+    user_id: uuid.UUID = Field(foreign_key="user.id")
+    referenced_doc_id: int | None = Field(default=None, foreign_key="content.doc_id")
+    created_at: datetime = Field(default_factory=datetime.now())
+    user: "User" = Relationship(back_populates="chats")
+    referenced_content: Content | None = Relationship(back_populates="chats")
+
+
+# API reponse models
+class OrganisationPublic(OrganisationBase):
+    org_id: int
+
+
+class ContentPublic(ContentBase):
+    doc_id: int
+    org_id: int
+    created_at: datetime
+
+
+class ChatPublic(ChatBase):
+    chat_id: int
+    user_id: uuid.UUID
+    referenced_doc_id: int | None
+    created_at: datetime
+
+
+# list response models
+class OrganisationsPublic(SQLModel):
+    data: list[OrganisationPublic]
+    count: int
+
+
+class ContentsPublic(SQLModel):
+    data: list[ContentPublic]
+    count: int
+
+
+class ChatsPublic(SQLModel):
+    data: list[ChatPublic]
+    count: int
 
 
 # Shared properties
@@ -44,6 +124,10 @@ class User(UserBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     hashed_password: str
     items: list["Item"] = Relationship(back_populates="owner", cascade_delete=True)
+    organisations: list[Organisation] = Relationship(
+        back_populates="users", link_model="UserOrganisation"
+    )
+    chats: list[Chat] = Relationship(back_populates="user")
 
 
 # Properties to return via API, id is always required
