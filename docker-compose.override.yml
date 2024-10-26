@@ -13,8 +13,8 @@ services:
     restart: "no"
     ports:
       - "8000:8000"
-    build:
-      context: ./backend
+    #build:
+    #  context: ./backend
     # command: sleep infinity  # Infinite loop to keep container alive doing nothing
     command:
       - fastapi
@@ -34,6 +34,7 @@ services:
     # TODO: remove once coverage is done locally
     volumes:
       - ./backend/htmlcov:/app/htmlcov
+      - ./backend/app:/app/app
     environment:
       SMTP_HOST: "mailcatcher"
       SMTP_PORT: "1025"
