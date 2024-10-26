@@ -43,6 +43,10 @@ const GraphEventsController: FC<PropsWithChildren<{ setHoveredNode: (node: strin
         if (!graph.getNodeAttribute(node, "hidden")) {
           setSelected(graph.getNodeAttribute(node, "key"));
         }
+      },
+        enterNode({ node }) {
+          setHoveredNode(node);
+          // TODO: Find a better way to get the DOM mouse layer:
         const mouseLayer = getMouseLayer();
         if (mouseLayer) mouseLayer.classList.add("mouse-pointer");
       },
