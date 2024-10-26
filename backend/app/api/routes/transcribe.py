@@ -1,9 +1,13 @@
-from fastapi import APIRouter, HTTPException, UploadFile, File
-from sqlmodel import SQLModel
+from fastapi import APIRouter, HTTPException, UploadFile, File, Depends
+from sqlmodel import Session
 from pydantic import BaseModel
 from groq import Groq
 import os
 from typing import Optional
+
+from app.models import ContentBase
+from app.api.deps import SessionDep
+from app.crud import create_content
 
 router = APIRouter()
 
@@ -15,7 +19,11 @@ class TranscriptionResponse(BaseModel):
     error: Optional[str] = None
 
 @router.post("/")
-async def transcribe(*, file: UploadFile = File(...)) -> TranscriptionResponse:
+async def transcribe(*,
+    org_id: int,
+    file: UploadFile = File(...),
+    session: SessionDep
+) -> TranscriptionResponse:
     try:
         file_content = await file.read()
 
@@ -27,7 +35,19 @@ async def transcribe(*, file: UploadFile = File(...)) -> TranscriptionResponse:
             temperature=0.0,
         )
 
-        return TranscriptionResponse(transcription=transcription.text)
+        content_data = ContentBase(
+            doc_name=file.filename,
+            content_text=transcription.text,
+            url=None
+        )
+        
+        db_content = create_content(
+            session=session,
+            content_data=content_data,
+            org_id=org_id
+        )
+
+        return TranscriptionResponse(transcription=db_content.content_text)
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error transcribing audio: {str(e)}")
