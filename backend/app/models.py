@@ -69,7 +69,7 @@ class ContentPublic(ContentBase):
 class ChatPublic(ChatBase):
     chat_id: int
     user_id: uuid.UUID
-    referenced_doc_id: int | None
+    referenced_doc_id: uuid.UUID | None
     created_at: datetime
 
 
