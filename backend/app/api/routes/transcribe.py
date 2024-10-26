@@ -1,7 +1,6 @@
 from fastapi import APIRouter, HTTPException, UploadFile, File
 from sqlmodel import SQLModel
 from pydantic import BaseModel
-from datetime import datetime
 from groq import Groq
 import os
 from typing import Optional
@@ -10,7 +9,6 @@ router = APIRouter()
 
 # Initialize Groq client with environment variable
 groq_client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-
 
 class TranscriptionResponse(BaseModel):
     transcription: Optional[str] = None
@@ -32,4 +30,4 @@ async def transcribe(*, file: UploadFile = File(...)) -> TranscriptionResponse:
         return TranscriptionResponse(transcription=transcription.text)
 
     except Exception as e:
-        return TranscriptionResponse(error=str(e))
+        raise HTTPException(status_code=500, detail=f"Error transcribing audio: {str(e)}")
