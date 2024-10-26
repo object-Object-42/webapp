@@ -3,9 +3,11 @@ import { keyBy, mapValues, sortBy, values } from "lodash";
 import { FC, useEffect, useMemo, useState } from "react";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { MdGroupWork } from "react-icons/md";
+// import { Button } from "@/components/ui/button"
 
 import { Cluster, FiltersState } from "../types";
 import Panel from "./Panel";
+import { Button } from "@chakra-ui/react";
 
 const ClustersPanel: FC<{
   clusters: Cluster[];
@@ -49,7 +51,6 @@ const ClustersPanel: FC<{
           <MdGroupWork className="text-muted" /> Clusters
           {visibleClustersCount < clusters.length ? (
             <span className="text-muted text-small">
-              {" "}
               ({visibleClustersCount} / {clusters.length})
             </span>
           ) : (
@@ -58,17 +59,15 @@ const ClustersPanel: FC<{
         </>
       }
     >
-      <p>
-        <i className="text-muted">Click a cluster to show/hide related pages from the network.</i>
-      </p>
-      <p className="buttons">
-        <button className="btn" onClick={() => setClusters(mapValues(keyBy(clusters, "key"), () => true))}>
-          <AiOutlineCheckCircle /> Check all
-        </button>{" "}
-        <button className="btn" onClick={() => setClusters({})}>
-          <AiOutlineCloseCircle /> Uncheck all
-        </button>
-      </p>
+      <i className="text-muted">Click a cluster to show/hide related pages from the network.</i>
+      <div className='clusterCheckButtons'>
+        <Button size='sm' onClick={() => setClusters(mapValues(keyBy(clusters, "key"), () => true))}>
+          <AiOutlineCheckCircle/> Check all
+        </Button>
+        <Button size='sm' onClick={() => setClusters({})}>
+          <AiOutlineCloseCircle/> Uncheck all
+        </Button>
+      </div>
       <ul>
         {sortedClusters.map((cluster) => {
           const nodesCount = nodesPerCluster[cluster.key];

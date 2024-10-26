@@ -4,7 +4,7 @@ import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 
 import { FiltersState } from "../types";
-
+//TODO: optimize search by searching from middle
 /**
  * This component is basically a fork from @react-sigma/core's SearchControl
  * component, to get some minor adjustments:
@@ -70,7 +70,7 @@ const SearchField: FC<{ filters: FiltersState }> = ({ filters }) => {
     }
   };
 
-  const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && values.length) {
       setSearch(values[0].label);
       setSelected(values[0].id);
@@ -85,7 +85,7 @@ const SearchField: FC<{ filters: FiltersState }> = ({ filters }) => {
         list="nodes"
         value={search}
         onChange={onInputChange}
-        onKeyPress={onKeyPress}
+        onKeyDown={onKeyDown}
       />
       <BsSearch className="icon" />
       <datalist id="nodes">

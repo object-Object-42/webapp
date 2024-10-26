@@ -25,10 +25,7 @@ const GraphTitle: FC<{ filters: FiltersState }> = ({ filters }) => {
   }, [filters]);
 
   return (
-    <div className="graph-title">
-      <h1>A cartography of Wikipedia pages around data visualization</h1>
-      <h2>
-        <i>
+        <i className="graph-subtitle">
           {graph.order} node{graph.order > 1 ? "s" : ""}{" "}
           {visibleItems.nodes !== graph.order
             ? ` (only ${prettyPercentage(visibleItems.nodes / graph.order)} visible)`
@@ -39,8 +36,6 @@ const GraphTitle: FC<{ filters: FiltersState }> = ({ filters }) => {
             ? ` (only ${prettyPercentage(visibleItems.edges / graph.size)} visible)`
             : ""}
         </i>
-      </h2>
-    </div>
   );
 };
 

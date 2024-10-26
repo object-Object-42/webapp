@@ -21,9 +21,9 @@ const Panel: FC<PropsWithChildren<{ title: ReactNode | string; initiallyDeployed
 
   return (
     <div className="panel" ref={dom}>
-      <h2>
-        {title}{" "}
-        <button type="button" onClick={() => setIsDeployed((v) => !v)}>
+      <h2 onClick={() => setIsDeployed((v) => !v)} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+        {title}
+        <button>
           {isDeployed ? <MdExpandLess /> : <MdExpandMore />}
         </button>
       </h2>

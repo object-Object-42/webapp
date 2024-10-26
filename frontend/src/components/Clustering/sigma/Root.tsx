@@ -17,7 +17,6 @@ import GraphEventsController from "./GraphEventsController";
 import GraphSettingsController from "./GraphSettingsController";
 import GraphTitle from "./GraphTitle";
 import SearchField from "./SearchField";
-import TagsPanel from "./TagsPanel";
 
 const Root: FC = () => {
   const [showContents, setShowContents] = useState(false);
@@ -71,6 +70,7 @@ const Root: FC = () => {
         <GraphSettingsController hoveredNode={hoveredNode} />
         <GraphEventsController setHoveredNode={setHoveredNode} />
         <GraphDataController dataset={dataset} filters={filtersState} />
+        {/* <GraphEvents /> could be enabled, currently clashing with node onClick navigation*/}
 
         {dataReady && (
           <>
@@ -110,7 +110,7 @@ const Root: FC = () => {
               <GraphTitle filters={filtersState} />
               <div className="panels">
                 <SearchField filters={filtersState} />
-                <DescriptionPanel />
+                <DescriptionPanel content={'test'}/>
                 <ClustersPanel
                   clusters={dataset.clusters}
                   filters={filtersState}
@@ -126,22 +126,6 @@ const Root: FC = () => {
                       clusters: filters.clusters[cluster]
                         ? omit(filters.clusters, cluster)
                         : { ...filters.clusters, [cluster]: true },
-                    }));
-                  }}
-                />
-                <TagsPanel
-                  tags={dataset.tags}
-                  filters={filtersState}
-                  setTags={(tags) =>
-                    setFiltersState((filters) => ({
-                      ...filters,
-                      tags,
-                    }))
-                  }
-                  toggleTag={(tag) => {
-                    setFiltersState((filters) => ({
-                      ...filters,
-                      tags: filters.tags[tag] ? omit(filters.tags, tag) : { ...filters.tags, [tag]: true },
                     }));
                   }}
                 />

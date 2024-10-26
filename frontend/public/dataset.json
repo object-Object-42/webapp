@@ -26264,24 +26264,7 @@
   ],
   "clusters": [
     { "key": "0", "color": "#6c3e81", "clusterLabel": "Graph theory" },
-    { "key": "7", "color": "#477028", "clusterLabel": "Softwares and data mining" },
-    { "key": "8", "color": "#b174cb", "clusterLabel": "Project management" },
-    { "key": "10", "color": "#a4923a", "clusterLabel": "Engineering" },
-    { "key": "11", "color": "#5f83cc", "clusterLabel": "Semantic networks" },
-    { "key": "12", "color": "#666666", "clusterLabel": "Sociometry" },
-    { "key": "13", "color": "#666666", "clusterLabel": "Ideas and concepts" },
-    { "key": "14", "color": "#db4139", "clusterLabel": "Arguments / Logic" },
-    { "key": "15", "color": "#379982", "clusterLabel": "Scientific classification" },
-    { "key": "16", "color": "#666666", "clusterLabel": "Decision trees" },
-    { "key": "17", "color": "#666666", "clusterLabel": "Motion perception" },
-    { "key": "18", "color": "#c94c83", "clusterLabel": "Artificial intelligence" },
-    { "key": "19", "color": "#666666", "clusterLabel": "Linguistics" },
-    { "key": "20", "color": "#7c5d28", "clusterLabel": "Collaborative problem solving" },
-    { "key": "21", "color": "#a54a49", "clusterLabel": "Knowledge management" },
-    { "key": "22", "color": "#666666", "clusterLabel": "Clinical terms and technologies" },
-    { "key": "23", "color": "#cf7435", "clusterLabel": "Network Science" },
-    { "key": "25", "color": "#666666", "clusterLabel": "Knots" },
-    { "key": "24", "color": "#666666", "clusterLabel": "Tensors (mathematics)" }
+    { "key": "7", "color": "#477028", "clusterLabel": "Softwares and data mining" }
   ],
   "tags": [
     { "key": "Chart type", "image": "charttype.svg" },
