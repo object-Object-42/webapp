@@ -20,7 +20,6 @@ class TranscriptionResponse(BaseModel):
 
 @router.post("/")
 async def transcribe(*,
-    org_id: int,
     file: UploadFile = File(...),
     session: SessionDep
 ) -> TranscriptionResponse:
@@ -44,7 +43,7 @@ async def transcribe(*,
         db_content = create_content(
             session=session,
             content_data=content_data,
-            org_id=org_id
+            org_id=42
         )
 
         return TranscriptionResponse(transcription=db_content.content_text)

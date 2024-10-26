@@ -3,6 +3,9 @@ from datetime import datetime
 import os
 from groq import Groq
 from sqlmodel import SQLModel
+from app.models import ContentBase
+from app.crud import create_content
+from app.api.deps import SessionDep
 
 router = APIRouter()
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
@@ -14,7 +17,7 @@ class ImageAnalysisRequest(SQLModel):
 
 
 @router.post("/")
-def analyze_image(*, request: ImageAnalysisRequest):
+def analyze_image(*, request: ImageAnalysisRequest, session: SessionDep):
     """
     Analyze image using Groq Vision API.
     """
@@ -37,6 +40,18 @@ def analyze_image(*, request: ImageAnalysisRequest):
             top_p=1,
             stream=False,
             stop=None,
+        )
+        
+        content_data = ContentBase(
+            doc_name=request.image_url,
+            content_text=completion.choices[0].message.content,
+            url=request.image_url
+        )
+        
+        db_content = create_content(
+            session=session,
+            content_data=content_data,
+            org_id=21
         )
 
         response_text = completion.choices[0].message.content
