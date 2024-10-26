@@ -25,6 +25,8 @@ dependencies = [
     "openai",
     "elevenlabs",
     "qdrant-client",
+    "sqlalchemy",
+    "google-generativeai"
 ]
 
 [tool.uv]
