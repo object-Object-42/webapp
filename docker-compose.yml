@@ -169,6 +169,8 @@ services:
       - qdrant-data:/qdrant/storage
     environment:
       - QDRANT__LOG_LEVEL=INFO
+    ports:
+      - "6333:6333"
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
       interval: 30s
