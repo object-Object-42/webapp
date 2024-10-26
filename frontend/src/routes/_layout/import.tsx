@@ -12,13 +12,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { handleError } from "../../utils";
 
-import {
-  ApiError,
-  ImportService,
-  ItemCreate,
-  TImportDataWebsite,
-  UpdatePassword,
-} from "../../client";
+import { ApiError, ImportService, TImportDataWebsite } from "../../client";
 import useCustomToast from "../../hooks/useCustomToast";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -30,11 +24,10 @@ function ImportFromUrl() {
   const showToast = useCustomToast();
   const queryClient = useQueryClient();
 
-  const { register, handleSubmit, reset, getValues } =
-    useForm<TImportDataWebsite>({
-      mode: "onBlur",
-      criteriaMode: "all",
-    });
+  const { register, handleSubmit, reset } = useForm<TImportDataWebsite>({
+    mode: "onBlur",
+    criteriaMode: "all",
+  });
   const mutation = useMutation({
     mutationFn: (data: TImportDataWebsite) => ImportService.importWebsite(data),
     onSuccess: () => {
@@ -49,7 +42,6 @@ function ImportFromUrl() {
     },
   });
   const onSubmit: SubmitHandler<TImportDataWebsite> = async (data) => {
-    console.log(data);
     mutation.mutate(data);
   };
   return (
