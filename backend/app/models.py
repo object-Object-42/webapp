@@ -41,26 +41,25 @@ class Content(ContentBase, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     organisation: Organisation = Relationship(back_populates="content")
     chat_messages: list["ChatMessage"] = Relationship(back_populates="referenced_content")
-    
 
-class ChatBase(SQLModel):
-    message_text: str
-
-
-class Chat(ChatBase, table=True):
+class Chat(SQLModel, table=True):
     chat_id: int = Field(default=None, primary_key=True)
     user_id: uuid.UUID = Field(foreign_key="user.id")
     # referenced_doc_id: int | None = Field(default=None, foreign_key="content.doc_id")
     created_at: datetime = Field(default_factory=datetime.now)
     user: "User" = Relationship(back_populates="chats")
     # referenced_content: Content | None = Relationship(back_populates="chats")
+    chat_messages: list["ChatMessage"] = Relationship(back_populates="chat")
     
 class ChatMessage(SQLModel, table=True):
     message_id: uuid.UUID = Field(default=None, primary_key=True)
-    chat_id: int = Field(foreign_key="chat.chat_id")
+    chat_chat_id: int = Field(foreign_key="chat.chat_id")
     referenced_doc_id: int | None = Field(default=None, foreign_key="content.doc_id")
+    message_text: str = Field(max_length=255)
+    is_from_bot: bool = Field()
     created_at: datetime = Field(default_factory=datetime.now)
     referenced_content: Content | None = Relationship(back_populates="chat_messages")
+    chat: Chat = Relationship(back_populates="chat_messages")
 
 # API reponse models
 class OrganisationPublic(OrganisationBase):
@@ -73,12 +72,19 @@ class ContentPublic(ContentBase):
     created_at: datetime
 
 
-class ChatPublic(ChatBase):
+class ChatPublic(SQLModel):
     chat_id: int
     user_id: uuid.UUID
     referenced_doc_id: int | None
     created_at: datetime
 
+class ChatMessagePublic(SQLModel):
+    message_id: uuid.UUID
+    chat_chat_id: int
+    referenced_doc_id: int | None
+    message_text: str
+    is_from_bot: bool
+    created_at: datetime
 
 # List response models
 class OrganisationsPublic(SQLModel):
@@ -93,6 +99,11 @@ class ContentsPublic(SQLModel):
 
 class ChatsPublic(SQLModel):
     data: List[ChatPublic]
+    count: int
+
+
+class ChatMessagesPublic(SQLModel):
+    data: List[ChatMessagePublic]
     count: int
 
 

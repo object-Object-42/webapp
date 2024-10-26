@@ -3,7 +3,10 @@ from datetime import datetime
 import os
 from groq import Groq
 from sqlmodel import SQLModel
+from typing import Any
 
+from app.api.deps import SessionDep
+from app.models import ChatMessage, Chat, ChatsPublic, ChatMessagesPublic
 from app.prompts import system_prompt_chat
 
 router = APIRouter()
@@ -57,25 +60,16 @@ def get_chats():
     chats = []
     return chats
 
-@router.get("/{id}")
-def get_message(id: int):
+
+@router.get("/{chat_id}", response_model=ChatMessagesPublic)
+def get_messages(chat_id: int, session: SessionDep) -> ChatMessagesPublic:
     """
     Get messages of chat
     """
-    chats = [
-        {
-            'isFromBot': False,
-            'content': f'Ich bin ein User mit chat {id}',
-            'timestamp': ''
-        },
-        {
-            'isFromBot': True,
-            'content': 'Ich bin ein Chatbot',
-            'timestamp': ''
-        }
-    ]
-    return chats
-
-# TODO: implement GET request for specific chat history /{chat_id}
-
-# TODO: implement GET request for /
+    chat = session.get(Chat, chat_id)
+    print(chat)
+    if not chat:
+        raise HTTPException(status_code=404, detail="Chat not found")
+    messages = chat.chat_messages
+    print(messages)
+    return ChatMessagesPublic(data=messages, count=len(messages))
