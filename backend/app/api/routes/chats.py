@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from datetime import datetime
 import os
 from groq import Groq
-from sqlmodel import SQLModel
+from sqlmodel import SQLModel, select
 from typing import Any
 
 from app.api.deps import SessionDep
@@ -52,13 +52,13 @@ def create_chat(*, chat_request: ChatRequest):
             status_code=500, detail=f"Error generating response: {str(e)}"
         )
 
-@router.get("/")
-def get_chats():
+@router.get("/", response_model=ChatsPublic)
+def get_chats(session: SessionDep):
     """
     Get all available chats
     """
-    chats = []
-    return chats
+    chats = session.exec(select(Chat)).all()
+    return ChatsPublic(data=chats, count=len(chats))
 
 
 @router.get("/{chat_id}", response_model=ChatMessagesPublic)
@@ -67,9 +67,7 @@ def get_messages(chat_id: int, session: SessionDep) -> ChatMessagesPublic:
     Get messages of chat
     """
     chat = session.get(Chat, chat_id)
-    print(chat)
     if not chat:
         raise HTTPException(status_code=404, detail="Chat not found")
     messages = chat.chat_messages
-    print(messages)
     return ChatMessagesPublic(data=messages, count=len(messages))
