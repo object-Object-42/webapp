@@ -1,8 +1,9 @@
 import uuid
 from datetime import datetime
-from typing import list
+from typing import List
 
 from pydantic import EmailStr, HttpUrl
+from pydantic import Field, HttpUrl
 from sqlmodel import Field, Relationship, SQLModel
 
 
@@ -10,24 +11,29 @@ class OrganisationBase(SQLModel):
     org_name: str = Field(max_length=255)
 
 
-class Organisation(OrganisationBase, table=True):
-    org_id: int = Field(default=None, primary_key=True)
-    users: list["User"] = Relationship(
-        back_populates="organisations", link_model="UserOrganisation"
-    )
-    content: list["Content"] = Relationship(back_populates="organisation")
-
-
 class UserOrganisation(SQLModel, table=True):
     user_id: uuid.UUID = Field(foreign_key="user.id", primary_key=True)
     org_id: int = Field(foreign_key="organisation.org_id", primary_key=True)
+    
+    
+class Organisation(OrganisationBase, table=True):
+    org_id: int = Field(default=None, primary_key=True)
+    users: List["User"] = Relationship(
+        back_populates="organisations", link_model=UserOrganisation
+    )
+    content: List["Content"] = Relationship(back_populates="organisation")
 
 
 class ContentBase(SQLModel):
     doc_name: str = Field(max_length=255)
     content_text: str | None = None
-    url: HttpUrl | None = Field(default=None, max_length=2048)
+    url: str | None = Field(default=None, max_length=2048)
 
+    def validate_url(cls, v):
+        if v is not None:
+            parsed_url = HttpUrl.validate(v)
+            return parsed_url
+        return v
 
 class Content(ContentBase, table=True):
     doc_id: int = Field(default=None, primary_key=True)
@@ -35,7 +41,7 @@ class Content(ContentBase, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     organisation: Organisation = Relationship(back_populates="content")
     chats: list["Chat"] = Relationship(back_populates="referenced_content")
-
+    
 
 class ChatBase(SQLModel):
     message_text: str
@@ -45,10 +51,9 @@ class Chat(ChatBase, table=True):
     chat_id: int = Field(default=None, primary_key=True)
     user_id: uuid.UUID = Field(foreign_key="user.id")
     referenced_doc_id: int | None = Field(default=None, foreign_key="content.doc_id")
-    created_at: datetime = Field(default_factory=datetime.now())
+    created_at: datetime = Field(default_factory=datetime.now)
     user: "User" = Relationship(back_populates="chats")
     referenced_content: Content | None = Relationship(back_populates="chats")
-
 
 # API reponse models
 class OrganisationPublic(OrganisationBase):
@@ -68,19 +73,19 @@ class ChatPublic(ChatBase):
     created_at: datetime
 
 
-# list response models
+# List response models
 class OrganisationsPublic(SQLModel):
-    data: list[OrganisationPublic]
+    data: List[OrganisationPublic]
     count: int
 
 
 class ContentsPublic(SQLModel):
-    data: list[ContentPublic]
+    data: List[ContentPublic]
     count: int
 
 
 class ChatsPublic(SQLModel):
-    data: list[ChatPublic]
+    data: List[ChatPublic]
     count: int
 
 
@@ -123,11 +128,11 @@ class UpdatePassword(SQLModel):
 class User(UserBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     hashed_password: str
-    items: list["Item"] = Relationship(back_populates="owner", cascade_delete=True)
-    organisations: list[Organisation] = Relationship(
-        back_populates="users", link_model="UserOrganisation"
+    items: List["Item"] = Relationship(back_populates="owner", cascade_delete=True)
+    organisations: List[Organisation] = Relationship(
+        back_populates="users", link_model=UserOrganisation
     )
-    chats: list[Chat] = Relationship(back_populates="user")
+    chats: List[Chat] = Relationship(back_populates="user")
 
 
 # Properties to return via API, id is always required
@@ -136,7 +141,7 @@ class UserPublic(UserBase):
 
 
 class UsersPublic(SQLModel):
-    data: list[UserPublic]
+    data: List[UserPublic]
     count: int
 
 
@@ -173,7 +178,7 @@ class ItemPublic(ItemBase):
 
 
 class ItemsPublic(SQLModel):
-    data: list[ItemPublic]
+    data: List[ItemPublic]
     count: int
 
 
