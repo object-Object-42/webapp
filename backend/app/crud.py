@@ -117,7 +117,7 @@ def create_chat(*, session: Session, message_text: str, user_id: uuid.UUID, refe
     return chat
 
 
-def get_chat_by_id(*, session: Session, chat_id: int) -> Optional[Chat]:
+def get_chat_by_id(*, session: Session, chat_id: uuid.UUID) -> Optional[Chat]:
     return session.get(Chat, chat_id)
 
 

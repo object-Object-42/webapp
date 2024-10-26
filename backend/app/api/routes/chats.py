@@ -1,3 +1,5 @@
+import uuid
+
 from fastapi import APIRouter, HTTPException
 from datetime import datetime
 import os
@@ -5,8 +7,9 @@ from groq import Groq
 from sqlmodel import SQLModel, select
 from typing import Any
 
-from app.api.deps import SessionDep
-from app.models import ChatMessage, Chat, ChatsPublic, ChatMessagesPublic
+from app import crud
+from app.api.deps import SessionDep, CurrentUser
+from app.models import ChatMessage, Chat, ChatsPublic, ChatMessagesPublic, ChatPublic
 from app.prompts import system_prompt_chat
 
 router = APIRouter()
@@ -17,6 +20,21 @@ class ChatRequest(SQLModel):
     prompt: str
     level: int
     organisation: str
+
+@router.post("/", response_model=ChatPublic)
+def create_chat(
+    *, session: SessionDep, current_user: CurrentUser
+) -> Any:
+    """
+    Create new chat.
+    """
+    chat = Chat(user_id=current_user.id)
+
+    session.add(chat)
+    session.commit()
+    session.refresh(chat)
+
+    return chat
 
 
 @router.post("/{id}")
@@ -62,11 +80,11 @@ def get_chats(session: SessionDep):
 
 
 @router.get("/{chat_id}", response_model=ChatMessagesPublic)
-def get_chat_messages(chat_id: int, session: SessionDep) -> ChatMessagesPublic:
+def get_chat_messages(chat_id: uuid.UUID, session: SessionDep) -> ChatMessagesPublic:
     """
     Get messages of chat
     """
-    chat = session.get(Chat, chat_id)
+    chat = crud.get_chat_by_id(session=session, chat_id=chat_id)
     if not chat:
         raise HTTPException(status_code=404, detail="Chat not found")
     messages = chat.chat_messages
