@@ -53,7 +53,7 @@ async def create_podcast(*, podcast_request: PodcastRequest) -> StreamingRespons
         audio = eleven_client.generate(
             text=script_text,
             voice=Voice(
-                voice_id="nPczCjzI2devNBz1zQrb",  # You can change the voice ID as needed
+                voice_id="nPczCjzI2devNBz1zQrb",
                 settings=VoiceSettings(
                     stability=0.71,
                     similarity_boost=0.5,

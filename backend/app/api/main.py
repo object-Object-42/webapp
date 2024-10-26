@@ -1,7 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.routes import chats, crawl, items, login, users, utils
-#vector, podcast
+from app.api.routes import items, login, users, utils, chats, crawl, vector, podcast, speech_to_text
 
 api_router = APIRouter()
 api_router.include_router(login.router, tags=["login"])
@@ -10,5 +9,6 @@ api_router.include_router(utils.router, prefix="/utils", tags=["utils"])
 api_router.include_router(items.router, prefix="/items", tags=["items"])
 api_router.include_router(crawl.router, prefix="/crawl", tags=["crawl"])
 api_router.include_router(chats.router, prefix="/chats", tags=["chats"])
-# api_router.include_router(vector.router, prefix="/vector", tags=["vector"])
-# api_router.include_router(podcast.router, prefix="/podcast", tags=["podcast"])
+api_router.include_router(vector.router, prefix="/vector", tags=["vector"])
+api_router.include_router(podcast.router, prefix="/podcast", tags=["podcast"])
+api_router.include_router(speech_to_text.router, prefix="/speech_to_text", tags=["speech_to_text"])
