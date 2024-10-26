@@ -65,8 +65,8 @@ async def create_podcast(*, podcast_request: PodcastRequest) -> StreamingRespons
         )
 
         # Create a BytesIO object to store the audio
-        audio_bytes = BytesIO()
-        save(audio, audio_bytes)
+        audio_bytes = b"".join(chunk for chunk in audio)
+        audio_bytes = BytesIO(audio_bytes)
         audio_bytes.seek(0)  # Reset pointer to beginning of stream
 
         # Return audio as a streaming response
