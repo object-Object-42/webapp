@@ -48,3 +48,8 @@ def create_chat(*, chat_request: ChatRequest):
         raise HTTPException(
             status_code=500, detail=f"Error generating response: {str(e)}"
         )
+
+
+# TODO: implement GET request for specific chat history /{chat_id}
+
+# TODO: implement GET request for /
