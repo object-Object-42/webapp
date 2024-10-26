@@ -75,7 +75,6 @@ class ContentPublic(ContentBase):
 class ChatPublic(SQLModel):
     chat_id: int
     user_id: uuid.UUID
-    referenced_doc_id: int | None
     created_at: datetime
 
 class ChatMessagePublic(SQLModel):
