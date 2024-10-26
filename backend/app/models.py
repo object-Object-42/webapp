@@ -50,7 +50,7 @@ class ChatBase(SQLModel):
 class Chat(ChatBase, table=True):
     chat_id: int = Field(default=None, primary_key=True)
     user_id: uuid.UUID = Field(foreign_key="user.id")
-    referenced_doc_id: int | None = Field(default=None, foreign_key="content.doc_id")
+    referenced_doc_id: uuid.UUID | None = Field(default=None, foreign_key="content.doc_id")
     created_at: datetime = Field(default_factory=datetime.now)
     user: "User" = Relationship(back_populates="chats")
     referenced_content: Content | None = Relationship(back_populates="chats")
@@ -201,3 +201,8 @@ class TokenPayload(SQLModel):
 class NewPassword(SQLModel):
     token: str
     new_password: str = Field(min_length=8, max_length=40)
+
+class CrawlRequest(SQLModel):
+    url: str
+    url_path : str|None
+    organisation_id:int
