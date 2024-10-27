@@ -55,41 +55,39 @@ const DeleteConfirmation = ({ isOpen, onClose }: DeleteProps) => {
   }
 
   return (
-    <>
-      <AlertDialog
-        isOpen={isOpen}
-        onClose={onClose}
-        leastDestructiveRef={cancelRef}
-        size={{ base: "sm", md: "md" }}
-        isCentered
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent as="form" onSubmit={handleSubmit(onSubmit)}>
-            <AlertDialogHeader>Confirmation Required</AlertDialogHeader>
+    <AlertDialog
+      isOpen={isOpen}
+      onClose={onClose}
+      leastDestructiveRef={cancelRef}
+      size={{ base: "sm", md: "md" }}
+      isCentered
+    >
+      <AlertDialogOverlay>
+        <AlertDialogContent as="form" onSubmit={handleSubmit(onSubmit)}>
+          <AlertDialogHeader>Confirmation Required</AlertDialogHeader>
 
-            <AlertDialogBody>
-              All your account data will be{" "}
-              <strong>permanently deleted.</strong> If you are sure, please
-              click <strong>"Confirm"</strong> to proceed. This action cannot be
-              undone.
-            </AlertDialogBody>
+          <AlertDialogBody>
+            All your account data will be{" "}
+            <strong>permanently deleted.</strong> If you are sure, please
+            click <strong>"Confirm"</strong> to proceed. This action cannot be
+            undone.
+          </AlertDialogBody>
 
-            <AlertDialogFooter gap={3}>
-              <Button variant="danger" type="submit" isLoading={isSubmitting}>
-                Confirm
-              </Button>
-              <Button
-                ref={cancelRef}
-                onClick={onClose}
-                isDisabled={isSubmitting}
-              >
-                Cancel
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
-    </>
+          <AlertDialogFooter gap={3}>
+            <Button variant="danger" type="submit" isLoading={isSubmitting}>
+              Confirm
+            </Button>
+            <Button
+              ref={cancelRef}
+              onClick={onClose}
+              isDisabled={isSubmitting}
+            >
+              Cancel
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialogOverlay>
+    </AlertDialog>
   )
 }
 

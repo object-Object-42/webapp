@@ -17,6 +17,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { useEffect } from "react"
 import { z } from "zod"
+import { v4 } from "uuid"
 
 import { type UserPublic, UsersService } from "../../client"
 import AddUser from "../../components/Admin/AddUser"
@@ -85,8 +86,8 @@ function UsersTable() {
           {isPending ? (
             <Tbody>
               <Tr>
-                {new Array(4).fill(null).map((_, index) => (
-                  <Td key={index}>
+                {new Array(4).fill(null).map(() => (
+                  <Td key={v4()}>
                     <SkeletonText noOfLines={1} paddingBlock="16px" />
                   </Td>
                 ))}

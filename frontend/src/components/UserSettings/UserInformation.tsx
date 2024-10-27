@@ -74,83 +74,81 @@ const UserInformation = () => {
   }
 
   return (
-    <>
-      <Container maxW="full">
-        <Heading size="sm" py={4}>
-          User Information
-        </Heading>
-        <Box
-          w={{ sm: "full", md: "50%" }}
-          as="form"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <FormControl>
-            <FormLabel color={color} htmlFor="name">
-              Full name
-            </FormLabel>
-            {editMode ? (
-              <Input
-                id="name"
-                {...register("full_name", { maxLength: 30 })}
-                type="text"
-                size="md"
-                w="auto"
-              />
-            ) : (
-              <Text
-                size="md"
-                py={2}
-                color={!currentUser?.full_name ? "ui.dim" : "inherit"}
-                isTruncated
-                maxWidth="250px"
-              >
-                {currentUser?.full_name || "N/A"}
-              </Text>
-            )}
-          </FormControl>
-          <FormControl mt={4} isInvalid={!!errors.email}>
-            <FormLabel color={color} htmlFor="email">
-              Email
-            </FormLabel>
-            {editMode ? (
-              <Input
-                id="email"
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: emailPattern,
-                })}
-                type="email"
-                size="md"
-                w="auto"
-              />
-            ) : (
-              <Text size="md" py={2} isTruncated maxWidth="250px">
-                {currentUser?.email}
-              </Text>
-            )}
-            {errors.email && (
-              <FormErrorMessage>{errors.email.message}</FormErrorMessage>
-            )}
-          </FormControl>
-          <Flex mt={4} gap={3}>
-            <Button
-              variant="primary"
-              onClick={toggleEditMode}
-              type={editMode ? "button" : "submit"}
-              isLoading={editMode ? isSubmitting : false}
-              isDisabled={editMode ? !isDirty || !getValues("email") : false}
+    <Container maxW="full">
+      <Heading size="sm" py={4}>
+        User Information
+      </Heading>
+      <Box
+        w={{ sm: "full", md: "50%" }}
+        as="form"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <FormControl>
+          <FormLabel color={color} htmlFor="name">
+            Full name
+          </FormLabel>
+          {editMode ? (
+            <Input
+              id="name"
+              {...register("full_name", { maxLength: 30 })}
+              type="text"
+              size="md"
+              w="auto"
+            />
+          ) : (
+            <Text
+              size="md"
+              py={2}
+              color={!currentUser?.full_name ? "ui.dim" : "inherit"}
+              isTruncated
+              maxWidth="250px"
             >
-              {editMode ? "Save" : "Edit"}
+              {currentUser?.full_name || "N/A"}
+            </Text>
+          )}
+        </FormControl>
+        <FormControl mt={4} isInvalid={!!errors.email}>
+          <FormLabel color={color} htmlFor="email">
+            Email
+          </FormLabel>
+          {editMode ? (
+            <Input
+              id="email"
+              {...register("email", {
+                required: "Email is required",
+                pattern: emailPattern,
+              })}
+              type="email"
+              size="md"
+              w="auto"
+            />
+          ) : (
+            <Text size="md" py={2} isTruncated maxWidth="250px">
+              {currentUser?.email}
+            </Text>
+          )}
+          {errors.email && (
+            <FormErrorMessage>{errors.email.message}</FormErrorMessage>
+          )}
+        </FormControl>
+        <Flex mt={4} gap={3}>
+          <Button
+            variant="primary"
+            onClick={toggleEditMode}
+            type={editMode ? "button" : "submit"}
+            isLoading={editMode ? isSubmitting : false}
+            isDisabled={editMode ? !isDirty || !getValues("email") : false}
+          >
+            {editMode ? "Save" : "Edit"}
+          </Button>
+          {editMode && (
+            <Button onClick={onCancel} isDisabled={isSubmitting}>
+              Cancel
             </Button>
-            {editMode && (
-              <Button onClick={onCancel} isDisabled={isSubmitting}>
-                Cancel
-              </Button>
-            )}
-          </Flex>
-        </Box>
-      </Container>
-    </>
+          )}
+        </Flex>
+      </Box>
+    </Container>
   )
 }
 

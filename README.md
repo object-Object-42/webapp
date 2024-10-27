@@ -36,6 +36,10 @@ Link zu den [Screenshots](media/Screenshots.md)
 
 - [Full Stack FastAPI Template](https://github.com/fastapi/full-stack-fastapi-template)
 
+## Datenfluss
+
+![Datenfluss](media/dataflow_white.png)
+
 ## API Dokumentation
 
 ### API Endpunkte

@@ -59,9 +59,7 @@ const SidebarItems = ({ onClose }: SidebarItemsProps) => {
   ));
 
   return (
-    <>
-      <Box>{listItems}</Box>
-    </>
+    <Box>{listItems}</Box>
   );
 };
 

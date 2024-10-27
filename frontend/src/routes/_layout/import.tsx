@@ -25,7 +25,6 @@ import {
   TImportDataWebsite,
 } from "../../client";
 import useCustomToast from "../../hooks/useCustomToast";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
@@ -87,85 +86,84 @@ function ImportFromUrl() {
   };
 
   return (
-    <>
-      <Box w={{ sm: "full", md: "50%" }} as="form">
-        <FormControl>
-          <HStack>
-            <div>
-              <FormLabel htmlFor="url">Base URL</FormLabel>
-              <Input
-                value={url}
-                isInvalid={urlInvalid}
-                onChange={(data) => {
-                  setUrl(data.target.value);
-                  setUrlInvalid(!data.target.checkValidity());
-                }}
-                id="url"
-                // {...register("url")}
-                placeholder="https://example.com"
-                type="url"
-                w="auto"
-              />
-            </div>
-            <div>
-              <FormLabel htmlFor="slash"> &nbsp;</FormLabel>
-              <Input
-                isDisabled
-                color="black" // Set the text color explicitly
-                _disabled={{ bg: "gray.100", opacity: 1 }}
-                id="slash"
-                value={"/"}
-                placeholder="/"
-                type="text"
-                w="10"
-              />
-            </div>
-            <div>
-              <FormLabel htmlFor="url_path">URL Path</FormLabel>
+    <Box w={{ sm: "full", md: "50%" }} as="form">
+      <FormControl>
+        <HStack>
+          <div>
+            <FormLabel htmlFor="url">Base URL</FormLabel>
+            <Input
+              value={url}
+              isInvalid={urlInvalid}
+              onChange={(data) => {
+                setUrl(data.target.value);
+                setUrlInvalid(!data.target.checkValidity());
+              }}
+              id="url"
+              // {...register("url")}
+              placeholder="https://example.com"
+              type="url"
+              w="auto"
+            />
+          </div>
+          <div>
+            <FormLabel htmlFor="slash"> &nbsp;</FormLabel>
+            <Input
+              isDisabled
+              color="black" // Set the text color explicitly
+              _disabled={{ bg: "gray.100", opacity: 1 }}
+              id="slash"
+              value={"/"}
+              placeholder="/"
+              type="text"
+              w="10"
+            />
+          </div>
+          <div>
+            <FormLabel htmlFor="url_path">URL Path</FormLabel>
 
-              <Input
-                value={urlPath}
-                id="url_path"
-                placeholder="example"
-                onChange={(data) => {
-                  setUrlPath(data.target.value);
-                }}
-                type="text"
-                w="auto"
-              />
-            </div>
-            <div>
-              <FormLabel htmlFor="organisation">Organisation</FormLabel>
-              {organisations && (
-                <Menu id="organisation">
-                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                    {selectedDropdownElement
-                      ? selectedDropdownElement.org_name
-                      : "Select Organisation"}
-                  </MenuButton>
-                  <MenuList>
-                    {organisations!.data.map((item) => {
-                      return (
-                        <MenuItem
-                          onClick={() => {
-                            setSelectedDropdownElement(item);
-                          }}
-                        >
-                          {item.org_name}
-                        </MenuItem>
-                      );
-                    })}
-                  </MenuList>
-                </Menu>
-              )}
-            </div>
-          </HStack>
-        </FormControl>
-        <Button variant="primary" mt={4} onClick={onSubmit}>
-          Import
-        </Button>
-      </Box>
-    </>
+            <Input
+              value={urlPath}
+              id="url_path"
+              placeholder="example"
+              onChange={(data) => {
+                setUrlPath(data.target.value);
+              }}
+              type="text"
+              w="auto"
+            />
+          </div>
+          <div>
+            <FormLabel htmlFor="organisation">Organisation</FormLabel>
+            {organisations && (
+              <Menu id="organisation">
+                <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                  {selectedDropdownElement
+                    ? selectedDropdownElement.org_name
+                    : "Select Organisation"}
+                </MenuButton>
+                <MenuList>
+                  {organisations!.data.map((item) => {
+                    return (
+                      <MenuItem
+                        key={item.org_id}
+                        onClick={() => {
+                          setSelectedDropdownElement(item);
+                        }}
+                      >
+                        {item.org_name}
+                      </MenuItem>
+                    );
+                  })}
+                </MenuList>
+              </Menu>
+            )}
+          </div>
+        </HStack>
+      </FormControl>
+      <Button variant="primary" mt={4} onClick={onSubmit}>
+        Import
+      </Button>
+    </Box>
   );
 }
 

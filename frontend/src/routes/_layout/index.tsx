@@ -15,34 +15,31 @@ function Dashboard() {
   const { user: currentUser } = useAuth()
 
   return (
-    <>
-      <Container maxW="full">
-        <Box pt={12} m={4}>
-          <Text fontSize="2xl">Hi, {currentUser?.full_name || currentUser?.email} 👋🏼</Text>
-          <Flex mt="50">
+    <Container maxW="full">
+      <Box pt={12} m={4}>
+        <Text fontSize="2xl">Hi, {currentUser?.full_name || currentUser?.email} 👋🏼</Text>
+        <Flex mt="50">
           <DashboardCard
             title="Chatbot"
             subtitle="Ask the AI for information"
-            image={<img src={chatbotImage} alt="chatbot image" width="350px"/>}
+            image={<img src={chatbotImage} alt="chatbot" width="350px" />}
             link="/chat"
           />
 
           <DashboardCard
             title="Clustering"
             subtitle="Visualize your knowledge"
-            image={<img src={clusteringImage} alt="clustering image" width="350px"/>}
+            image={<img src={clusteringImage} alt="clustering" width="350px" />}
             link="/clustering"
           />
-
           <DashboardCard
             title="Podcasts"
             subtitle="Keep yourself up to date"
-            image={<img src={podcastImage} alt="podcast image" width="350px"/>}
+            image={<img src={podcastImage} alt="podcast" width="350px" />}
             link="/podcasts"
           />
-          </Flex>
-        </Box>
-      </Container>
-    </>
+        </Flex>
+      </Box>
+    </Container>
   )
 }

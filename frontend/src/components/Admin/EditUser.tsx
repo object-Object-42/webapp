@@ -140,8 +140,8 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
             active: active,
           };
         }),
-      }),
-        setCurrentlyChecked(isChecked);
+      });
+      setCurrentlyChecked(isChecked);
     }
   }, [successUserOrgs, successOrganisations]);
   const mutation = useMutation({
@@ -175,8 +175,7 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
   };
 
   return (
-    <>
-      <Modal
+    <Modal
         isOpen={isOpen}
         onClose={onClose}
         size={{ base: "sm", md: "md" }}
@@ -267,7 +266,7 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
                   >
                     {userRoleStatus?.data.map((item) => {
                       return (
-                        <MenuItemOption value={item.org_id}>
+                        <MenuItemOption value={item.org_id} key={item.org_id}>
                           {item.org_name}
                         </MenuItemOption>
                       );
@@ -291,7 +290,6 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </>
   );
 };
 
