@@ -178,6 +178,10 @@ ul > li {
   margin-right: auto
 }
 
+.flex {
+  display: flex;
+}
+
 /**
  * CAPTIONS PANELS:
  * ****************

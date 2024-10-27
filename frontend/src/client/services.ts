@@ -18,6 +18,7 @@ import type {
   ItemPublic,
   ItemsPublic,
   ItemUpdate,
+  VectorReturn,
 } from "./models"
 
 export type TDataLoginAccessToken = {
@@ -526,4 +527,19 @@ export class ItemsService {
       },
     })
   }
+
+    /**
+   * Fetches all Vector Nodes
+   * @returns Message Successful Response
+   * @throws ApiError
+   */
+    public static getVectorNodes(): CancelablePromise<VectorReturn> | undefined {
+      // return __request(OpenAPI, {
+      //   method: "GET",
+      //   url: "/api/v1/vector/",
+      // })
+return;
+      // return fetch(`./liveDataset.json`)
+      // .then((res) => {return res.json() as unknown as VectorReturn});
+    }
 }

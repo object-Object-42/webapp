@@ -2,8 +2,9 @@ import { FC } from "react";
 import { BsInfoCircle } from "react-icons/bs";
 
 import Panel from "./Panel";
+import { Description } from "../types";
 
-const DescriptionPanel: FC<{content: string}> = ({content}) => {
+const DescriptionPanel: FC<{content: Description | null}> = ({content}) => {
   return (
     <Panel
       initiallyDeployed
@@ -13,9 +14,10 @@ const DescriptionPanel: FC<{content: string}> = ({content}) => {
         </>
       }
     >
-      <footer>
-        <p>{content}</p>
-      </footer>
+      {content && <footer className="flex">
+        <p>{"Source: "}</p>
+        <a href={content.URL}>{content.URL}</a>
+      </footer>}
     </Panel>
   );
 };

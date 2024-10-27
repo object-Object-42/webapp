@@ -1,12 +1,14 @@
 import { useRegisterEvents, useSigma } from "@react-sigma/core";
 import { FC, PropsWithChildren, useEffect, useState } from "react";
+import { Description } from "../types";
 
 function getMouseLayer() {
   return document.querySelector(".sigma-mouse");
 }
 
-const GraphEventsController: FC<PropsWithChildren<{ setHoveredNode: (node: string | null) => void }>> = ({
+const GraphEventsController: FC<PropsWithChildren<{ setHoveredNode: (node: string | null) => void, setDescription: (node: Description | null) => void}>> = ({
   setHoveredNode,
+  setDescription,
   children,
 }) => {
   const sigma = useSigma();
@@ -42,6 +44,7 @@ const GraphEventsController: FC<PropsWithChildren<{ setHoveredNode: (node: strin
       clickNode({ node }) {
         if (!graph.getNodeAttribute(node, "hidden")) {
           setSelected(graph.getNodeAttribute(node, "key"));
+          setDescription({URL: graph.getNodeAttribute(node, "URL")});
         }
       },
         enterNode({ node }) {

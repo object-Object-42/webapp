@@ -26,7 +26,18 @@ export interface Dataset {
   tags: Tag[];
 }
 
+export interface DatasetScores {
+  nodes: NodeData[];
+  edges: [string, string][];
+  clusters: Cluster[];
+  tags: Tag[];
+}
+
 export interface FiltersState {
   clusters: Record<string, boolean>;
   tags: Record<string, boolean>;
+}
+
+export interface Description {
+  URL: string;
 }

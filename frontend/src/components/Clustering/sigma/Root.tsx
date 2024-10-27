@@ -9,7 +9,7 @@ import { GrClose } from "react-icons/gr";
 import { Settings } from "sigma/settings";
 
 import { drawHover, drawLabel } from "../canvas-utils";
-import { Dataset, FiltersState } from "../types";
+import { Cluster, Dataset, DatasetScores, Description, FiltersState, NodeData } from "../types";
 import ClustersPanel from "./ClustersPanel";
 import DescriptionPanel from "./DescriptionPanel";
 import GraphDataController from "./GraphDataController";
@@ -17,6 +17,7 @@ import GraphEventsController from "./GraphEventsController";
 import GraphSettingsController from "./GraphSettingsController";
 import GraphTitle from "./GraphTitle";
 import SearchField from "./SearchField";
+import { VectorReturn } from "../../../client";
 
 const Root: FC = () => {
   const [showContents, setShowContents] = useState(false);
@@ -27,6 +28,8 @@ const Root: FC = () => {
     tags: {},
   });
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+  const [description, setDescription] = useState<Description | null>(null);
+
   const sigmaSettings: Partial<Settings> = useMemo(
     () => ({
       nodeProgramClasses: {
@@ -48,11 +51,58 @@ const Root: FC = () => {
     [],
   );
 
+  function parseDataSet(vector :VectorReturn): DatasetScores {
+const nodeData: NodeData[] = [];
+const clusters: Cluster[] = [];
+const tags: {key:string, image: string}[] = [];
+
+Object.keys(vector.organizations).map((orgName, index) => (
+  clusters.push({
+    key: index + 1 + '',
+    color: vector.organizations[orgName].color,
+    clusterLabel: orgName,
+  }),
+
+  tags.push({key: orgName, image: "charttype.svg"}),
+
+  vector.organizations[orgName].points.map((dataPoint) => {
+    const splitTitle = dataPoint.doc_name.split(' [', 2);
+    nodeData.push({
+      key: splitTitle[0],
+      label: splitTitle[0],
+      tag: orgName,
+      URL: splitTitle[1]?.replace(']', ''),
+      cluster: index +1 +'',
+      x: dataPoint.x,
+      y: dataPoint.y,
+    })
+  })));
+
+    return {
+      nodes: nodeData,
+      edges: [],
+      clusters: clusters,
+      tags: tags,
+    }
+  }
+
   // Load data on mount:
   useEffect(() => {
-    fetch(`./dataset.json`)
+    // fetch(`./dataset.json`)
+    //   .then((res) => res.json())
+    //   .then((dataset: Dataset) => {
+    //     setDataset(dataset);
+    //     setFiltersState({
+    //       clusters: mapValues(keyBy(dataset.clusters, "key"), constant(true)),
+    //       tags: mapValues(keyBy(dataset.tags, "key"), constant(true)),
+    //     });
+    //     requestAnimationFrame(() => setDataReady(true));
+    //   });
+
+      fetch(`./liveDataset.json`)
       .then((res) => res.json())
-      .then((dataset: Dataset) => {
+      .then((vectorDataset: VectorReturn) => {
+        const dataset: Dataset = parseDataSet(vectorDataset)
         setDataset(dataset);
         setFiltersState({
           clusters: mapValues(keyBy(dataset.clusters, "key"), constant(true)),
@@ -68,7 +118,7 @@ const Root: FC = () => {
     <div id="app-root" className={showContents ? "show-contents" : ""}>
       <SigmaContainer graph={DirectedGraph} settings={sigmaSettings} className="react-sigma">
         <GraphSettingsController hoveredNode={hoveredNode} />
-        <GraphEventsController setHoveredNode={setHoveredNode} />
+        <GraphEventsController setHoveredNode={setHoveredNode} setDescription={setDescription} />
         <GraphDataController dataset={dataset} filters={filtersState} />
         {/* <GraphEvents /> could be enabled, currently clashing with node onClick navigation*/}
 
@@ -110,7 +160,7 @@ const Root: FC = () => {
               <GraphTitle filters={filtersState} />
               <div className="panels">
                 <SearchField filters={filtersState} />
-                <DescriptionPanel content={'test'}/>
+                <DescriptionPanel content={description}/>
                 <ClustersPanel
                   clusters={dataset.clusters}
                   filters={filtersState}
