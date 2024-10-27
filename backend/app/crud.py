@@ -18,9 +18,11 @@ from app.models import (
 
 #### User functions ####
 
+
 def create_user(*, session: Session, user_create: UserCreate) -> User:
     db_obj = User.model_validate(
-        user_create, update={"hashed_password": get_password_hash(user_create.password)}
+        user_create,
+        update={"hashed_password": get_password_hash(user_create.password)},
     )
     session.add(db_obj)
     session.commit()
@@ -59,6 +61,7 @@ def authenticate(*, session: Session, email: str, password: str) -> User | None:
 
 #### Organisation functions ####
 
+
 def create_organisation(*, session: Session, org_name: str) -> Organisation:
     organisation = Organisation(org_name=org_name)
     session.add(organisation)
@@ -67,7 +70,9 @@ def create_organisation(*, session: Session, org_name: str) -> Organisation:
     return organisation
 
 
-def get_organisation_by_id(*, session: Session, org_id: int) -> Optional[Organisation]:
+def get_organisation_by_id(
+    *, session: Session, org_id: int
+) -> Optional[Organisation]:
     return session.get(Organisation, org_id)
 
 
@@ -78,13 +83,16 @@ def get_organisations(*, session: Session) -> List[Organisation]:
 
 #### Content functions ####
 
-def create_content(*, session: Session, content_data: ContentBase, org_id: int) -> Content:
+
+def create_content(
+    *, session: Session, content_data: ContentBase, org_id: int
+) -> Content:
     content = Content(
         doc_name=content_data.doc_name,
         content_text=content_data.content_text,
         url=content_data.url,
         org_id=org_id,
-        created_at=datetime.utcnow()
+        created_at=datetime.utcnow(),
     )
     session.add(content)
     session.commit()
@@ -103,12 +111,19 @@ def get_contents_by_org(*, session: Session, org_id: int) -> List[Content]:
 
 #### Chat functions ####
 
-def create_chat(*, session: Session, message_text: str, user_id: uuid.UUID, doc_id: Optional[int] = None) -> Chat:
+
+def create_chat(
+    *,
+    session: Session,
+    message_text: str,
+    user_id: uuid.UUID,
+    doc_id: Optional[int] = None
+) -> Chat:
     chat = Chat(
         message_text=message_text,
         user_id=user_id,
         doc_id=doc_id,
-        created_at=datetime.now()
+        created_at=datetime.now(),
     )
     session.add(chat)
     session.commit()
@@ -127,7 +142,10 @@ def get_chats_by_user(*, session: Session, user_id: uuid.UUID) -> List[Chat]:
 
 #### ORganisation functions ####
 
-def create_organisation(*, session: Session, org_in: OrganisationCreate, owner_id: uuid.UUID) -> Organisation:
+
+def create_organisation(
+    *, session: Session, org_in: OrganisationCreate, owner_id: uuid.UUID
+) -> Organisation:
     db_org = Organisation(
         org_name=org_in.org_name,
     )

@@ -9,7 +9,13 @@ from typing import Any
 
 from app import crud
 from app.api.deps import SessionDep, CurrentUser
-from app.models import ChatMessage, Chat, ChatsPublic, ChatMessagesPublic, ChatPublic
+from app.models import (
+    ChatMessage,
+    Chat,
+    ChatsPublic,
+    ChatMessagesPublic,
+    ChatPublic,
+)
 from app.prompts import system_prompt_chat
 
 router = APIRouter()
@@ -20,17 +26,23 @@ class ChatMessageRequest(SQLModel):
     prompt: str
     level: int
 
+
 class ChatCreateRequest(SQLModel):
     organisation_id: uuid.UUID
 
+
 @router.post("/", response_model=ChatPublic)
 def create_chat(
-    chat_create_request: ChatCreateRequest, session: SessionDep, current_user: CurrentUser
+    chat_create_request: ChatCreateRequest,
+    session: SessionDep,
+    current_user: CurrentUser,
 ) -> Any:
     """
     Create new chat.
     """
-    chat = Chat(user_id=current_user.id, org_id=chat_create_request.organisation_id)
+    chat = Chat(
+        user_id=current_user.id, org_id=chat_create_request.organisation_id
+    )
 
     session.add(chat)
     session.commit()
@@ -40,7 +52,12 @@ def create_chat(
 
 
 @router.post("/{chat_id}", response_model=ChatMessage)
-def create_chat_message(chat_id: uuid.UUID, chat_request: ChatMessageRequest, session: SessionDep, current_user: CurrentUser):
+def create_chat_message(
+    chat_id: uuid.UUID,
+    chat_request: ChatMessageRequest,
+    session: SessionDep,
+    current_user: CurrentUser,
+):
     """
     Create new chat message and generate response using Groq API.
     """
@@ -60,7 +77,7 @@ def create_chat_message(chat_id: uuid.UUID, chat_request: ChatMessageRequest, se
         chat_id=chat_id,
         # doc_id=   # coming soon
         message_text=chat_request.prompt,
-        is_from_bot=False
+        is_from_bot=False,
     )
 
     session.add(chat_message)
@@ -78,7 +95,7 @@ def create_chat_message(chat_id: uuid.UUID, chat_request: ChatMessageRequest, se
             chat_id=chat_id,
             # doc_id=   # coming soon
             message_text=response_text,
-            is_from_bot=True
+            is_from_bot=True,
         )
 
         session.add(bot_chat_message)
@@ -92,6 +109,7 @@ def create_chat_message(chat_id: uuid.UUID, chat_request: ChatMessageRequest, se
             status_code=500, detail=f"Error generating response: {str(e)}"
         )
 
+
 @router.get("/", response_model=ChatsPublic)
 def get_chats(session: SessionDep, current_user: CurrentUser):
     """
@@ -102,7 +120,9 @@ def get_chats(session: SessionDep, current_user: CurrentUser):
 
 
 @router.get("/{chat_id}", response_model=ChatMessagesPublic)
-def get_chat_messages(chat_id: uuid.UUID, session: SessionDep, current_user: CurrentUser) -> ChatMessagesPublic:
+def get_chat_messages(
+    chat_id: uuid.UUID, session: SessionDep, current_user: CurrentUser
+) -> ChatMessagesPublic:
     """
     Get messages of chat
     """

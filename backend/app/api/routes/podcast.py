@@ -24,7 +24,9 @@ class PodcastRequest(SQLModel):
 
 
 @router.post("/")
-async def create_podcast(*, podcast_request: PodcastRequest) -> StreamingResponse:
+async def create_podcast(
+    *, podcast_request: PodcastRequest
+) -> StreamingResponse:
     """
     Create a podcast from text using Groq for content generation and ElevenLabs for text-to-speech.
     """
@@ -73,8 +75,12 @@ async def create_podcast(*, podcast_request: PodcastRequest) -> StreamingRespons
         return StreamingResponse(
             audio_bytes,
             media_type="audio/mpeg",
-            headers={"Content-Disposition": 'attachment; filename="podcast.mp3"'},
+            headers={
+                "Content-Disposition": 'attachment; filename="podcast.mp3"'
+            },
         )
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error generating audio: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Error generating audio: {str(e)}"
+        )

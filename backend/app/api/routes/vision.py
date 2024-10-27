@@ -30,7 +30,10 @@ def analyze_image(*, request: ImageAnalysisRequest, session: SessionDep):
                     "role": "user",
                     "content": [
                         {"type": "text", "text": request.prompt},
-                        {"type": "image_url", "image_url": {"url": request.image_url}},
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": request.image_url},
+                        },
                     ],
                 },
                 {"role": "assistant", "content": ""},
@@ -41,17 +44,15 @@ def analyze_image(*, request: ImageAnalysisRequest, session: SessionDep):
             stream=False,
             stop=None,
         )
-        
+
         content_data = ContentBase(
             doc_name=request.image_url,
             content_text=completion.choices[0].message.content,
-            url=request.image_url
+            url=request.image_url,
         )
-        
+
         db_content = create_content(
-            session=session,
-            content_data=content_data,
-            org_id=21
+            session=session, content_data=content_data, org_id=21
         )
 
         response_text = completion.choices[0].message.content
@@ -63,4 +64,6 @@ def analyze_image(*, request: ImageAnalysisRequest, session: SessionDep):
         }
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error analyzing image: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Error analyzing image: {str(e)}"
+        )
