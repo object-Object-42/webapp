@@ -10,13 +10,14 @@ import {
 } from "react-icons/fi";
 
 import type { UserPublic } from "../../client";
+import { ChatIcon, PlusSquareIcon } from "@chakra-ui/icons";
 
 const items = [
   { icon: FiHome, title: "Dashboard", path: "/" },
-  // { icon: FiBriefcase, title: "Items", path: "/items" },
+  { icon: ChatIcon, title: "Chat", path: "/chat" },
+  { icon: PlusSquareIcon, title: "Clustering", path: "/cluster" },
   { icon: FiSettings, title: "User Settings", path: "/settings" },
   { icon: FiDownload, title: "Import Data", path: "/import" },
-  { icon: FiSettings, title: "Chat", path: "/chat" },
   { icon: FiArchive, title: "Organisations", path: "/organisation" },
 ];
 
@@ -31,7 +32,7 @@ const SidebarItems = ({ onClose }: SidebarItemsProps) => {
   const currentUser = queryClient.getQueryData<UserPublic>(["currentUser"]);
 
   const finalItems = currentUser?.is_superuser
-    ? [...items, { icon: FiUsers, title: "Admin", path: "/admin" }]
+    ? [...items, { icon: FiUsers, title: "User management", path: "/admin" }]
     : items;
 
   const listItems = finalItems.map(({ icon, title, path }) => (
