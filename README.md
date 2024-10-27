@@ -26,6 +26,7 @@ cd WebApp
 - LLaMa-3.2-90B-Vision
 - eleven_turbo_v2_5
 - whisper-large-v3-turbo
+- text-embedding-3-small
 
 ## API Dokumentation
 
