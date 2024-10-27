@@ -150,7 +150,6 @@ class UpdatePassword(SQLModel):
 class User(UserBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     hashed_password: str
-    items: List["Item"] = Relationship(back_populates="owner", cascade_delete=True)
     organisations: List[Organisation] = Relationship(
         back_populates="users", link_model=UserOrganisation
     )
@@ -168,39 +167,38 @@ class UsersPublic(SQLModel):
 
 
 # Shared properties
-class ItemBase(SQLModel):
-    title: str = Field(min_length=1, max_length=255)
-    description: str | None = Field(default=None, max_length=255)
+# class ItemBase(SQLModel):
+#     title: str = Field(min_length=1, max_length=255)
+#     description: str | None = Field(default=None, max_length=255)
 
 
 # Properties to receive on item creation
-class ItemCreate(ItemBase):
+class OrganisationCreate(OrganisationBase):
     pass
 
 
 # Properties to receive on item update
-class ItemUpdate(ItemBase):
-    title: str | None = Field(default=None, min_length=1, max_length=255)  # type: ignore
+class OrganisationUpdate(OrganisationBase):
+    org_name: str | None = Field(default=None, min_length=1, max_length=255)  # type: ignore
 
 
-# Database model, database table inferred from class name
-class Item(ItemBase, table=True):
-    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    title: str = Field(max_length=255)
-    owner_id: uuid.UUID = Field(
-        foreign_key="user.id", nullable=False, ondelete="CASCADE"
-    )
-    owner: User | None = Relationship(back_populates="items")
+# # Database model, database table inferred from class name
+# class Item(ItemBase, table=True):
+#     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+#     title: str = Field(max_length=255)
+#     owner_id: uuid.UUID = Field(
+#         foreign_key="user.id", nullable=False, ondelete="CASCADE"
+#     )
+#     owner: User | None = Relationship(back_populates="items")
 
 
 # Properties to return via API, id is always required
-class ItemPublic(ItemBase):
-    id: uuid.UUID
-    owner_id: uuid.UUID
+class OrganisationPublic(OrganisationBase):
+    org_id: uuid.UUID
 
 
-class ItemsPublic(SQLModel):
-    data: List[ItemPublic]
+class OrganisationsPublic(SQLModel):
+    data: List[OrganisationPublic]
     count: int
 
 
