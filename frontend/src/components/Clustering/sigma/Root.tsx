@@ -3,7 +3,7 @@ import { createNodeImageProgram } from "@sigma/node-image";
 import { DirectedGraph } from "graphology";
 import { constant, keyBy, mapValues, omit } from "lodash";
 import { FC, useEffect, useMemo, useState } from "react";
-import { BiBookContent, BiRadioCircleMarked } from "react-icons/bi";
+import { BiRadioCircleMarked } from "react-icons/bi";
 import { BsArrowsFullscreen, BsFullscreenExit, BsZoomIn, BsZoomOut } from "react-icons/bs";
 import { GrClose } from "react-icons/gr";
 import { Settings } from "sigma/settings";

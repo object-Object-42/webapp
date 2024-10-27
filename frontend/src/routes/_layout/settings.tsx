@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react"
 import { useQueryClient } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-
+import { v4 as uuidv4 } from "uuid"
 import type { UserPublic } from "../../client"
 import Appearance from "../../components/UserSettings/Appearance"
 import ChangePassword from "../../components/UserSettings/ChangePassword"
@@ -41,13 +41,13 @@ function UserSettings() {
       </Heading>
       <Tabs variant="enclosed">
         <TabList>
-          {finalTabs.map((tab, index) => (
-            <Tab key={index}>{tab.title}</Tab>
+          {finalTabs.map((tab) => (
+            <Tab key={uuidv4()}>{tab.title}</Tab>
           ))}
         </TabList>
         <TabPanels>
-          {finalTabs.map((tab, index) => (
-            <TabPanel key={index}>
+          {finalTabs.map((tab) => (
+            <TabPanel key={uuidv4()}>
               <tab.component />
             </TabPanel>
           ))}

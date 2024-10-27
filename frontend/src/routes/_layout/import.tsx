@@ -25,7 +25,6 @@ import {
   TImportDataWebsite,
 } from "../../client";
 import useCustomToast from "../../hooks/useCustomToast";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 
@@ -146,6 +145,7 @@ function ImportFromUrl() {
                   {organisations!.data.map((item) => {
                     return (
                       <MenuItem
+                        key={item.org_id}
                         onClick={() => {
                           setSelectedDropdownElement(item);
                         }}

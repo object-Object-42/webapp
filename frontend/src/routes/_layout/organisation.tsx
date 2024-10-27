@@ -14,7 +14,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { z } from "zod";
-
+import { v4 as uuidv4 } from "uuid";
 import { OrganisationsService } from "../../client";
 import ActionsMenu from "../../components/Common/ActionsMenu";
 import Navbar from "../../components/Common/Navbar";
@@ -86,8 +86,8 @@ function OrganisationTable() {
           {isPending ? (
             <Tbody>
               <Tr>
-                {new Array(4).fill(null).map((_, index) => (
-                  <Td key={index}>
+                {new Array(4).fill(null).map(() => (
+                  <Td key={uuidv4()}>
                     <SkeletonText noOfLines={1} paddingBlock="16px" />
                   </Td>
                 ))}

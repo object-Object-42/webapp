@@ -21,14 +21,14 @@ function Dashboard() {
         <DashboardCard
           title="Chatbot"
           subtitle="Ask the AI for information"
-          image={<img src={chatbotImage} alt="chatbot image" width="350px"/>}
+          image={<img src={chatbotImage} alt="chatbot" width="350px"/>}
           link="/chat"
         />
 
         <DashboardCard
           title="Clustering"
           subtitle="Visualize your knowledge"
-          image={<img src={clusteringImage} alt="clustering image" width="350px"/>}
+          image={<img src={clusteringImage} alt="clustering" width="350px"/>}
           link="/clustering"
         />
         </Flex>

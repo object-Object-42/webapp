@@ -140,8 +140,8 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
             active: active,
           };
         }),
-      }),
-        setCurrentlyChecked(isChecked);
+      });
+      setCurrentlyChecked(isChecked);
     }
   }, [successUserOrgs, successOrganisations]);
   const mutation = useMutation({
@@ -176,80 +176,69 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
 
   return (
     <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      size={{ base: "sm", md: "md" }}
-      isCentered
-    >
-      <ModalOverlay />
-      <ModalContent as="form" onSubmit={handleSubmit(onSubmit)}>
-        <ModalHeader>Edit User</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody pb={6}>
-          <FormControl isInvalid={!!errors.email}>
-            <FormLabel htmlFor="email">Email</FormLabel>
-            <Input
-              id="email"
-              {...register("email", {
-                required: "Email is required",
-                pattern: emailPattern,
-              })}
-              placeholder="Email"
-              type="email"
-            />
-            {errors.email && (
-              <FormErrorMessage>{errors.email.message}</FormErrorMessage>
-            )}
-          </FormControl>
-          <FormControl mt={4}>
-            <FormLabel htmlFor="name">Full name</FormLabel>
-            <Input id="name" {...register("full_name")} type="text" />
-          </FormControl>
-          <FormControl mt={4} isInvalid={!!errors.password}>
-            <FormLabel htmlFor="password">Set Password</FormLabel>
-            <Input
-              id="password"
-              {...register("password", {
-                minLength: {
-                  value: 8,
-                  message: "Password must be at least 8 characters",
-                },
-              })}
-              placeholder="Password"
-              type="password"
-            />
-            {errors.password && (
-              <FormErrorMessage>{errors.password.message}</FormErrorMessage>
-            )}
-          </FormControl>
-          <FormControl mt={4} isInvalid={!!errors.confirm_password}>
-            <FormLabel htmlFor="confirm_password">Confirm Password</FormLabel>
-            <Input
-              id="confirm_password"
-              {...register("confirm_password", {
-                validate: (value) =>
-                  value === getValues().password ||
-                  "The passwords do not match",
-              })}
-              placeholder="Password"
-              type="password"
-            />
-            {errors.confirm_password && (
-              <FormErrorMessage>
-                {errors.confirm_password.message}
-              </FormErrorMessage>
-            )}
-          </FormControl>
-          <Flex>
-            <FormControl mt={4}>
-              <Checkbox {...register("is_superuser")} colorScheme="teal">
-                Is superuser?
-              </Checkbox>
+        isOpen={isOpen}
+        onClose={onClose}
+        size={{ base: "sm", md: "md" }}
+        isCentered
+      >
+        <ModalOverlay />
+        <ModalContent as="form" onSubmit={handleSubmit(onSubmit)}>
+          <ModalHeader>Edit User</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl isInvalid={!!errors.email}>
+              <FormLabel htmlFor="email">Email</FormLabel>
+              <Input
+                id="email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: emailPattern,
+                })}
+                placeholder="Email"
+                type="email"
+              />
+              {errors.email && (
+                <FormErrorMessage>{errors.email.message}</FormErrorMessage>
+              )}
             </FormControl>
             <FormControl mt={4}>
-              <Checkbox {...register("is_active")} colorScheme="teal">
-                Is active?
-              </Checkbox>
+              <FormLabel htmlFor="name">Full name</FormLabel>
+              <Input id="name" {...register("full_name")} type="text" />
+            </FormControl>
+            <FormControl mt={4} isInvalid={!!errors.password}>
+              <FormLabel htmlFor="password">Set Password</FormLabel>
+              <Input
+                id="password"
+                {...register("password", {
+                  minLength: {
+                    value: 8,
+                    message: "Password must be at least 8 characters",
+                  },
+                })}
+                placeholder="Password"
+                type="password"
+              />
+              {errors.password && (
+                <FormErrorMessage>{errors.password.message}</FormErrorMessage>
+              )}
+            </FormControl>
+            <FormControl mt={4} isInvalid={!!errors.confirm_password}>
+              <FormLabel htmlFor="confirm_password">Confirm Password</FormLabel>
+              <Input
+                id="confirm_password"
+                {...register("confirm_password", {
+                  validate: (value) =>
+                    value === getValues().password ||
+                    "The passwords do not match",
+                })}
+                placeholder="Password"
+                type="password"
+              />
+              {errors.confirm_password && (
+                <FormErrorMessage>
+                  {errors.confirm_password.message}
+                </FormErrorMessage>
+              )}
             </FormControl>
             <Flex>
               <FormControl mt={4}>
@@ -277,7 +266,7 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
                   >
                     {userRoleStatus?.data.map((item) => {
                       return (
-                        <MenuItemOption value={item.org_id}>
+                        <MenuItemOption value={item.org_id} key={item.org_id}>
                           {item.org_name}
                         </MenuItemOption>
                       );
@@ -301,7 +290,6 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </>
   );
 };
 
