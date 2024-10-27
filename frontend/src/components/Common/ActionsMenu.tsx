@@ -5,24 +5,33 @@ import {
   MenuItem,
   MenuList,
   useDisclosure,
-} from "@chakra-ui/react"
-import { BsThreeDotsVertical } from "react-icons/bs"
-import { FiEdit, FiTrash } from "react-icons/fi"
+} from "@chakra-ui/react";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { FiEdit, FiTrash } from "react-icons/fi";
 
-import type { ItemPublic, UserPublic } from "../../client"
-import EditUser from "../Admin/EditUser"
-import EditItem from "../Items/EditItem"
-import Delete from "./DeleteAlert"
+import type { OrganisationPublic, UserPublic } from "../../client";
+import EditUser from "../Admin/EditUser";
+import EditOrganisation from "../Organisations/EditOrganisation";
+import Delete from "./DeleteAlert";
 
 interface ActionsMenuProps {
-  type: string
-  value: ItemPublic | UserPublic
-  disabled?: boolean
+  type: string;
+  value: OrganisationPublic | UserPublic;
+  disabled?: boolean;
 }
 
 const ActionsMenu = ({ type, value, disabled }: ActionsMenuProps) => {
-  const editUserModal = useDisclosure()
-  const deleteModal = useDisclosure()
+  const editUserModal = useDisclosure();
+  const deleteModal = useDisclosure();
+
+  let value_id;
+  if (value.hasOwnProperty('org_id')) {
+    value = value as OrganisationPublic;
+    value_id = value.org_id;
+  } else {
+    value = value as UserPublic;
+    value_id = value.id;
+  }
 
   return (
     <>
@@ -55,21 +64,21 @@ const ActionsMenu = ({ type, value, disabled }: ActionsMenuProps) => {
             onClose={editUserModal.onClose}
           />
         ) : (
-          <EditItem
-            item={value as ItemPublic}
+          <EditOrganisation
+            organisation={value as OrganisationPublic}
             isOpen={editUserModal.isOpen}
             onClose={editUserModal.onClose}
           />
         )}
         <Delete
           type={type}
-          id={value.id}
+          id={value_id}
           isOpen={deleteModal.isOpen}
           onClose={deleteModal.onClose}
         />
       </Menu>
     </>
-  )
-}
+  );
+};
 
-export default ActionsMenu
+export default ActionsMenu;

@@ -13,15 +13,16 @@ class OrganisationBase(SQLModel):
 
 class UserOrganisation(SQLModel, table=True):
     user_id: uuid.UUID = Field(foreign_key="user.id", primary_key=True)
-    org_id: int = Field(foreign_key="organisation.org_id", primary_key=True)
+    org_id: uuid.UUID = Field(foreign_key="organisation.org_id", primary_key=True)
     
     
 class Organisation(OrganisationBase, table=True):
-    org_id: int = Field(default=None, primary_key=True)
+    org_id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     users: List["User"] = Relationship(
         back_populates="organisations", link_model=UserOrganisation
     )
     content: List["Content"] = Relationship(back_populates="organisation")
+    chats: List["Chat"] = Relationship(back_populates="organisation")
 
 
 class ContentBase(SQLModel):
@@ -37,7 +38,7 @@ class ContentBase(SQLModel):
 
 class Content(ContentBase, table=True):
     doc_id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    org_id: int = Field(foreign_key="organisation.org_id")
+    org_id: uuid.UUID = Field(foreign_key="organisation.org_id")
     created_at: datetime = Field(default_factory=datetime.utcnow)
     organisation: Organisation = Relationship(back_populates="content")
     chat_messages: list["ChatMessage"] = Relationship(back_populates="referenced_content")
@@ -46,17 +47,18 @@ class Chat(SQLModel, table=True):
     chat_id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     user_id: uuid.UUID = Field(foreign_key="user.id")
     name: str | None = Field(default=None)
-    # referenced_doc_id: int | None = Field(default=None, foreign_key="content.doc_id")
+    org_id: uuid.UUID = Field(default=None, foreign_key="organisation.org_id")
     created_at: datetime = Field(default_factory=datetime.now)
     user: "User" = Relationship(back_populates="chats")
+    organisation: Organisation = Relationship(back_populates="chats")
     # referenced_content: Content | None = Relationship(back_populates="chats")
     chat_messages: list["ChatMessage"] = Relationship(back_populates="chat")
     
 class ChatMessage(SQLModel, table=True):
     message_id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    chat_chat_id: uuid.UUID = Field(foreign_key="chat.chat_id")
-    referenced_doc_id: uuid.UUID | None = Field(default=None, foreign_key="content.doc_id")
-    message_text: str = Field(max_length=255)
+    chat_id: uuid.UUID = Field(foreign_key="chat.chat_id")
+    doc_id: uuid.UUID | None = Field(default=None, foreign_key="content.doc_id")
+    message_text: str = Field(max_length=64000)
     is_from_bot: bool = Field()
     created_at: datetime = Field(default_factory=datetime.now)
     referenced_content: Content | None = Relationship(back_populates="chat_messages")
@@ -64,25 +66,26 @@ class ChatMessage(SQLModel, table=True):
 
 # API reponse models
 class OrganisationPublic(OrganisationBase):
-    org_id: int
+    org_id: uuid.UUID
 
 
 class ContentPublic(ContentBase):
-    doc_id: int
-    org_id: int
+    doc_id: uuid.UUID
+    org_id: uuid.UUID
     created_at: datetime
 
 
 class ChatPublic(SQLModel):
     chat_id: uuid.UUID
     user_id: uuid.UUID
+    org_id: uuid.UUID
     name: str | None
     created_at: datetime
 
 class ChatMessagePublic(SQLModel):
     message_id: uuid.UUID
-    chat_chat_id: uuid.UUID
-    referenced_doc_id: uuid.UUID | None
+    chat_id: uuid.UUID
+    doc_id: uuid.UUID | None
     message_text: str
     is_from_bot: bool
     created_at: datetime
@@ -147,7 +150,6 @@ class UpdatePassword(SQLModel):
 class User(UserBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     hashed_password: str
-    items: List["Item"] = Relationship(back_populates="owner", cascade_delete=True)
     organisations: List[Organisation] = Relationship(
         back_populates="users", link_model=UserOrganisation
     )
@@ -165,39 +167,38 @@ class UsersPublic(SQLModel):
 
 
 # Shared properties
-class ItemBase(SQLModel):
-    title: str = Field(min_length=1, max_length=255)
-    description: str | None = Field(default=None, max_length=255)
+# class ItemBase(SQLModel):
+#     title: str = Field(min_length=1, max_length=255)
+#     description: str | None = Field(default=None, max_length=255)
 
 
 # Properties to receive on item creation
-class ItemCreate(ItemBase):
+class OrganisationCreate(OrganisationBase):
     pass
 
 
 # Properties to receive on item update
-class ItemUpdate(ItemBase):
-    title: str | None = Field(default=None, min_length=1, max_length=255)  # type: ignore
+class OrganisationUpdate(OrganisationBase):
+    org_name: str | None = Field(default=None, min_length=1, max_length=255)  # type: ignore
 
 
-# Database model, database table inferred from class name
-class Item(ItemBase, table=True):
-    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    title: str = Field(max_length=255)
-    owner_id: uuid.UUID = Field(
-        foreign_key="user.id", nullable=False, ondelete="CASCADE"
-    )
-    owner: User | None = Relationship(back_populates="items")
+# # Database model, database table inferred from class name
+# class Item(ItemBase, table=True):
+#     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+#     title: str = Field(max_length=255)
+#     owner_id: uuid.UUID = Field(
+#         foreign_key="user.id", nullable=False, ondelete="CASCADE"
+#     )
+#     owner: User | None = Relationship(back_populates="items")
 
 
 # Properties to return via API, id is always required
-class ItemPublic(ItemBase):
-    id: uuid.UUID
-    owner_id: uuid.UUID
+class OrganisationPublic(OrganisationBase):
+    org_id: uuid.UUID
 
 
-class ItemsPublic(SQLModel):
-    data: List[ItemPublic]
+class OrganisationsPublic(SQLModel):
+    data: List[OrganisationPublic]
     count: int
 
 
@@ -224,4 +225,4 @@ class NewPassword(SQLModel):
 class CrawlRequest(SQLModel):
     url: str
     url_path : str|None
-    organisation_id:int
+    organisation_id: uuid.UUID

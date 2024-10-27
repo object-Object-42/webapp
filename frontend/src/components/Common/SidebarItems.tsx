@@ -2,7 +2,7 @@ import { Box, Flex, Icon, Text, useColorModeValue } from "@chakra-ui/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import {
-  FiBriefcase,
+  FiArchive,
   FiDownload,
   FiHome,
   FiSettings,
@@ -13,10 +13,11 @@ import type { UserPublic } from "../../client";
 
 const items = [
   { icon: FiHome, title: "Dashboard", path: "/" },
-  { icon: FiBriefcase, title: "Items", path: "/items" },
+  // { icon: FiBriefcase, title: "Items", path: "/items" },
   { icon: FiSettings, title: "User Settings", path: "/settings" },
   { icon: FiDownload, title: "Import Data", path: "/import" },
   { icon: FiSettings, title: "Chat", path: "/chat" },
+  { icon: FiArchive, title: "Organisations", path: "/organisation" },
 ];
 
 interface SidebarItemsProps {

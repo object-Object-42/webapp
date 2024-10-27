@@ -6,8 +6,7 @@ from sqlmodel import Session, select
 
 from app.core.security import get_password_hash, verify_password
 from app.models import (
-    Item,
-    ItemCreate,
+    OrganisationCreate,
     Organisation,
     Content,
     ContentBase,
@@ -104,11 +103,11 @@ def get_contents_by_org(*, session: Session, org_id: int) -> List[Content]:
 
 #### Chat functions ####
 
-def create_chat(*, session: Session, message_text: str, user_id: uuid.UUID, referenced_doc_id: Optional[int] = None) -> Chat:
+def create_chat(*, session: Session, message_text: str, user_id: uuid.UUID, doc_id: Optional[int] = None) -> Chat:
     chat = Chat(
         message_text=message_text,
         user_id=user_id,
-        referenced_doc_id=referenced_doc_id,
+        doc_id=doc_id,
         created_at=datetime.now()
     )
     session.add(chat)
@@ -126,15 +125,13 @@ def get_chats_by_user(*, session: Session, user_id: uuid.UUID) -> List[Chat]:
     return session.exec(statement).all()
 
 
-#### Item functions ####
+#### ORganisation functions ####
 
-def create_item(*, session: Session, item_in: ItemCreate, owner_id: uuid.UUID) -> Item:
-    db_item = Item(
-        title=item_in.title,
-        description=item_in.description,
-        owner_id=owner_id
+def create_organisation(*, session: Session, org_in: OrganisationCreate, owner_id: uuid.UUID) -> Organisation:
+    db_org = Organisation(
+        org_name=org_in.org_name,
     )
-    session.add(db_item)
+    session.add(db_org)
     session.commit()
-    session.refresh(db_item)
-    return db_item
+    session.refresh(db_org)
+    return db_org
