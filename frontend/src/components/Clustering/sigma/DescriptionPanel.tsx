@@ -14,9 +14,9 @@ const DescriptionPanel: FC<{content: Description | null}> = ({content}) => {
         </>
       }
     >
-      {content && <footer>
-        Source: <a style={{color: "blue"}} href={content.URL}>{content.URL}</a>
-      </footer>}
+      <footer>
+        {content ? <>Source: <a style={{color: "blue"}} target="_blank" href={`https://${content.URL ?? ''}`}>{content.URL}</a></> : <i className="text-muted">Please select a node to show the source</i>}
+      </footer>
     </Panel>
   );
 };

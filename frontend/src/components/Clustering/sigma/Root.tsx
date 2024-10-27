@@ -113,16 +113,6 @@ const Root: FC = () => {
         {dataReady && (
           <>
             <div className="controls">
-              <div className="react-sigma-control ico">
-                <button
-                  type="button"
-                  className="show-contents"
-                  onClick={() => setShowContents(true)}
-                  title="Show caption and description"
-                >
-                  <BiBookContent />
-                </button>
-              </div>
               <FullScreenControl className="ico">
                 <BsArrowsFullscreen />
                 <BsFullscreenExit />
