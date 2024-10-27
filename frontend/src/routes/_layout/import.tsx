@@ -45,65 +45,63 @@ function ImportFromUrl() {
     mutation.mutate(data);
   };
   return (
-    <>
-      <Box
-        w={{ sm: "full", md: "50%" }}
-        as="form"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <FormControl>
-          <HStack>
-            <div>
-              <FormLabel htmlFor="url">Base URL</FormLabel>
-              <Input
-                id="url"
-                {...register("url")}
-                placeholder="https://example.com"
-                type="url"
-                w="auto"
-              />
-            </div>
-            <div>
-              <FormLabel htmlFor="slash"> &nbsp;</FormLabel>
-              <Input
-                isDisabled
-                color="black" // Set the text color explicitly
-                _disabled={{ bg: "gray.100", opacity: 1 }}
-                id="slash"
-                value={"/"}
-                placeholder="/"
-                type="text"
-                w="10"
-              />
-            </div>
-            <div>
-              <FormLabel htmlFor="url_path">URL Path</FormLabel>
+    <Box
+      w={{ sm: "full", md: "50%" }}
+      as="form"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <FormControl>
+        <HStack>
+          <div>
+            <FormLabel htmlFor="url">Base URL</FormLabel>
+            <Input
+              id="url"
+              {...register("url")}
+              placeholder="https://example.com"
+              type="url"
+              w="auto"
+            />
+          </div>
+          <div>
+            <FormLabel htmlFor="slash"> &nbsp;</FormLabel>
+            <Input
+              isDisabled
+              color="black" // Set the text color explicitly
+              _disabled={{ bg: "gray.100", opacity: 1 }}
+              id="slash"
+              value={"/"}
+              placeholder="/"
+              type="text"
+              w="10"
+            />
+          </div>
+          <div>
+            <FormLabel htmlFor="url_path">URL Path</FormLabel>
 
-              <Input
-                id="url_path"
-                placeholder="example"
-                {...register("url_path")}
-                type="text"
-                w="auto"
-              />
-            </div>
-            <div>
-              <FormLabel htmlFor="organisation_id">Organisation ID</FormLabel>
-              <Input
-                id="organisation_id"
-                {...register("organisation_id")}
-                placeholder="1"
-                type="number"
-                w="auto"
-              />
-            </div>
-          </HStack>
-        </FormControl>
-        <Button variant="primary" mt={4} type="submit">
-          Import
-        </Button>
-      </Box>
-    </>
+            <Input
+              id="url_path"
+              placeholder="example"
+              {...register("url_path")}
+              type="text"
+              w="auto"
+            />
+          </div>
+          <div>
+            <FormLabel htmlFor="organisation_id">Organisation ID</FormLabel>
+            <Input
+              id="organisation_id"
+              {...register("organisation_id")}
+              placeholder="1"
+              type="number"
+              w="auto"
+            />
+          </div>
+        </HStack>
+      </FormControl>
+      <Button variant="primary" mt={4} type="submit">
+        Import
+      </Button>
+    </Box>
   );
 }
 

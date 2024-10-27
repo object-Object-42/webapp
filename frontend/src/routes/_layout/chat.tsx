@@ -8,7 +8,6 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { createFileRoute } from "@tanstack/react-router"
-import '../../models/ChatMessage';
 import ChatMessage from '../../models/ChatMessage';
 import Message from '../../components/Chat/Message'
 import ChatPrompt from '../../models/ChatPrompt'

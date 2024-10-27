@@ -56,26 +56,26 @@ const Root: FC = () => {
     const clusters: Cluster[] = [];
     const tags: {key:string, image: string}[] = [];
 
-    Object.keys(vector.organizations).map((orgName, index) => (
+    Object.keys(vector.organizations).forEach((orgName, index) => {
       clusters.push({
         key: index + 1 + '',
         color: vector.organizations[orgName].color,
         clusterLabel: orgName,
-    }),
-
-    tags.push({key: orgName, image: "charttype.svg"}),
-    vector.organizations[orgName].points.map((dataPoint) => {
-      const splitTitle = dataPoint.doc_name.split(' [', 2);
-      nodeData.push({
-        key: splitTitle[0],
-        label: splitTitle[0],
-        tag: orgName,
-        URL: splitTitle[1]?.replace(']', ''),
-        cluster: index +1 +'',
-        x: dataPoint.x,
-        y: dataPoint.y,
-      })
-    })));
+      });
+      tags.push({ key: orgName, image: "charttype.svg" });
+      vector.organizations[orgName].points.forEach((dataPoint) => {
+        const splitTitle = dataPoint.doc_name.split(' [', 2);
+        nodeData.push({
+          key: splitTitle[0],
+          label: splitTitle[0],
+          tag: orgName,
+          URL: splitTitle[1]?.replace(']', ''),
+          cluster: index + 1 + '',
+          x: dataPoint.x,
+          y: dataPoint.y,
+        });
+      });
+    });
 
     return {
       nodes: nodeData,

@@ -49,13 +49,11 @@ const GraphEventsController: FC<PropsWithChildren<{ setHoveredNode: (node: strin
       },
         enterNode({ node }) {
           setHoveredNode(node);
-          // TODO: Find a better way to get the DOM mouse layer:
         const mouseLayer = getMouseLayer();
         if (mouseLayer) mouseLayer.classList.add("mouse-pointer");
       },
       leaveNode() {
         setHoveredNode(null);
-        // TODO: Find a better way to get the DOM mouse layer:
         const mouseLayer = getMouseLayer();
         if (mouseLayer) mouseLayer.classList.remove("mouse-pointer");
       },

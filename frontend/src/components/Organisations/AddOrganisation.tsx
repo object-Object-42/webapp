@@ -65,43 +65,41 @@ const AddOrganisation = ({ isOpen, onClose }: AddOrganisationProps) => {
   };
 
   return (
-    <>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        size={{ base: "sm", md: "md" }}
-        isCentered
-      >
-        <ModalOverlay />
-        <ModalContent as="form" onSubmit={handleSubmit(onSubmit)}>
-          <ModalHeader>Add Organisation</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            <FormControl isRequired isInvalid={!!errors.org_name}>
-              <FormLabel htmlFor="name">Name</FormLabel>
-              <Input
-                id="name"
-                {...register("org_name", {
-                  required: "Name is required.",
-                })}
-                placeholder="Name"
-                type="text"
-              />
-              {errors.org_name && (
-                <FormErrorMessage>{errors.org_name.message}</FormErrorMessage>
-              )}
-            </FormControl>
-          </ModalBody>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      size={{ base: "sm", md: "md" }}
+      isCentered
+    >
+      <ModalOverlay />
+      <ModalContent as="form" onSubmit={handleSubmit(onSubmit)}>
+        <ModalHeader>Add Organisation</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody pb={6}>
+          <FormControl isRequired isInvalid={!!errors.org_name}>
+            <FormLabel htmlFor="name">Name</FormLabel>
+            <Input
+              id="name"
+              {...register("org_name", {
+                required: "Name is required.",
+              })}
+              placeholder="Name"
+              type="text"
+            />
+            {errors.org_name && (
+              <FormErrorMessage>{errors.org_name.message}</FormErrorMessage>
+            )}
+          </FormControl>
+        </ModalBody>
 
-          <ModalFooter gap={3}>
-            <Button variant="primary" type="submit" isLoading={isSubmitting}>
-              Save
-            </Button>
-            <Button onClick={onClose}>Cancel</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
+        <ModalFooter gap={3}>
+          <Button variant="primary" type="submit" isLoading={isSubmitting}>
+            Save
+          </Button>
+          <Button onClick={onClose}>Cancel</Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 };
 
