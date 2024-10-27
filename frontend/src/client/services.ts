@@ -14,10 +14,10 @@ import type {
   UsersPublic,
   UserUpdate,
   UserUpdateMe,
-  ItemCreate,
-  ItemPublic,
-  ItemsPublic,
-  ItemUpdate,
+  OrganisationCreate,
+  OrganisationPublic,
+  OrganisationsPublic,
+  OrganisationUpdate,
 } from "./models";
 
 export type TDataLoginAccessToken = {
@@ -400,22 +400,22 @@ export class UtilsService {
   }
 }
 
-export type TDataReadItems = {
+export type TDataReadOrganisations = {
   limit?: number;
   skip?: number;
 };
-export type TDataCreateItem = {
-  requestBody: ItemCreate;
+export type TDataCreateOrganisation = {
+  requestBody: OrganisationCreate;
 };
-export type TDataReadItem = {
-  id: string;
+export type TDataReadOrganisation = {
+  org_id: string;
 };
-export type TDataUpdateItem = {
-  id: string;
-  requestBody: ItemUpdate;
+export type TDataUpdateOrganisation = {
+  org_id: string;
+  requestBody: OrganisationUpdate;
 };
-export type TDataDeleteItem = {
-  id: string;
+export type TDataDeleteOrganisation = {
+  org_id: string;
 };
 
 export type TImportDataWebsite = {
@@ -424,20 +424,20 @@ export type TImportDataWebsite = {
   organisation_id: number;
 };
 
-export class ItemsService {
+export class OrganisationsService {
   /**
-   * Read Items
-   * Retrieve items.
-   * @returns ItemsPublic Successful Response
+   * Read Organisations
+   * Retrieve Organisations.
+   * @returns OrganisationsPublic Successful Response
    * @throws ApiError
    */
-  public static readItems(
-    data: TDataReadItems = {}
-  ): CancelablePromise<ItemsPublic> {
+  public static readOrganisations(
+    data: TDataReadOrganisations = {}
+  ): CancelablePromise<OrganisationsPublic> {
     const { limit = 100, skip = 0 } = data;
     return __request(OpenAPI, {
       method: "GET",
-      url: "/api/v1/items/",
+      url: "/api/v1/organisations/",
       query: {
         skip,
         limit,
@@ -449,18 +449,18 @@ export class ItemsService {
   }
 
   /**
-   * Create Item
-   * Create new item.
-   * @returns ItemPublic Successful Response
+   * Create Organisation
+   * Create new Organisation.
+   * @returns OrganisationPublic Successful Response
    * @throws ApiError
    */
-  public static createItem(
-    data: TDataCreateItem
-  ): CancelablePromise<ItemPublic> {
+  public static createOrganisation(
+    data: TDataCreateOrganisation
+  ): CancelablePromise<OrganisationPublic> {
     const { requestBody } = data;
     return __request(OpenAPI, {
       method: "POST",
-      url: "/api/v1/items/",
+      url: "/api/v1/organisations/",
       body: requestBody,
       mediaType: "application/json",
       errors: {
@@ -470,18 +470,20 @@ export class ItemsService {
   }
 
   /**
-   * Read Item
-   * Get item by ID.
-   * @returns ItemPublic Successful Response
+   * Read Organisation
+   * Get Organisation by ID.
+   * @returns OrganisationPublic Successful Response
    * @throws ApiError
    */
-  public static readItem(data: TDataReadItem): CancelablePromise<ItemPublic> {
-    const { id } = data;
+  public static readOrganisation(
+    data: TDataReadOrganisation
+  ): CancelablePromise<OrganisationPublic> {
+    const { org_id } = data;
     return __request(OpenAPI, {
       method: "GET",
-      url: "/api/v1/items/{id}",
+      url: "/api/v1/organisations/{org_id}",
       path: {
-        id,
+        org_id,
       },
       errors: {
         422: `Validation Error`,
@@ -490,20 +492,20 @@ export class ItemsService {
   }
 
   /**
-   * Update Item
-   * Update an item.
-   * @returns ItemPublic Successful Response
+   * Update Organisation
+   * Update an Organisation.
+   * @returns OrganisationPublic Successful Response
    * @throws ApiError
    */
-  public static updateItem(
-    data: TDataUpdateItem
-  ): CancelablePromise<ItemPublic> {
-    const { id, requestBody } = data;
+  public static updateOrganisation(
+    data: TDataUpdateOrganisation
+  ): CancelablePromise<OrganisationPublic> {
+    const { org_id, requestBody } = data;
     return __request(OpenAPI, {
       method: "PUT",
-      url: "/api/v1/items/{id}",
+      url: "/api/v1/organisations/{org_id}",
       path: {
-        id,
+        org_id,
       },
       body: requestBody,
       mediaType: "application/json",
@@ -514,18 +516,21 @@ export class ItemsService {
   }
 
   /**
-   * Delete Item
-   * Delete an item.
+   * Delete Organisation
+   * Delete an Organisation.
    * @returns Message Successful Response
    * @throws ApiError
    */
-  public static deleteItem(data: TDataDeleteItem): CancelablePromise<Message> {
-    const { id } = data;
+  public static deleteOrganisation(
+    data: TDataDeleteOrganisation
+  ): CancelablePromise<Message> {
+    const { org_id } = data;
+    console.log("Delete", data);
     return __request(OpenAPI, {
       method: "DELETE",
-      url: "/api/v1/items/{id}",
+      url: "/api/v1/organisations/{org_id}",
       path: {
-        id,
+        org_id,
       },
       errors: {
         422: `Validation Error`,
@@ -537,12 +542,12 @@ export class ItemsService {
 export class ImportService {
   /**
    * Add a Website to the DB by crawling it
-   * @returns ItemPublic Successful Response
+   * @returns OrganisationPublic Successful Response
    * @throws ApiError
    */
   public static importWebsite(
     data: TImportDataWebsite
-  ): CancelablePromise<ItemPublic> {
+  ): CancelablePromise<OrganisationPublic> {
     const requestBody = data;
     return __request(OpenAPI, {
       method: "POST",
