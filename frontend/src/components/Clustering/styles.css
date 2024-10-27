@@ -37,12 +37,6 @@ h2 {
 h2 > * {
   vertical-align: text-top;
 }
-a {
-  color: black !important;
-}
-a:hover {
-  opacity: var(--hover-opacity);
-}
 
 /**
  * LAYOUT:

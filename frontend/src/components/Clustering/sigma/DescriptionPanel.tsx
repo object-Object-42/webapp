@@ -14,9 +14,8 @@ const DescriptionPanel: FC<{content: Description | null}> = ({content}) => {
         </>
       }
     >
-      {content && <footer className="flex">
-        <p>{"Source: "}</p>
-        <a href={content.URL}>{content.URL}</a>
+      {content && <footer>
+        Source: <a style={{color: "blue"}} href={content.URL}>{content.URL}</a>
       </footer>}
     </Panel>
   );

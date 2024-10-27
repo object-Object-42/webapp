@@ -118,6 +118,7 @@ Object.keys(vector.organizations).map((orgName, index) => (
           clusters: mapValues(keyBy(dataset.clusters, "key"), constant(true)),
           tags: mapValues(keyBy(dataset.tags, "key"), constant(true)),
         });
+        requestAnimationFrame(() => setDataReady(true));
       }).catch((error) => {
         console.error("Error fetching vector nodes:", error);
       });        
