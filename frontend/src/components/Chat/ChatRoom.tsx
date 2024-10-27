@@ -10,7 +10,6 @@ import {
   Box,
   CardBody,
   Spacer,
-  useToast,
 } from '@chakra-ui/react';
 import '../../models/ChatMessage';
 import ChatMessage from '../../models/ChatMessage';
@@ -22,6 +21,11 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ChatInfo from '../../models/ChatInfo';
 import { AddIcon } from '@chakra-ui/icons';
+import { ApiError, ChatCreate, OrganisationsService } from '../../client';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import useCustomToast from '../../hooks/useCustomToast';
+import { ChatService } from '../../client/services/ChatService';
+import { handleError } from '../../utils';
 
 type ChatRoomProps = {
   selectedChat: ChatInfo|undefined;
@@ -29,15 +33,51 @@ type ChatRoomProps = {
 };
 const ChatRoom = ({selectedChat, setSelectedChat}: ChatRoomProps) => {
 
-  const toast = useToast()
+  const queryClient = useQueryClient();
+  const showToast = useCustomToast();
   const [promptContent, setPromptContent] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [organisations, setOrganisations] = useState<Organisation[]>([]);
+
+  const getOrganisationQueryOptions = () => {
+    return {
+      queryFn: () =>
+        OrganisationsService.readOrganisations({
+          skip: 0,
+          limit: 999,
+        }),
+      queryKey: ["organisationItems"],
+    };
+  }
+
+  const {
+    data: organisations,
+    // isPending,
+    // isPlaceholderData,
+  } = useQuery({
+    ...getOrganisationQueryOptions(),
+    placeholderData: (prevData) => prevData,
+  });
+
+  const createChatMutation = useMutation({
+    mutationFn: (data: ChatCreate) =>
+      ChatService.createChat(data),
+    onSuccess: () => {
+      showToast("Success!", "Item created successfully.", "success");
+    },
+    onError: (err: ApiError) => {
+      handleError(err, showToast);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["createChat"] });
+    },
+  });
 
   useEffect(() => {
-    if (selectedChat?.chatId === undefined) fetchOrganisations()
-    else fetchMessages()
+    // if (selectedChat?.chatId === undefined) fetchOrganisations()
+    // else
+    fetchMessages()
   }, [selectedChat])
+
 
   const fetchMessages = () => {
     const _messages: ChatMessage[] = [];
@@ -51,57 +91,6 @@ const ChatRoom = ({selectedChat, setSelectedChat}: ChatRoomProps) => {
     setMessages(_messages)
   }
 
-  const fetchOrganisations = () => {
-    const _messages: ChatMessage[] = [];
-
-    const newOrganisations: Organisation[] = [
-      {
-        organisation_id: 'uuid1',
-        name: "Project 1",
-      },
-      {
-        organisation_id: 'uuid2',
-        name: "Project 2",
-      },
-      {
-        organisation_id: 'uuid3',
-        name: "Project 3",
-      }
-    ]
-
-    setOrganisations(newOrganisations)
-
-    axios.get(`/api/v1/organisations`).then((response) => {
-      console.log(response.data);
-      const newOrganisations: Organisation[] = [
-        {
-          organisation_id: 'uuid1',
-          name: "Project 1",
-        },
-        {
-          organisation_id: 'uuid2',
-          name: "Project 2",
-        },
-        {
-          organisation_id: 'uuid3',
-          name: "Project 3",
-        }
-      ]
-
-      setOrganisations(newOrganisations)
-    }).catch((response) => {
-      console.error("Error fetching response:", response);
-      toast({
-        title: 'Error getting chatbots',
-        description: response.message,
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      })
-    })
-
-    setMessages(_messages)
-  }
 
   const addMessageToHistory = (newMessage: ChatMessage) => {
     setMessages(prevMessages => [...prevMessages, newMessage]);
@@ -148,13 +137,13 @@ const ChatRoom = ({selectedChat, setSelectedChat}: ChatRoomProps) => {
 
     }).catch((response) => {
       console.error("Error fetching response:", response);
-      toast({
-        title: 'Error sending chat message.',
-        description: response.message,
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      })
+      // showToast({
+      //   title: 'Error sending chat message.',
+      //   description: response.message,
+      //   status: 'error',
+      //   duration: 3000,
+      //   isClosable: true,
+      // })
     })
   }
 
@@ -191,15 +180,18 @@ const ChatRoom = ({selectedChat, setSelectedChat}: ChatRoomProps) => {
   }
 
   const renderSelectChatbot = () => {
+
+    if (organisations === undefined) return ''
+
     let htmlOrganisations: any = [];
-    organisations.forEach((organisation) => {
+    organisations.data.forEach((organisation) => {
       htmlOrganisations.push(
-        <Card mb="15" key={organisation.organisation_id}>
+        <Card mb="15" key={organisation.org_id}>
           <CardBody>
             <Flex>
-            <Heading size="md">{organisation.name}</Heading>
+            <Heading size="md">{organisation.org_name}</Heading>
               <Spacer />
-              <Button colorScheme='teal' onClick={() => createNewChat(organisation.organisation_id)}>Choose <AddIcon ml="3" boxSize="15" /></Button>
+              <Button colorScheme='teal' onClick={() => createNewChat(organisation.org_id)}>Choose <AddIcon ml="3" boxSize="15" /></Button>
             </Flex>
           </CardBody>
         </Card>
@@ -215,20 +207,8 @@ const ChatRoom = ({selectedChat, setSelectedChat}: ChatRoomProps) => {
   }
 
   const createNewChat = (organisation_id: string) => {
-    axios.post('/api/v1/chats', {organisation_id}).then((response) => {
-      const newChatInfo: ChatInfo = response.data;
-      setSelectedChat(newChatInfo);
-      
-    }).catch((response) => {
-      console.error("Error fetching response:", response);
-      toast({
-        title: 'Error creating new Chat.',
-        description: response.message,
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      })
-    })
+    const payload: ChatCreate = {organisation_id}
+    createChatMutation.mutate(payload)
   }
 
   const hasChatSelected = selectedChat !== undefined;

@@ -29,6 +29,10 @@ export type OrganisationsPublic = {
   count: number;
 };
 
+export type ChatCreate = {
+  organisation_id: string;
+};
+
 export type Message = {
   message: string;
 };
