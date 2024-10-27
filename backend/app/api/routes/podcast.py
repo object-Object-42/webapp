@@ -78,3 +78,30 @@ async def create_podcast(*, podcast_request: PodcastRequest) -> StreamingRespons
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error generating audio: {str(e)}")
+
+
+@router.get("/demo")
+async def get_demo_podcast():
+    """
+    Return a demo podcast MP3 file stored locally.
+    """
+    try:
+        # Specify the path to your demo MP3 file
+        file_path = "/app/app/api/data/demo-podcast.mp3"  # Adjust this path as needed
+
+        # Open and read the file
+        with open(file_path, "rb") as audio_file:
+            audio_bytes = BytesIO(audio_file.read())
+
+        return StreamingResponse(
+            audio_bytes,
+            media_type="audio/mpeg",
+            headers={"Content-Disposition": 'attachment; filename="demo-podcast.mp3"'},
+        )
+
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Demo podcast file not found")
+    except Exception as e:
+        raise HTTPException(
+            status_code=500, detail=f"Error retrieving demo podcast: {str(e)}"
+        )
