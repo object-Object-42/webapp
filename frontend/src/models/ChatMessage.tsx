@@ -1,5 +1,3 @@
-import internal from "stream";
-
 export default interface ChatMessage {
     messageId: string;
     isFromBot: boolean;
