@@ -13,6 +13,10 @@ git clone https://github.com/object-Object-42/webapp
 cd WebApp
 ```
 
+## Screenshots
+
+Link zu den [Screenshots](media/Screenshots.md)
+
 ## Verwendete Technologien
 
 - FastAPI
@@ -36,7 +40,7 @@ cd WebApp
 
 ### API Endpunkte
 
-![API Dokumentation](media/api_structure.png)
+![API Dokumentation](media/OpenApi-Page.png)
 
 ### KI-Endpunkte
 
