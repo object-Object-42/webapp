@@ -3,6 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import {
   FiArchive,
+  FiBriefcase,
   FiDownload,
   FiHome,
   FiSettings,
