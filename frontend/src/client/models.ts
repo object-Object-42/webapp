@@ -15,6 +15,10 @@ export type OrganisationCreate = {
   org_name: string;
 };
 
+export type GetUserOrganisation = {
+  userId: string;
+};
+
 export type OrganisationPublic = {
   org_name: string;
   org_id: string;
@@ -64,6 +68,15 @@ export type UserPublic = {
   id: string;
 };
 
+export type UserOrganisationPublic = {
+  user_id: string;
+  org_id: string;
+};
+
+export type UserOrganisationsPublic = {
+  data: Array<UserOrganisationPublic>;
+};
+
 export type UserRegister = {
   email: string;
   password: string;
@@ -76,6 +89,7 @@ export type UserUpdate = {
   is_superuser?: boolean;
   full_name?: string | null;
   password?: string | null;
+  active_org_ids: Array<string>;
 };
 
 export type UserUpdateMe = {
@@ -89,7 +103,28 @@ export type UsersPublic = {
 };
 
 export type ValidationError = {
-  loc: Array<string | number>;
-  msg: string;
-  type: string;
-};
+  loc: Array<string | number>
+  msg: string
+  type: string
+}
+
+export type dataPoints = {
+  x: number
+  y: number
+  doc_name: string
+  org_id: number
+  }
+
+export type ClusterType = {
+  points: dataPoints[]
+  color: string;
+  }
+
+export type Organizations = {
+  [key: string]: ClusterType;
+}
+
+export type VectorReturn = {
+  titles: string[];
+  organizations: Organizations;
+}

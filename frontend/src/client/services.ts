@@ -18,6 +18,8 @@ import type {
   OrganisationPublic,
   OrganisationsPublic,
   OrganisationUpdate,
+  VectorReturn,
+  UserOrganisationsPublic,
 } from "./models";
 
 export type TDataLoginAccessToken = {
@@ -151,6 +153,10 @@ export type TDataRegisterUser = {
   requestBody: UserRegister;
 };
 export type TDataReadUserById = {
+  userId: string;
+};
+
+export type TDataReadUserOrganisationById = {
   userId: string;
 };
 export type TDataUpdateUser = {
@@ -327,6 +333,7 @@ export class UsersService {
     data: TDataUpdateUser
   ): CancelablePromise<UserPublic> {
     const { requestBody, userId } = data;
+    console.log(requestBody);
     return __request(OpenAPI, {
       method: "PATCH",
       url: "/api/v1/users/{user_id}",
@@ -352,6 +359,21 @@ export class UsersService {
     return __request(OpenAPI, {
       method: "DELETE",
       url: "/api/v1/users/{user_id}",
+      path: {
+        user_id: userId,
+      },
+      errors: {
+        422: `Validation Error`,
+      },
+    });
+  }
+  public static readUserOrganisationById(
+    data: TDataReadUserOrganisationById
+  ): CancelablePromise<UserOrganisationsPublic> {
+    const { userId } = data;
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/users/{user_id}/organisation",
       path: {
         user_id: userId,
       },
@@ -421,7 +443,7 @@ export type TDataDeleteOrganisation = {
 export type TImportDataWebsite = {
   url: string;
   url_path: string;
-  organisation_id: number;
+  organisation_id: string;
 };
 
 export class OrganisationsService {
@@ -557,6 +579,20 @@ export class ImportService {
       errors: {
         422: `Validation Error`,
       },
+    });
+  }
+}
+
+export class VectorService {
+  /**
+   * Fetches all Vector Nodes
+   * @returns Message Successful Response
+   * @throws ApiError
+   */
+  public static getVectorNodes(): CancelablePromise<VectorReturn> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/vector/",
     });
   }
 }
