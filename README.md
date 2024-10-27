@@ -13,6 +13,20 @@ git clone https://github.com/object-Object-42/webapp
 cd WebApp
 ```
 
+## Verwendete Technologien
+
+- FastAPI
+- React
+- Docker
+- PostgreSQL
+
+## Verwendete KI-Modelle
+
+- LLaMa-3.1-70B
+- LLaMa-3.2-90B-Vision
+- eleven_turbo_v2_5
+- whisper-large-v3-turbo
+
 ## API Dokumentation
 
 ### API Endpunkte
