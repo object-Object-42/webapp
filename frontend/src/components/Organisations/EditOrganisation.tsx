@@ -76,46 +76,44 @@ const EditOrganisation = ({
   };
 
   return (
-    <>
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        size={{ base: "sm", md: "md" }}
-        isCentered
-      >
-        <ModalOverlay />
-        <ModalContent as="form" onSubmit={handleSubmit(onSubmit)}>
-          <ModalHeader>Edit Organisation</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={6}>
-            <FormControl isInvalid={!!errors.org_name}>
-              <FormLabel htmlFor="title">Title</FormLabel>
-              <Input
-                id="name"
-                {...register("org_name", {
-                  required: "Name is required",
-                })}
-                type="text"
-              />
-              {errors.org_name && (
-                <FormErrorMessage>{errors.org_name.message}</FormErrorMessage>
-              )}
-            </FormControl>
-          </ModalBody>
-          <ModalFooter gap={3}>
-            <Button
-              variant="primary"
-              type="submit"
-              isLoading={isSubmitting}
-              isDisabled={!isDirty}
-            >
-              Save
-            </Button>
-            <Button onClick={onCancel}>Cancel</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      size={{ base: "sm", md: "md" }}
+      isCentered
+    >
+      <ModalOverlay />
+      <ModalContent as="form" onSubmit={handleSubmit(onSubmit)}>
+        <ModalHeader>Edit Organisation</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody pb={6}>
+          <FormControl isInvalid={!!errors.org_name}>
+            <FormLabel htmlFor="title">Title</FormLabel>
+            <Input
+              id="name"
+              {...register("org_name", {
+                required: "Name is required",
+              })}
+              type="text"
+            />
+            {errors.org_name && (
+              <FormErrorMessage>{errors.org_name.message}</FormErrorMessage>
+            )}
+          </FormControl>
+        </ModalBody>
+        <ModalFooter gap={3}>
+          <Button
+            variant="primary"
+            type="submit"
+            isLoading={isSubmitting}
+            isDisabled={!isDirty}
+          >
+            Save
+          </Button>
+          <Button onClick={onCancel}>Cancel</Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 };
 

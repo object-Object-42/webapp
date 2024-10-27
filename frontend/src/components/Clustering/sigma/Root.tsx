@@ -3,7 +3,7 @@ import { createNodeImageProgram } from "@sigma/node-image";
 import { DirectedGraph } from "graphology";
 import { constant, keyBy, mapValues, omit } from "lodash";
 import { FC, useEffect, useMemo, useState } from "react";
-import { BiBookContent, BiRadioCircleMarked } from "react-icons/bi";
+import { BiRadioCircleMarked } from "react-icons/bi";
 import { BsArrowsFullscreen, BsFullscreenExit, BsZoomIn, BsZoomOut } from "react-icons/bs";
 import { GrClose } from "react-icons/gr";
 import { Settings } from "sigma/settings";
@@ -56,26 +56,26 @@ const Root: FC = () => {
     const clusters: Cluster[] = [];
     const tags: {key:string, image: string}[] = [];
 
-    Object.keys(vector.organizations).map((orgName, index) => (
+    Object.keys(vector.organizations).forEach((orgName, index) => {
       clusters.push({
         key: index + 1 + '',
         color: vector.organizations[orgName].color,
         clusterLabel: orgName,
-    }),
-
-    tags.push({key: orgName, image: "charttype.svg"}),
-    vector.organizations[orgName].points.map((dataPoint) => {
-      const splitTitle = dataPoint.doc_name.split(' [', 2);
-      nodeData.push({
-        key: splitTitle[0],
-        label: splitTitle[0],
-        tag: orgName,
-        URL: splitTitle[1]?.replace(']', ''),
-        cluster: index +1 +'',
-        x: dataPoint.x,
-        y: dataPoint.y,
-      })
-    })));
+      });
+      tags.push({ key: orgName, image: "charttype.svg" });
+      vector.organizations[orgName].points.forEach((dataPoint) => {
+        const splitTitle = dataPoint.doc_name.split(' [', 2);
+        nodeData.push({
+          key: splitTitle[0],
+          label: splitTitle[0],
+          tag: orgName,
+          URL: splitTitle[1]?.replace(']', ''),
+          cluster: index + 1 + '',
+          x: dataPoint.x,
+          y: dataPoint.y,
+        });
+      });
+    });
 
     return {
       nodes: nodeData,
@@ -113,16 +113,6 @@ const Root: FC = () => {
         {dataReady && (
           <>
             <div className="controls">
-              <div className="react-sigma-control ico">
-                <button
-                  type="button"
-                  className="show-contents"
-                  onClick={() => setShowContents(true)}
-                  title="Show caption and description"
-                >
-                  <BiBookContent />
-                </button>
-              </div>
               <FullScreenControl className="ico">
                 <BsArrowsFullscreen />
                 <BsFullscreenExit />

@@ -12,7 +12,6 @@ import {
   Spacer,
   useToast,
 } from '@chakra-ui/react';
-import '../../models/ChatMessage';
 import ChatMessage from '../../models/ChatMessage';
 import Message from './Message'
 import ChatPrompt from '../../models/ChatPrompt'

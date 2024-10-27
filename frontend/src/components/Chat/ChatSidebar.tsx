@@ -6,7 +6,7 @@ import {
   useColorModeValue,
   FlexProps,
 } from '@chakra-ui/react'
-import { ReactText, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ChatInfo from '../../models/ChatInfo'
 import axios from '../../client/axiosClient'
 
@@ -75,7 +75,7 @@ const ChatSidebar = ({selectedChat, setSelectedChat}: ChatsidebarProps) => {
 
 interface NavItemProps extends FlexProps {
   isSelected: boolean,
-  children: ReactText
+  children: string | number,
 }
 const NavItem = ({ isSelected, children, ...rest }: NavItemProps) => {
 
@@ -88,7 +88,6 @@ const NavItem = ({ isSelected, children, ...rest }: NavItemProps) => {
       p="4"
       mx="4"
       borderRadius="lg"
-      role="group"
       cursor="pointer"
       color={navItemColor}
       bg={navItemBg}
