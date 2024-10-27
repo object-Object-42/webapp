@@ -18,7 +18,8 @@ import type {
   OrganisationPublic,
   OrganisationsPublic,
   OrganisationUpdate,
-} from "./models";
+  VectorReturn,
+} from "./models"
 
 export type TDataLoginAccessToken = {
   formData: Body_login_login_access_token;
@@ -560,3 +561,17 @@ export class ImportService {
     });
   }
 }
+
+export class VectorService {
+    /**
+   * Fetches all Vector Nodes
+   * @returns Message Successful Response
+   * @throws ApiError
+   */
+    public static getVectorNodes(): CancelablePromise<VectorReturn> {
+      return __request(OpenAPI, {
+        method: "GET",
+        url: "/api/v1/vector/",
+      })
+    }
+  }
