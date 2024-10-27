@@ -103,7 +103,28 @@ export type UsersPublic = {
 };
 
 export type ValidationError = {
-  loc: Array<string | number>;
-  msg: string;
-  type: string;
-};
+  loc: Array<string | number>
+  msg: string
+  type: string
+}
+
+export type dataPoints = {
+  x: number
+  y: number
+  doc_name: string
+  org_id: number
+  }
+
+export type ClusterType = {
+  points: dataPoints[]
+  color: string;
+  }
+
+export type Organizations = {
+  [key: string]: ClusterType;
+}
+
+export type VectorReturn = {
+  titles: string[];
+  organizations: Organizations;
+}

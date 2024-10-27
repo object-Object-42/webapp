@@ -18,6 +18,7 @@ import type {
   OrganisationPublic,
   OrganisationsPublic,
   OrganisationUpdate,
+  VectorReturn,
   UserOrganisationsPublic,
 } from "./models";
 
@@ -578,6 +579,20 @@ export class ImportService {
       errors: {
         422: `Validation Error`,
       },
+    });
+  }
+}
+
+export class VectorService {
+  /**
+   * Fetches all Vector Nodes
+   * @returns Message Successful Response
+   * @throws ApiError
+   */
+  public static getVectorNodes(): CancelablePromise<VectorReturn> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/api/v1/vector/",
     });
   }
 }

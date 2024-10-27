@@ -13,7 +13,7 @@ import type { UserPublic } from "../../client";
 
 const items = [
   { icon: FiHome, title: "Dashboard", path: "/" },
-  // { icon: FiBriefcase, title: "Items", path: "/items" },
+  { icon: FiBriefcase, title: "Clustering", path: "/clustering" },
   { icon: FiSettings, title: "User Settings", path: "/settings" },
   { icon: FiDownload, title: "Import Data", path: "/import" },
   { icon: FiSettings, title: "Chat", path: "/chat" },
