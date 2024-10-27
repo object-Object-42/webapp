@@ -36,7 +36,7 @@ class ContentBase(SQLModel):
         return v
 
 class Content(ContentBase, table=True):
-    doc_id: int = Field(default=None, primary_key=True)
+    doc_id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     org_id: int = Field(foreign_key="organisation.org_id")
     created_at: datetime = Field(default_factory=datetime.utcnow)
     organisation: Organisation = Relationship(back_populates="content")
@@ -55,7 +55,7 @@ class Chat(SQLModel, table=True):
 class ChatMessage(SQLModel, table=True):
     message_id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     chat_chat_id: uuid.UUID = Field(foreign_key="chat.chat_id")
-    referenced_doc_id: int | None = Field(default=None, foreign_key="content.doc_id")
+    referenced_doc_id: uuid.UUID | None = Field(default=None, foreign_key="content.doc_id")
     message_text: str = Field(max_length=255)
     is_from_bot: bool = Field()
     created_at: datetime = Field(default_factory=datetime.now)
@@ -82,7 +82,7 @@ class ChatPublic(SQLModel):
 class ChatMessagePublic(SQLModel):
     message_id: uuid.UUID
     chat_chat_id: uuid.UUID
-    referenced_doc_id: int | None
+    referenced_doc_id: uuid.UUID | None
     message_text: str
     is_from_bot: bool
     created_at: datetime
@@ -220,3 +220,8 @@ class TokenPayload(SQLModel):
 class NewPassword(SQLModel):
     token: str
     new_password: str = Field(min_length=8, max_length=40)
+
+class CrawlRequest(SQLModel):
+    url: str
+    url_path : str|None
+    organisation_id:int
