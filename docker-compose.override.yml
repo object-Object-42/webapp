@@ -13,8 +13,8 @@ services:
     restart: "no"
     ports:
       - "8000:8000"
-    build:
-      context: ./backend
+    #build:
+    #  context: ./backend
     # command: sleep infinity  # Infinite loop to keep container alive doing nothing
     command:
       - fastapi
@@ -34,6 +34,7 @@ services:
     # TODO: remove once coverage is done locally
     volumes:
       - ./backend/htmlcov:/app/htmlcov
+      - ./backend/app:/app/app
     environment:
       SMTP_HOST: "mailcatcher"
       SMTP_PORT: "1025"
@@ -50,12 +51,15 @@ services:
     restart: "no"
     ports:
       - "5173:80"
+    image: node:22
+    command: sleep 99999
     build:
       context: ./frontend
       args:
         - VITE_API_URL=http://localhost
         - NODE_ENV=development
-
+    volumes:
+      - ./frontend:/app
   # playwright:
   #   build:
   #     context: ./frontend

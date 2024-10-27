@@ -1,6 +1,6 @@
-import type { CancelablePromise } from "./core/CancelablePromise"
-import { OpenAPI } from "./core/OpenAPI"
-import { request as __request } from "./core/request"
+import type { CancelablePromise } from "./core/CancelablePromise";
+import { OpenAPI } from "./core/OpenAPI";
+import { request as __request } from "./core/request";
 
 import type {
   Body_login_login_access_token,
@@ -14,25 +14,25 @@ import type {
   UsersPublic,
   UserUpdate,
   UserUpdateMe,
-  ItemCreate,
-  ItemPublic,
-  ItemsPublic,
-  ItemUpdate,
+  OrganisationCreate,
+  OrganisationPublic,
+  OrganisationsPublic,
+  OrganisationUpdate,
   VectorReturn,
 } from "./models"
 
 export type TDataLoginAccessToken = {
-  formData: Body_login_login_access_token
-}
+  formData: Body_login_login_access_token;
+};
 export type TDataRecoverPassword = {
-  email: string
-}
+  email: string;
+};
 export type TDataResetPassword = {
-  requestBody: NewPassword
-}
+  requestBody: NewPassword;
+};
 export type TDataRecoverPasswordHtmlContent = {
-  email: string
-}
+  email: string;
+};
 
 export class LoginService {
   /**
@@ -42,9 +42,9 @@ export class LoginService {
    * @throws ApiError
    */
   public static loginAccessToken(
-    data: TDataLoginAccessToken,
+    data: TDataLoginAccessToken
   ): CancelablePromise<Token> {
-    const { formData } = data
+    const { formData } = data;
     return __request(OpenAPI, {
       method: "POST",
       url: "/api/v1/login/access-token",
@@ -53,7 +53,7 @@ export class LoginService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
@@ -66,7 +66,7 @@ export class LoginService {
     return __request(OpenAPI, {
       method: "POST",
       url: "/api/v1/login/test-token",
-    })
+    });
   }
 
   /**
@@ -76,9 +76,9 @@ export class LoginService {
    * @throws ApiError
    */
   public static recoverPassword(
-    data: TDataRecoverPassword,
+    data: TDataRecoverPassword
   ): CancelablePromise<Message> {
-    const { email } = data
+    const { email } = data;
     return __request(OpenAPI, {
       method: "POST",
       url: "/api/v1/password-recovery/{email}",
@@ -88,7 +88,7 @@ export class LoginService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
@@ -98,9 +98,9 @@ export class LoginService {
    * @throws ApiError
    */
   public static resetPassword(
-    data: TDataResetPassword,
+    data: TDataResetPassword
   ): CancelablePromise<Message> {
-    const { requestBody } = data
+    const { requestBody } = data;
     return __request(OpenAPI, {
       method: "POST",
       url: "/api/v1/reset-password/",
@@ -109,7 +109,7 @@ export class LoginService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
@@ -119,9 +119,9 @@ export class LoginService {
    * @throws ApiError
    */
   public static recoverPasswordHtmlContent(
-    data: TDataRecoverPasswordHtmlContent,
+    data: TDataRecoverPasswordHtmlContent
   ): CancelablePromise<string> {
-    const { email } = data
+    const { email } = data;
     return __request(OpenAPI, {
       method: "POST",
       url: "/api/v1/password-recovery-html-content/{email}",
@@ -131,36 +131,36 @@ export class LoginService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 }
 
 export type TDataReadUsers = {
-  limit?: number
-  skip?: number
-}
+  limit?: number;
+  skip?: number;
+};
 export type TDataCreateUser = {
-  requestBody: UserCreate
-}
+  requestBody: UserCreate;
+};
 export type TDataUpdateUserMe = {
-  requestBody: UserUpdateMe
-}
+  requestBody: UserUpdateMe;
+};
 export type TDataUpdatePasswordMe = {
-  requestBody: UpdatePassword
-}
+  requestBody: UpdatePassword;
+};
 export type TDataRegisterUser = {
-  requestBody: UserRegister
-}
+  requestBody: UserRegister;
+};
 export type TDataReadUserById = {
-  userId: string
-}
+  userId: string;
+};
 export type TDataUpdateUser = {
-  requestBody: UserUpdate
-  userId: string
-}
+  requestBody: UserUpdate;
+  userId: string;
+};
 export type TDataDeleteUser = {
-  userId: string
-}
+  userId: string;
+};
 
 export class UsersService {
   /**
@@ -170,9 +170,9 @@ export class UsersService {
    * @throws ApiError
    */
   public static readUsers(
-    data: TDataReadUsers = {},
+    data: TDataReadUsers = {}
   ): CancelablePromise<UsersPublic> {
-    const { limit = 100, skip = 0 } = data
+    const { limit = 100, skip = 0 } = data;
     return __request(OpenAPI, {
       method: "GET",
       url: "/api/v1/users/",
@@ -183,7 +183,7 @@ export class UsersService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
@@ -193,9 +193,9 @@ export class UsersService {
    * @throws ApiError
    */
   public static createUser(
-    data: TDataCreateUser,
+    data: TDataCreateUser
   ): CancelablePromise<UserPublic> {
-    const { requestBody } = data
+    const { requestBody } = data;
     return __request(OpenAPI, {
       method: "POST",
       url: "/api/v1/users/",
@@ -204,7 +204,7 @@ export class UsersService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
@@ -217,7 +217,7 @@ export class UsersService {
     return __request(OpenAPI, {
       method: "GET",
       url: "/api/v1/users/me",
-    })
+    });
   }
 
   /**
@@ -230,7 +230,7 @@ export class UsersService {
     return __request(OpenAPI, {
       method: "DELETE",
       url: "/api/v1/users/me",
-    })
+    });
   }
 
   /**
@@ -240,9 +240,9 @@ export class UsersService {
    * @throws ApiError
    */
   public static updateUserMe(
-    data: TDataUpdateUserMe,
+    data: TDataUpdateUserMe
   ): CancelablePromise<UserPublic> {
-    const { requestBody } = data
+    const { requestBody } = data;
     return __request(OpenAPI, {
       method: "PATCH",
       url: "/api/v1/users/me",
@@ -251,7 +251,7 @@ export class UsersService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
@@ -261,9 +261,9 @@ export class UsersService {
    * @throws ApiError
    */
   public static updatePasswordMe(
-    data: TDataUpdatePasswordMe,
+    data: TDataUpdatePasswordMe
   ): CancelablePromise<Message> {
-    const { requestBody } = data
+    const { requestBody } = data;
     return __request(OpenAPI, {
       method: "PATCH",
       url: "/api/v1/users/me/password",
@@ -272,7 +272,7 @@ export class UsersService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
@@ -282,9 +282,9 @@ export class UsersService {
    * @throws ApiError
    */
   public static registerUser(
-    data: TDataRegisterUser,
+    data: TDataRegisterUser
   ): CancelablePromise<UserPublic> {
-    const { requestBody } = data
+    const { requestBody } = data;
     return __request(OpenAPI, {
       method: "POST",
       url: "/api/v1/users/signup",
@@ -293,7 +293,7 @@ export class UsersService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
@@ -303,9 +303,9 @@ export class UsersService {
    * @throws ApiError
    */
   public static readUserById(
-    data: TDataReadUserById,
+    data: TDataReadUserById
   ): CancelablePromise<UserPublic> {
-    const { userId } = data
+    const { userId } = data;
     return __request(OpenAPI, {
       method: "GET",
       url: "/api/v1/users/{user_id}",
@@ -315,7 +315,7 @@ export class UsersService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
@@ -325,9 +325,9 @@ export class UsersService {
    * @throws ApiError
    */
   public static updateUser(
-    data: TDataUpdateUser,
+    data: TDataUpdateUser
   ): CancelablePromise<UserPublic> {
-    const { requestBody, userId } = data
+    const { requestBody, userId } = data;
     return __request(OpenAPI, {
       method: "PATCH",
       url: "/api/v1/users/{user_id}",
@@ -339,7 +339,7 @@ export class UsersService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
@@ -349,7 +349,7 @@ export class UsersService {
    * @throws ApiError
    */
   public static deleteUser(data: TDataDeleteUser): CancelablePromise<Message> {
-    const { userId } = data
+    const { userId } = data;
     return __request(OpenAPI, {
       method: "DELETE",
       url: "/api/v1/users/{user_id}",
@@ -359,13 +359,13 @@ export class UsersService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 }
 
 export type TDataTestEmail = {
-  emailTo: string
-}
+  emailTo: string;
+};
 
 export class UtilsService {
   /**
@@ -375,7 +375,7 @@ export class UtilsService {
    * @throws ApiError
    */
   public static testEmail(data: TDataTestEmail): CancelablePromise<Message> {
-    const { emailTo } = data
+    const { emailTo } = data;
     return __request(OpenAPI, {
       method: "POST",
       url: "/api/v1/utils/test-email/",
@@ -385,7 +385,7 @@ export class UtilsService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
@@ -397,42 +397,48 @@ export class UtilsService {
     return __request(OpenAPI, {
       method: "GET",
       url: "/api/v1/utils/health-check/",
-    })
+    });
   }
 }
 
-export type TDataReadItems = {
-  limit?: number
-  skip?: number
-}
-export type TDataCreateItem = {
-  requestBody: ItemCreate
-}
-export type TDataReadItem = {
-  id: string
-}
-export type TDataUpdateItem = {
-  id: string
-  requestBody: ItemUpdate
-}
-export type TDataDeleteItem = {
-  id: string
-}
+export type TDataReadOrganisations = {
+  limit?: number;
+  skip?: number;
+};
+export type TDataCreateOrganisation = {
+  requestBody: OrganisationCreate;
+};
+export type TDataReadOrganisation = {
+  org_id: string;
+};
+export type TDataUpdateOrganisation = {
+  org_id: string;
+  requestBody: OrganisationUpdate;
+};
+export type TDataDeleteOrganisation = {
+  org_id: string;
+};
 
-export class ItemsService {
+export type TImportDataWebsite = {
+  url: string;
+  url_path: string;
+  organisation_id: number;
+};
+
+export class OrganisationsService {
   /**
-   * Read Items
-   * Retrieve items.
-   * @returns ItemsPublic Successful Response
+   * Read Organisations
+   * Retrieve Organisations.
+   * @returns OrganisationsPublic Successful Response
    * @throws ApiError
    */
-  public static readItems(
-    data: TDataReadItems = {},
-  ): CancelablePromise<ItemsPublic> {
-    const { limit = 100, skip = 0 } = data
+  public static readOrganisations(
+    data: TDataReadOrganisations = {}
+  ): CancelablePromise<OrganisationsPublic> {
+    const { limit = 100, skip = 0 } = data;
     return __request(OpenAPI, {
       method: "GET",
-      url: "/api/v1/items/",
+      url: "/api/v1/organisations/",
       query: {
         skip,
         limit,
@@ -440,92 +446,119 @@ export class ItemsService {
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
-   * Create Item
-   * Create new item.
-   * @returns ItemPublic Successful Response
+   * Create Organisation
+   * Create new Organisation.
+   * @returns OrganisationPublic Successful Response
    * @throws ApiError
    */
-  public static createItem(
-    data: TDataCreateItem,
-  ): CancelablePromise<ItemPublic> {
-    const { requestBody } = data
+  public static createOrganisation(
+    data: TDataCreateOrganisation
+  ): CancelablePromise<OrganisationPublic> {
+    const { requestBody } = data;
     return __request(OpenAPI, {
       method: "POST",
-      url: "/api/v1/items/",
+      url: "/api/v1/organisations/",
       body: requestBody,
       mediaType: "application/json",
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
-   * Read Item
-   * Get item by ID.
-   * @returns ItemPublic Successful Response
+   * Read Organisation
+   * Get Organisation by ID.
+   * @returns OrganisationPublic Successful Response
    * @throws ApiError
    */
-  public static readItem(data: TDataReadItem): CancelablePromise<ItemPublic> {
-    const { id } = data
+  public static readOrganisation(
+    data: TDataReadOrganisation
+  ): CancelablePromise<OrganisationPublic> {
+    const { org_id } = data;
     return __request(OpenAPI, {
       method: "GET",
-      url: "/api/v1/items/{id}",
+      url: "/api/v1/organisations/{org_id}",
       path: {
-        id,
+        org_id,
       },
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
-   * Update Item
-   * Update an item.
-   * @returns ItemPublic Successful Response
+   * Update Organisation
+   * Update an Organisation.
+   * @returns OrganisationPublic Successful Response
    * @throws ApiError
    */
-  public static updateItem(
-    data: TDataUpdateItem,
-  ): CancelablePromise<ItemPublic> {
-    const { id, requestBody } = data
+  public static updateOrganisation(
+    data: TDataUpdateOrganisation
+  ): CancelablePromise<OrganisationPublic> {
+    const { org_id, requestBody } = data;
     return __request(OpenAPI, {
       method: "PUT",
-      url: "/api/v1/items/{id}",
+      url: "/api/v1/organisations/{org_id}",
       path: {
-        id,
+        org_id,
       },
       body: requestBody,
       mediaType: "application/json",
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
   }
 
   /**
-   * Delete Item
-   * Delete an item.
+   * Delete Organisation
+   * Delete an Organisation.
    * @returns Message Successful Response
    * @throws ApiError
    */
-  public static deleteItem(data: TDataDeleteItem): CancelablePromise<Message> {
-    const { id } = data
+  public static deleteOrganisation(
+    data: TDataDeleteOrganisation
+  ): CancelablePromise<Message> {
+    const { org_id } = data;
+    console.log("Delete", data);
     return __request(OpenAPI, {
       method: "DELETE",
-      url: "/api/v1/items/{id}",
+      url: "/api/v1/organisations/{org_id}",
       path: {
-        id,
+        org_id,
       },
       errors: {
         422: `Validation Error`,
       },
-    })
+    });
+  }
+}
+
+export class ImportService {
+  /**
+   * Add a Website to the DB by crawling it
+   * @returns OrganisationPublic Successful Response
+   * @throws ApiError
+   */
+  public static importWebsite(
+    data: TImportDataWebsite
+  ): CancelablePromise<OrganisationPublic> {
+    const requestBody = data;
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/api/v1/crawl/",
+      body: requestBody,
+      mediaType: "application/json",
+      errors: {
+        422: `Validation Error`,
+      },
+    });
   }
 
     /**
