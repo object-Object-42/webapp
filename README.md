@@ -27,6 +27,10 @@ cd WebApp
 - eleven_turbo_v2_5
 - whisper-large-v3-turbo
 
+## Verwendetes Template
+
+- [Full Stack FastAPI Template](https://github.com/fastapi/full-stack-fastapi-template)
+
 ## API Dokumentation
 
 ### API Endpunkte
