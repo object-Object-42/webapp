@@ -31,8 +31,6 @@ const Delete = ({ type, id, isOpen, onClose }: DeleteProps) => {
   } = useForm();
 
   const deleteEntity = async (id: string) => {
-    console.log("ID:", id);
-    console.log("TYPE: ", type);
     if (type === "Item") {
       await OrganisationsService.deleteOrganisation({ org_id: id });
     } else if (type === "User") {

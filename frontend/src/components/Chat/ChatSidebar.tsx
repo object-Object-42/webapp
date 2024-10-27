@@ -24,11 +24,6 @@ const ChatSidebar = ({selectedChat, setSelectedChat}: ChatsidebarProps) => {
       fetchChats()
   }, [])
 
-  useEffect(() => {
-    console.log("SEL", selectedChat);
-    
-  }, [selectedChat])
-    
   const fetchChats = () => {
     axios.get(`/api/v1/chats`).then((response) => {
       if (response.status !== 200) {

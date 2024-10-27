@@ -333,7 +333,6 @@ export class UsersService {
     data: TDataUpdateUser
   ): CancelablePromise<UserPublic> {
     const { requestBody, userId } = data;
-    console.log(requestBody);
     return __request(OpenAPI, {
       method: "PATCH",
       url: "/api/v1/users/{user_id}",
