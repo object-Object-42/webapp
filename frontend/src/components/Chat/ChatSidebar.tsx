@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react'
 import { ReactText, useEffect, useState } from 'react'
 import ChatInfo from '../../models/ChatInfo'
-import axios from 'axios'
+import axios from '../../client/axiosClient'
 
 
 type ChatsidebarProps = {
@@ -23,6 +23,11 @@ const ChatSidebar = ({selectedChat, setSelectedChat}: ChatsidebarProps) => {
   useEffect(() => {
       fetchChats()
   }, [])
+
+  useEffect(() => {
+    console.log("SEL", selectedChat);
+    
+  }, [selectedChat])
     
   const fetchChats = () => {
     axios.get(`/api/v1/chats`).then((response) => {
@@ -32,7 +37,6 @@ const ChatSidebar = ({selectedChat, setSelectedChat}: ChatsidebarProps) => {
       }
 
       const _chatList: ChatInfo[] = response.data.data
-      setChatList(_chatList)
 
       setChatList(_chatList)
     }).catch((error) => {
@@ -57,8 +61,8 @@ const ChatSidebar = ({selectedChat, setSelectedChat}: ChatsidebarProps) => {
         >New Chat</NavItem>
         {chatList.map((chatInfo) => (
           <NavItem
-            key={chatInfo.chatId}
-            isSelected={selectedChat !== undefined && chatInfo.chatId == selectedChat.chatId}
+            key={chatInfo.chat_id}
+            isSelected={selectedChat !== undefined && chatInfo.chat_id == selectedChat.chat_id}
             onClick={() => setSelectedChat(chatInfo)}
           >
             {chatInfo.name}

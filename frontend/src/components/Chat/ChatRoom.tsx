@@ -17,11 +17,11 @@ import ChatMessage from '../../models/ChatMessage';
 import Message from './Message'
 import ChatPrompt from '../../models/ChatPrompt'
 import ChatResponse from '../../models/ChatResponse'
-import Organisation from '../../models/Organisation'
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../../client/axiosClient'
 import ChatInfo from '../../models/ChatInfo';
 import { AddIcon } from '@chakra-ui/icons';
+import { OrganisationPublic, OrganisationsPublic } from '../../client';
 
 type ChatRoomProps = {
   selectedChat: ChatInfo|undefined;
@@ -32,63 +32,29 @@ const ChatRoom = ({selectedChat, setSelectedChat}: ChatRoomProps) => {
   const toast = useToast()
   const [promptContent, setPromptContent] = useState('');
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [organisations, setOrganisations] = useState<Organisation[]>([]);
+  const [organisations, setOrganisations] = useState<OrganisationPublic[]>([]);
 
   useEffect(() => {
-    if (selectedChat?.chatId === undefined) fetchOrganisations()
+    if (selectedChat?.chat_id === undefined) fetchOrganisations()
     else fetchMessages()
   }, [selectedChat])
 
   const fetchMessages = () => {
-    const _messages: ChatMessage[] = [];
-
-    axios.get(`/api/v1/chats/${selectedChat?.chatId}`).then((response) => {
-      console.log(response.data);
+    axios.get(`/api/v1/chats/${selectedChat?.chat_id}`).then((response) => {
+      const _messages: ChatMessage[] = response.data.data;
+      setMessages(_messages)
     }).catch((error) => {
       console.error(error);
     })
-
-    setMessages(_messages)
   }
 
   const fetchOrganisations = () => {
     const _messages: ChatMessage[] = [];
 
-    const newOrganisations: Organisation[] = [
-      {
-        organisation_id: 'uuid1',
-        name: "Project 1",
-      },
-      {
-        organisation_id: 'uuid2',
-        name: "Project 2",
-      },
-      {
-        organisation_id: 'uuid3',
-        name: "Project 3",
-      }
-    ]
-
-    setOrganisations(newOrganisations)
-
     axios.get(`/api/v1/organisations`).then((response) => {
-      console.log(response.data);
-      const newOrganisations: Organisation[] = [
-        {
-          organisation_id: 'uuid1',
-          name: "Project 1",
-        },
-        {
-          organisation_id: 'uuid2',
-          name: "Project 2",
-        },
-        {
-          organisation_id: 'uuid3',
-          name: "Project 3",
-        }
-      ]
-
-      setOrganisations(newOrganisations)
+      const _organisationsPublic: OrganisationsPublic = response.data
+      const _organisations = _organisationsPublic.data
+      setOrganisations(_organisations)
     }).catch((response) => {
       console.error("Error fetching response:", response);
       toast({
@@ -114,9 +80,9 @@ const ChatRoom = ({selectedChat, setSelectedChat}: ChatRoomProps) => {
     // add message to chat history
     const newMessage: ChatMessage = {
       messageId: 'unregistered',
-      content: promptContent,
-      isFromBot: false,
-      timestamp: new Date()
+      message_text: promptContent,
+      is_from_bot: false,
+      created_at: new Date()
     }
 
     addMessageToHistory(newMessage);
@@ -130,21 +96,19 @@ const ChatRoom = ({selectedChat, setSelectedChat}: ChatRoomProps) => {
       organisation: "current organisation or project"
     }
 
-    axios.post(`/api/v1/chat/${selectedChat?.chatId}`, chatPrompt).then((response) => {
-      if (response.status !== 200) {
-        console.error("Error fetching response:", response);
-        return
-      }
-
+    axios.post(`/api/v1/chats/${selectedChat?.chat_id}`, chatPrompt).then((response) => {
       const responseContent: ChatResponse = response.data;
 
       const newMessage: ChatMessage = {
         messageId: 'unregistered',
-        content: responseContent.message,
-        isFromBot: true,
-        timestamp: new Date(responseContent.created_at)
+        message_text: responseContent.message_text,
+        is_from_bot: true,
+        created_at: new Date(responseContent.created_at)
       }
       addMessageToHistory(newMessage)
+
+      // refetch history with new content to get message ids
+      fetchMessages()
 
     }).catch((response) => {
       console.error("Error fetching response:", response);
@@ -162,7 +126,7 @@ const ChatRoom = ({selectedChat, setSelectedChat}: ChatRoomProps) => {
     let htmlMessages: any = [];
     messages.forEach((message) => {
       htmlMessages.push(
-        <Message text={message.content} isFromBot={message.isFromBot} />
+        <Message text={message.message_text} isFromBot={message.is_from_bot} />
       )
     })
 
@@ -194,12 +158,12 @@ const ChatRoom = ({selectedChat, setSelectedChat}: ChatRoomProps) => {
     let htmlOrganisations: any = [];
     organisations.forEach((organisation) => {
       htmlOrganisations.push(
-        <Card mb="15" key={organisation.organisation_id}>
+        <Card mb="15" key={organisation.org_id}>
           <CardBody>
             <Flex>
-            <Heading size="md">{organisation.name}</Heading>
+            <Heading size="md">{organisation.org_name}</Heading>
               <Spacer />
-              <Button colorScheme='teal' onClick={() => createNewChat(organisation.organisation_id)}>Choose <AddIcon ml="3" boxSize="15" /></Button>
+              <Button colorScheme='teal' onClick={() => createNewChat(organisation.org_id)}>Choose <AddIcon ml="3" boxSize="15" /></Button>
             </Flex>
           </CardBody>
         </Card>
@@ -216,8 +180,8 @@ const ChatRoom = ({selectedChat, setSelectedChat}: ChatRoomProps) => {
 
   const createNewChat = (organisation_id: string) => {
     axios.post('/api/v1/chats', {organisation_id}).then((response) => {
-      const newChatInfo: ChatInfo = response.data;
-      setSelectedChat(newChatInfo);
+      const _chatInfo: ChatInfo = response.data;
+      setSelectedChat(_chatInfo);
       
     }).catch((response) => {
       console.error("Error fetching response:", response);

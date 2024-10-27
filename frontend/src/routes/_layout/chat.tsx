@@ -25,7 +25,7 @@ const ChatPage = () => {
           <ChatSidebar selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
         </Box>
         <Box flexGrow="1">
-          <ChatRoom selectedChat={selectedChat} />
+          <ChatRoom selectedChat={selectedChat} setSelectedChat={setSelectedChat} />
         </Box>
       </Flex>
     </Container>

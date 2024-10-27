@@ -1,5 +1,5 @@
 export default interface ChatInfo {
-    chatId: string;
+    chat_id: string;
     name: string;
-    timestamp: Date;
+    created_at: Date;
 }
