@@ -1,5 +1,5 @@
-import { FC, CSSProperties, useEffect, useState } from "react";
-import { ControlsContainer, SearchControl, SigmaContainer, useRegisterEvents, useSigma, ZoomControl } from "@react-sigma/core";
+import { useEffect, useState } from "react";
+import { useRegisterEvents, useSigma } from "@react-sigma/core";
 
 
 export const GraphEvents: React.FC = () => {

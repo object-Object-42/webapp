@@ -26,12 +26,12 @@ const GraphTitle: FC<{ filters: FiltersState }> = ({ filters }) => {
 
   return (
         <i className="graph-subtitle">
-          {graph.order} node{graph.order > 1 ? "s" : ""}{" "}
+          {graph.order} node{graph.order > 1 ? "s" : ""}
           {visibleItems.nodes !== graph.order
             ? ` (only ${prettyPercentage(visibleItems.nodes / graph.order)} visible)`
             : ""}
           , {graph.size} edge
-          {graph.size > 1 ? "s" : ""}{" "}
+          {graph.size > 1 ? "s" : ""}
           {visibleItems.edges !== graph.size
             ? ` (only ${prettyPercentage(visibleItems.edges / graph.size)} visible)`
             : ""}

@@ -4,7 +4,7 @@ import { ChangeEvent, FC, KeyboardEvent, useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 
 import { FiltersState } from "../types";
-//TODO: optimize search by searching from middle
+//currently searching from beginning
 /**
  * This component is basically a fork from @react-sigma/core's SearchControl
  * component, to get some minor adjustments:

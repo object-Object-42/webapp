@@ -3,7 +3,6 @@ import { keyBy, mapValues, sortBy, values } from "lodash";
 import { FC, useEffect, useMemo, useState } from "react";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { MdGroupWork } from "react-icons/md";
-// import { Button } from "@/components/ui/button"
 
 import { Cluster, FiltersState } from "../types";
 import Panel from "./Panel";
