@@ -13,6 +13,8 @@ from app.api.deps import (
 from app.core.config import settings
 from app.core.security import get_password_hash, verify_password
 from app.models import (
+    UserOrganisation,
+    UserOrganisationsPublic,
     Message,
     UpdatePassword,
     User,
@@ -187,8 +189,9 @@ def update_user(
     """
     Update a user.
     """
-
+    print(f'User in {user_in}')
     db_user = session.get(User, user_id)
+
     if not db_user:
         raise HTTPException(
             status_code=404,
@@ -200,6 +203,20 @@ def update_user(
             raise HTTPException(
                 status_code=409, detail="User with this email already exists"
             )
+        
+    statement = select(UserOrganisation).where(UserOrganisation.user_id == user_id)
+    user_orgs = session.exec(statement).all()
+
+    for el in user_orgs:
+        session.delete(el)
+    session.commit()
+
+    for el in user_in.active_org_ids:
+        user_org = UserOrganisation(org_id=el,user_id=user_id)
+
+        session.add(user_org)
+    session.commit()
+
 
     db_user = crud.update_user(session=session, db_user=db_user, user_in=user_in)
     return db_user
@@ -223,3 +240,19 @@ def delete_user(
     session.delete(user)
     session.commit()
     return Message(message="User deleted successfully")
+
+@router.get("/{user_id}/organisation", dependencies=[Depends(get_current_active_superuser), ], response_model=UserOrganisationsPublic,)
+def get_user_organisations(
+    session: SessionDep, current_user: CurrentUser, user_id: uuid.UUID
+) :
+    """
+    Get all organisations a user is in.
+    """
+    user = session.get(User, user_id)
+    statement = select(UserOrganisation).where(UserOrganisation.user_id == user_id)
+    user_orgs = session.exec(statement).all()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return UserOrganisationsPublic(data=user_orgs)
+
