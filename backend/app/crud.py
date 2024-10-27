@@ -103,11 +103,11 @@ def get_contents_by_org(*, session: Session, org_id: int) -> List[Content]:
 
 #### Chat functions ####
 
-def create_chat(*, session: Session, message_text: str, user_id: uuid.UUID, referenced_doc_id: Optional[int] = None) -> Chat:
+def create_chat(*, session: Session, message_text: str, user_id: uuid.UUID, doc_id: Optional[int] = None) -> Chat:
     chat = Chat(
         message_text=message_text,
         user_id=user_id,
-        referenced_doc_id=referenced_doc_id,
+        doc_id=doc_id,
         created_at=datetime.now()
     )
     session.add(chat)

@@ -24,6 +24,15 @@ const ActionsMenu = ({ type, value, disabled }: ActionsMenuProps) => {
   const editUserModal = useDisclosure();
   const deleteModal = useDisclosure();
 
+  let value_id;
+  if (value.hasOwnProperty('org_id')) {
+    value = value as OrganisationPublic;
+    value_id = value.org_id;
+  } else {
+    value = value as UserPublic;
+    value_id = value.id;
+  }
+
   return (
     <>
       <Menu>
@@ -63,7 +72,7 @@ const ActionsMenu = ({ type, value, disabled }: ActionsMenuProps) => {
         )}
         <Delete
           type={type}
-          id={value.id ? value.id : value.org_id}
+          id={value_id}
           isOpen={deleteModal.isOpen}
           onClose={deleteModal.onClose}
         />
