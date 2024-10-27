@@ -28,6 +28,9 @@ cd WebApp
 - whisper-large-v3-turbo
 - text-embedding-3-small
 
+## Datenfluss
+![Datenfluss][media/dataflow_white.png]
+
 ## API Dokumentation
 
 ### API Endpunkte
