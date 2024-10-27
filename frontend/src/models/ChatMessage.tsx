@@ -1,6 +1,6 @@
 export default interface ChatMessage {
     messageId: string;
-    isFromBot: boolean;
-    content: string;
-    timestamp: Date;
+    is_from_bot: boolean;
+    message_text: string;
+    created_at: Date;
 }
