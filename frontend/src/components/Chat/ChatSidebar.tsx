@@ -18,39 +18,27 @@ type ChatsidebarProps = {
 
 const ChatSidebar = ({selectedChat, setSelectedChat}: ChatsidebarProps) => {
 
-    const [chatList, setChatList] = useState<ChatInfo[]>([]);
+  const [chatList, setChatList] = useState<ChatInfo[]>([]);
 
-    useEffect(() => {
-        fetchChats()
-
-        const _chatList: Array<ChatInfo> = [
-            { chatId:'1', name: 'Home', timestamp: new Date() },
-            { chatId:'2', name: 'Trending', timestamp: new Date() },
-            { chatId:'3', name: 'Explore', timestamp: new Date() },
-            { chatId:'4', name: 'Favourites', timestamp: new Date() },
-            { chatId:'5', name: 'Settings', timestamp: new Date() },
-          ]
-        setChatList(_chatList)
-      }, [])
+  useEffect(() => {
+      fetchChats()
+  }, [])
     
-      const fetchChats = () => {
-        const _chatList: ChatInfo[] = [];
-    
-        axios.get(`/api/v1/chat`).then((response) => {
-          if (response.status !== 200) {
-            console.error("Error fetching response:", response);
-            return
-          }
-
-
-          const _chatList: ChatInfo[] = response.data.data
-          setChatList(_chatList)
-        }).catch((error) => {
-          console.error(error);
-        })
-    
-        setChatList(_chatList)
+  const fetchChats = () => {
+    axios.get(`/api/v1/chats`).then((response) => {
+      if (response.status !== 200) {
+        console.error("Error fetching response:", response);
+        return
       }
+
+      const _chatList: ChatInfo[] = response.data.data
+      setChatList(_chatList)
+
+      setChatList(_chatList)
+    }).catch((error) => {
+      console.error(error);
+    })
+  }
 
   return (
     <Box mt="50">
@@ -64,13 +52,16 @@ const ChatSidebar = ({selectedChat, setSelectedChat}: ChatsidebarProps) => {
         h="full"
         p="3"
         >
+        <NavItem
+          isSelected={selectedChat === undefined}
+        >New Chat</NavItem>
         {chatList.map((chatInfo) => (
           <NavItem
             key={chatInfo.chatId}
             isSelected={selectedChat !== undefined && chatInfo.chatId == selectedChat.chatId}
             onClick={() => setSelectedChat(chatInfo)}
           >
-              {chatInfo.name}
+            {chatInfo.name}
           </NavItem>
         ))}
         </Box>
