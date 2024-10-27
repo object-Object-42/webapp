@@ -4,8 +4,13 @@ from typing import Dict, List
 
 from dotenv import load_dotenv
 from fastapi import APIRouter, HTTPException
+from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
 from openai import OpenAI
 from sqlmodel import SQLModel
+from app.api.helper.context import fetch_content
+from app.api.helper.embeddings import fetch_embeddings_2d
+
 
 router = APIRouter()
 
@@ -37,6 +42,13 @@ class AllEmbeddingsResponse(SQLModel):
     organizations: dict[str, OrganizationData]
 
 
+class EmbeddingsResponse(SQLModel):
+    points: list[Point]
+    name: str
+    title: str
+    org_id: int
+
+
 @router.post("/")
 def create_embedding(*, embedding_request: EmbeddingRequest):
     """
@@ -56,36 +68,49 @@ def create_embedding(*, embedding_request: EmbeddingRequest):
         )
 
 
-@router.get("/", response_model=AllEmbeddingsResponse)
+@router.get("/")
 def get_all_embeddings():
     """
     Get all embeddings grouped by organizations.
     """
     try:
-        # This is where you would normally query your database
-        # For now, returning dummy data in the required format
+        # Fetch embeddings data
+        data = fetch_embeddings_2d()
 
-        # Dummy data for multiple organizations
-        organizations_data = {
-            "Rechenzentrum": {
-                "points": [
-                    Point(x=0.123, y=0.456, doc_name="ML_Basics.pdf", org_id=1),
-                    Point(x=0.234, y=0.567, doc_name="Cloud_Computing.pdf", org_id=1),
-                ],
-                "color": "#FF0000",  # Red
-            },
-            "Feuerwehr": {
-                "points": [
-                    Point(x=0.789, y=0.321, doc_name="AI_Introduction.pdf", org_id=2),
-                    Point(
-                        x=0.890, y=0.432, doc_name="Emergency_Protocols.pdf", org_id=2
-                    ),
-                ],
-                "color": "#0000FF",  # Blue
-            },
-        }
+        # First element contains titles
+        titles = data.get("titles")
+        # Rest of the data contains embeddings
+        embeddings_data = data.get("embeddings")
+        org_names = data.get("org_name")
+        org_ids = data.get("org_id")
 
-        return {"organizations": organizations_data}
+        # Initialize response dictionary
+        organizations = {}
+
+        # Iterate through all lists together
+        for i in range(len(embeddings_data)):
+            coords = embeddings_data[i]
+            org_name = org_names[i]
+            org_id = org_ids[i]
+            doc_name = titles[i]
+
+            # Create organization entry if not exists
+            if org_name not in organizations:
+                organizations[org_name] = {
+                    "points": [],
+                    "color": "#142c96",
+                }
+
+            # Add point to organization
+            point = {
+                "x": float(coords[0]),
+                "y": float(coords[1]),
+                "doc_name": doc_name,
+                "org_id": org_id,
+            }
+            organizations[org_name]["points"].append(point)
+
+        return {"titles": titles, "organizations": organizations}
 
     except Exception as e:
         raise HTTPException(
