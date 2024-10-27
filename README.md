@@ -29,7 +29,7 @@ cd WebApp
 - text-embedding-3-small
 
 ## Datenfluss
-![Datenfluss][media/dataflow_white.png]
+![Datenfluss](media/dataflow_white.png)
 
 ## API Dokumentation
 
