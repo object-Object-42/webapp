@@ -30,7 +30,7 @@ class Point(SQLModel):
     y: float
     doc_id: int | None = None
     doc_name: str
-    org_id: int | None = None
+    org_id: str | None = None
 
 
 class OrganizationData(SQLModel):
@@ -46,7 +46,7 @@ class EmbeddingsResponse(SQLModel):
     points: list[Point]
     name: str
     title: str
-    org_id: int
+    org_id: str
 
 
 @router.post("/")

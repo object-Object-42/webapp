@@ -15,13 +15,14 @@ class UserOrganisation(SQLModel, table=True):
     user_id: uuid.UUID = Field(foreign_key="user.id", primary_key=True)
     org_id: uuid.UUID = Field(foreign_key="organisation.org_id", primary_key=True)
     
-    
+
 class Organisation(OrganisationBase, table=True):
     org_id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     users: List["User"] = Relationship(
         back_populates="organisations", link_model=UserOrganisation
     )
     content: List["Content"] = Relationship(back_populates="organisation")
+    chats: List["Chat"] = Relationship(back_populates="organisation")
 
 
 class ContentBase(SQLModel):
@@ -46,17 +47,18 @@ class Chat(SQLModel, table=True):
     chat_id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     user_id: uuid.UUID = Field(foreign_key="user.id")
     name: str | None = Field(default=None)
-    # referenced_doc_id: int | None = Field(default=None, foreign_key="content.doc_id")
+    org_id: uuid.UUID = Field(default=None, foreign_key="organisation.org_id")
     created_at: datetime = Field(default_factory=datetime.now)
     user: "User" = Relationship(back_populates="chats")
+    organisation: Organisation = Relationship(back_populates="chats")
     # referenced_content: Content | None = Relationship(back_populates="chats")
     chat_messages: list["ChatMessage"] = Relationship(back_populates="chat")
     
 class ChatMessage(SQLModel, table=True):
     message_id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    chat_chat_id: uuid.UUID = Field(foreign_key="chat.chat_id")
-    referenced_doc_id: uuid.UUID | None = Field(default=None, foreign_key="content.doc_id")
-    message_text: str = Field(max_length=255)
+    chat_id: uuid.UUID = Field(foreign_key="chat.chat_id")
+    doc_id: uuid.UUID | None = Field(default=None, foreign_key="content.doc_id")
+    message_text: str = Field(max_length=64000)
     is_from_bot: bool = Field()
     created_at: datetime = Field(default_factory=datetime.now)
     referenced_content: Content | None = Relationship(back_populates="chat_messages")
@@ -68,7 +70,7 @@ class OrganisationPublic(OrganisationBase):
 
 
 class ContentPublic(ContentBase):
-    doc_id: int
+    doc_id: uuid.UUID
     org_id: uuid.UUID
     created_at: datetime
 
@@ -76,13 +78,14 @@ class ContentPublic(ContentBase):
 class ChatPublic(SQLModel):
     chat_id: uuid.UUID
     user_id: uuid.UUID
+    org_id: uuid.UUID
     name: str | None
     created_at: datetime
 
 class ChatMessagePublic(SQLModel):
     message_id: uuid.UUID
-    chat_chat_id: uuid.UUID
-    referenced_doc_id: uuid.UUID | None
+    chat_id: uuid.UUID
+    doc_id: uuid.UUID | None
     message_text: str
     is_from_bot: bool
     created_at: datetime
@@ -131,7 +134,7 @@ class UserRegister(SQLModel):
 class UserUpdate(UserBase):
     email: EmailStr | None = Field(default=None, max_length=255)  # type: ignore
     password: str | None = Field(default=None, min_length=8, max_length=40)
-
+    active_org_ids: List[str] = Field(default=None)
 
 class UserUpdateMe(SQLModel):
     full_name: str | None = Field(default=None, max_length=255)
@@ -222,4 +225,11 @@ class NewPassword(SQLModel):
 class CrawlRequest(SQLModel):
     url: str
     url_path : str|None
-    organisation_id:int
+    organisation_id: uuid.UUID
+
+class UserOrganisationPublic(SQLModel):
+    user_id: uuid.UUID
+    org_id: uuid.UUID
+
+class UserOrganisationsPublic(SQLModel):
+    data: List[UserOrganisation]
