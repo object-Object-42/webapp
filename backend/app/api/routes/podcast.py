@@ -41,7 +41,7 @@ async def create_podcast(
 
         chat_completion = groq_client.chat.completions.create(
             messages=[{"role": "user", "content": enhanced_prompt}],
-            model="llama3-8b-8192",
+            model="llama-3.1-70b-versatile",
         )
         script_text = chat_completion.choices[0].message.content
 

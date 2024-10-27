@@ -18,6 +18,9 @@ from app.models import (
 )
 from app.prompts import system_prompt_chat
 
+from app.api.helper.context import fetch_content
+
+
 router = APIRouter()
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
@@ -71,6 +74,8 @@ def create_chat_message(
     Zielgruppe: {chat_request.level}
     Organisation: {chat.org_id}
     Frage: {chat_request.prompt}
+    Kontext: {fetch_content(fetch_size=10)}
+    Frage: {chat_request.prompt}
     """
 
     chat_message = ChatMessage(
@@ -87,7 +92,7 @@ def create_chat_message(
         # Generate response using Groq API
         chat_completion = client.chat.completions.create(
             messages=[{"role": "user", "content": enhanced_prompt}],
-            model="llama3-8b-8192",
+            model="llama-3.1-70b-versatile",
         )
         response_text = chat_completion.choices[0].message.content
 
