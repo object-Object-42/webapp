@@ -15,7 +15,7 @@ class UserOrganisation(SQLModel, table=True):
     user_id: uuid.UUID = Field(foreign_key="user.id", primary_key=True)
     org_id: uuid.UUID = Field(foreign_key="organisation.org_id", primary_key=True)
     
-    
+
 class Organisation(OrganisationBase, table=True):
     org_id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     users: List["User"] = Relationship(
@@ -134,7 +134,7 @@ class UserRegister(SQLModel):
 class UserUpdate(UserBase):
     email: EmailStr | None = Field(default=None, max_length=255)  # type: ignore
     password: str | None = Field(default=None, min_length=8, max_length=40)
-
+    active_org_ids: List[str] = Field(default=None)
 
 class UserUpdateMe(SQLModel):
     full_name: str | None = Field(default=None, max_length=255)
@@ -226,3 +226,10 @@ class CrawlRequest(SQLModel):
     url: str
     url_path : str|None
     organisation_id: uuid.UUID
+
+class UserOrganisationPublic(SQLModel):
+    user_id: uuid.UUID
+    org_id: uuid.UUID
+
+class UserOrganisationsPublic(SQLModel):
+    data: List[UserOrganisation]

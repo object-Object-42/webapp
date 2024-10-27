@@ -3,6 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import {
   FiArchive,
+  FiBriefcase,
   FiDownload,
   FiHome,
   FiSettings,
@@ -10,12 +11,12 @@ import {
 } from "react-icons/fi";
 
 import type { UserPublic } from "../../client";
-import { ChatIcon, PlusSquareIcon } from "@chakra-ui/icons";
+import { ChatIcon } from "@chakra-ui/icons";
 
 const items = [
   { icon: FiHome, title: "Dashboard", path: "/" },
+  { icon: FiBriefcase, title: "Clustering", path: "/clustering" },
   { icon: ChatIcon, title: "Chat", path: "/chat" },
-  { icon: PlusSquareIcon, title: "Clustering", path: "/cluster" },
   { icon: FiSettings, title: "User Settings", path: "/settings" },
   { icon: FiDownload, title: "Import Data", path: "/import" },
   { icon: FiArchive, title: "Organisations", path: "/organisation" },

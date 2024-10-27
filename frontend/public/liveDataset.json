@@ -1,0 +1,655 @@
+{
+    "titles": [
+      "Dokumentation des Rechenzentrums [doku.rz.hs-fulda.de]",
+      "Netzlaufwerke [doku.rz.hs-fulda.de]",
+      "OES-Client [doku.rz.hs-fulda.de]",
+      "(Adressen) [doku.rz.hs-fulda.de]",
+      "SAP Fiori [doku.rz.hs-fulda.de]",
+      "Kalender auf Mobilgeräten [doku.rz.hs-fulda.de]",
+      "LDAP Authentifizierung [doku.rz.hs-fulda.de]",
+      "E-Mail auf dem Desktop [doku.rz.hs-fulda.de]",
+      "Konfiguration GNU/Linux [doku.rz.hs-fulda.de]",
+      "Benutzeraccount (fd-Nummer) [doku.rz.hs-fulda.de]",
+      "Hinweise zu Passwörtern [doku.rz.hs-fulda.de]",
+      "Zertifikate (PKI) [doku.rz.hs-fulda.de]",
+      "Nutzerzertifikat verwenden [doku.rz.hs-fulda.de]",
+      "Backup [doku.rz.hs-fulda.de]",
+      "E-Mail auf Mobilgeräten [doku.rz.hs-fulda.de]",
+      "Support [doku.rz.hs-fulda.de]",
+      "Videokonferenz (DFNconf) [doku.rz.hs-fulda.de]",
+      "Konfiguration Android [doku.rz.hs-fulda.de]",
+      "Terminplaner [doku.rz.hs-fulda.de]",
+      "horstl für Beschäftigte [doku.rz.hs-fulda.de]",
+      "Rocket.Chat [doku.rz.hs-fulda.de]",
+      "Konto-Einstellungen [doku.rz.hs-fulda.de]",
+      "Telefonie [doku.rz.hs-fulda.de]",
+      "Suche im Telefonbuch der TK-Anlage [doku.rz.hs-fulda.de]",
+      "myPortal [doku.rz.hs-fulda.de]",
+      "QR-Codes [doku.rz.hs-fulda.de]",
+      "Webmail Benutzerhandbuch [doku.rz.hs-fulda.de]",
+      "Virenschutz (Sophos) [doku.rz.hs-fulda.de]",
+      "RSS-Feed nutzen [doku.rz.hs-fulda.de]",
+      "horstl und das neue FIS [doku.rz.hs-fulda.de]",
+      "Anrufbeantworter [doku.rz.hs-fulda.de]",
+      "E-Mail und Groupware [doku.rz.hs-fulda.de]",
+      "Konfiguration iOS [doku.rz.hs-fulda.de]",
+      "Installation 2FA-App privacyIDEA [doku.rz.hs-fulda.de]",
+      "Domain Name Service (DNS) [doku.rz.hs-fulda.de]",
+      "Konfiguration iOS (iPhone & iPad) [doku.rz.hs-fulda.de]",
+      "FAQ [doku.rz.hs-fulda.de]",
+      "WLAN Zugang für Gäste [doku.rz.hs-fulda.de]",
+      "Konfiguration Windows [doku.rz.hs-fulda.de]",
+      "Datenanalyse-Tools [doku.rz.hs-fulda.de]",
+      "VPN Zugang [doku.rz.hs-fulda.de]",
+      "Passwort ändern [doku.rz.hs-fulda.de]",
+      "Häufige Fragen (FAQ) [doku.rz.hs-fulda.de]",
+      "Zugriff per CIFS/SMB [doku.rz.hs-fulda.de]",
+      "Microsoft Office 365 [doku.rz.hs-fulda.de]",
+      "WLAN (eduroam) [doku.rz.hs-fulda.de]",
+      "Kopieren, Drucken, Scannen [doku.rz.hs-fulda.de]",
+      "Mailinglisten [doku.rz.hs-fulda.de]",
+      "Medientechnik [doku.rz.hs-fulda.de]",
+      "iPrint: Vom PC drucken [doku.rz.hs-fulda.de]",
+      "Zeitserver (NTP) [doku.rz.hs-fulda.de]",
+      "SEP-Client einrichten [doku.rz.hs-fulda.de]",
+      "Dateien wiederherstellen [doku.rz.hs-fulda.de]",
+      "Gültigkeitsdauer [doku.rz.hs-fulda.de]",
+      "E-Mail [doku.rz.hs-fulda.de]",
+      "Serverzertifikat beantragen [doku.rz.hs-fulda.de]",
+      "Nutzerzertifikat beantragen [doku.rz.hs-fulda.de]",
+      "Zentrale Räume [doku.rz.hs-fulda.de]",
+      "VPN [doku.rz.hs-fulda.de]",
+      "Videokonferenz [doku.rz.hs-fulda.de]",
+      "Cisco Webex Meetings [doku.rz.hs-fulda.de]",
+      "Fachbereich Oecotrophologie [doku.rz.hs-fulda.de]",
+      "Zugriff per Microfocus Filr [doku.rz.hs-fulda.de]",
+      "horstl für Beschäftigte, Lehrbeauftragte [doku.rz.hs-fulda.de]",
+      "horstl für Lehrbeauftragte und Prüfende [doku.rz.hs-fulda.de]",
+      "Zugriffsmöglichkeiten [doku.rz.hs-fulda.de]",
+      "E-Mail mit Groupwise [doku.rz.hs-fulda.de]",
+      "Optionales Zubehör [doku.rz.hs-fulda.de]",
+      "myPortal@work [doku.rz.hs-fulda.de]",
+      "Office Suite [doku.rz.hs-fulda.de]",
+      "Anmeldung im PC-Pool [doku.rz.hs-fulda.de]",
+      "Fachbereich Lebensmittetechnologie [doku.rz.hs-fulda.de]",
+      "Konfiguration MacOSX [doku.rz.hs-fulda.de]",
+      "Intranet [doku.rz.hs-fulda.de]",
+      "horstl [doku.rz.hs-fulda.de]",
+      "Einloggen und Rollen [doku.rz.hs-fulda.de]",
+      "Konfiguration Windows 10 / 11 [doku.rz.hs-fulda.de]",
+      "Zwei-Faktor-Authentifizierung (2FA) [doku.rz.hs-fulda.de]",
+      "Selbstregistrierung Zwei-Faktor-Authentifizierung (2FA) [doku.rz.hs-fulda.de]",
+      "Domainnamen [doku.rz.hs-fulda.de]",
+      "Hessenbox (Sync & Share) [doku.rz.hs-fulda.de]",
+      "Konfiguration ChromeOS [doku.rz.hs-fulda.de]",
+      "Gruppen-Laufwerke [doku.rz.hs-fulda.de]",
+      "iPrint: Vom Mobilgerät drucken [doku.rz.hs-fulda.de]",
+      "SPSS [doku.rz.hs-fulda.de]",
+      "Anleitung unter iOS [doku.rz.hs-fulda.de]",
+      "Anleitung unter MacOS [doku.rz.hs-fulda.de]",
+      "Teamviewer Remotesupport [doku.rz.hs-fulda.de]",
+      "horstl im Überblick [doku.rz.hs-fulda.de]",
+      "Nachrichtenarten [doku.rz.hs-fulda.de]",
+      "Allgemeine Fragen [doku.rz.hs-fulda.de]",
+      "Installation 2FA-App 2FAS [doku.rz.hs-fulda.de]"
+    ],
+    "organizations": {
+      "Rechenzentrum": {
+        "points": [
+          {
+            "x": 10.974706649780273,
+            "y": -4.368191242218018,
+            "doc_name": "Dokumentation des Rechenzentrums [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 13.2689208984375,
+            "y": 32.807376861572266,
+            "doc_name": "Netzlaufwerke [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 24.975845336914062,
+            "y": 39.54798126220703,
+            "doc_name": "OES-Client [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 13.914329528808594,
+            "y": 32.54342269897461,
+            "doc_name": "(Adressen) [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 13.001273155212402,
+            "y": -4.944021224975586,
+            "doc_name": "SAP Fiori [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 27.33740234375,
+            "y": -0.8583199381828308,
+            "doc_name": "Kalender auf Mobilgeräten [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 11.155037879943848,
+            "y": -1.6263009309768677,
+            "doc_name": "LDAP Authentifizierung [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 36.795616149902344,
+            "y": -1.7764995098114014,
+            "doc_name": "E-Mail auf dem Desktop [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 24.22557830810547,
+            "y": 42.103939056396484,
+            "doc_name": "Konfiguration GNU/Linux [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -15.688204765319824,
+            "y": -14.917558670043945,
+            "doc_name": "Benutzeraccount (fd-Nummer) [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -15.854763984680176,
+            "y": -15.625040054321289,
+            "doc_name": "Hinweise zu Passwörtern [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -60.90007400512695,
+            "y": -13.07695484161377,
+            "doc_name": "Zertifikate (PKI) [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -60.722923278808594,
+            "y": -10.41172981262207,
+            "doc_name": "Nutzerzertifikat verwenden [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 22.51218605041504,
+            "y": 31.174177169799805,
+            "doc_name": "Backup [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 37.354190826416016,
+            "y": -1.6382473707199097,
+            "doc_name": "E-Mail auf Mobilgeräten [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 10.247299194335938,
+            "y": -7.421973705291748,
+            "doc_name": "Support [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 19.469778060913086,
+            "y": 9.263955116271973,
+            "doc_name": "Videokonferenz (DFNconf) [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 44.10541915893555,
+            "y": -40.08540344238281,
+            "doc_name": "Konfiguration Android [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 26.328289031982422,
+            "y": 0.2389582097530365,
+            "doc_name": "Terminplaner [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -14.784235000610352,
+            "y": 43.82368850708008,
+            "doc_name": "horstl für Beschäftigte [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -21.09564781188965,
+            "y": 15.108210563659668,
+            "doc_name": "Rocket.Chat [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -22.511627197265625,
+            "y": 15.09868335723877,
+            "doc_name": "Konto-Einstellungen [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -52.365665435791016,
+            "y": 19.431135177612305,
+            "doc_name": "Telefonie [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -51.233924865722656,
+            "y": 17.853595733642578,
+            "doc_name": "Suche im Telefonbuch der TK-Anlage [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -57.38956832885742,
+            "y": 19.980846405029297,
+            "doc_name": "myPortal [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -6.128961563110352,
+            "y": -51.89348220825195,
+            "doc_name": "QR-Codes [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 30.03972053527832,
+            "y": -2.9315061569213867,
+            "doc_name": "Webmail Benutzerhandbuch [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 6.126559257507324,
+            "y": -7.453241348266602,
+            "doc_name": "Virenschutz (Sophos) [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 28.651092529296875,
+            "y": -4.6569085121154785,
+            "doc_name": "RSS-Feed nutzen [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -12.974685668945312,
+            "y": 43.231624603271484,
+            "doc_name": "horstl und das neue FIS [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -53.60203170776367,
+            "y": 18.677701950073242,
+            "doc_name": "Anrufbeantworter [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 16.391447067260742,
+            "y": -3.1460494995117188,
+            "doc_name": "E-Mail und Groupware [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 26.000123977661133,
+            "y": 45.9537239074707,
+            "doc_name": "Konfiguration iOS [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -7.5751214027404785,
+            "y": -53.46905517578125,
+            "doc_name": "Installation 2FA-App privacyIDEA [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -2.291440963745117,
+            "y": 0.4011618196964264,
+            "doc_name": "Domain Name Service (DNS) [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 44.06814956665039,
+            "y": -39.476829528808594,
+            "doc_name": "Konfiguration iOS (iPhone & iPad) [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 19.80784034729004,
+            "y": -20.62671661376953,
+            "doc_name": "FAQ [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 28.454870223999023,
+            "y": -42.79970932006836,
+            "doc_name": "WLAN Zugang für Gäste [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 24.538410186767578,
+            "y": 41.27222442626953,
+            "doc_name": "Konfiguration Windows [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 14.854058265686035,
+            "y": -11.620407104492188,
+            "doc_name": "Datenanalyse-Tools [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -37.249359130859375,
+            "y": -4.016050815582275,
+            "doc_name": "VPN Zugang [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -17.220909118652344,
+            "y": -16.277854919433594,
+            "doc_name": "Passwort ändern [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 14.607922554016113,
+            "y": -10.151321411132812,
+            "doc_name": "Häufige Fragen (FAQ) [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 23.574708938598633,
+            "y": 43.760257720947266,
+            "doc_name": "Zugriff per CIFS/SMB [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 3.6593246459960938,
+            "y": -19.911762237548828,
+            "doc_name": "Microsoft Office 365 [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 30.674072265625,
+            "y": -43.247093200683594,
+            "doc_name": "WLAN (eduroam) [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 6.902352809906006,
+            "y": -35.22568893432617,
+            "doc_name": "Kopieren, Drucken, Scannen [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 17.771648406982422,
+            "y": -2.5999984741210938,
+            "doc_name": "Mailinglisten [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -29.23127555847168,
+            "y": -38.31757354736328,
+            "doc_name": "Medientechnik [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 7.868253231048584,
+            "y": -36.92668914794922,
+            "doc_name": "iPrint: Vom PC drucken [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -0.858877420425415,
+            "y": 8.689722061157227,
+            "doc_name": "Zeitserver (NTP) [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 23.728261947631836,
+            "y": 32.504573822021484,
+            "doc_name": "SEP-Client einrichten [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 22.00629234313965,
+            "y": 30.644033432006836,
+            "doc_name": "Dateien wiederherstellen [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 8.559600830078125,
+            "y": -1.2213224172592163,
+            "doc_name": "Gültigkeitsdauer [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 30.55596160888672,
+            "y": -1.8054224252700806,
+            "doc_name": "E-Mail [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -59.54248809814453,
+            "y": -12.319222450256348,
+            "doc_name": "Serverzertifikat beantragen [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -60.23374938964844,
+            "y": -11.561568260192871,
+            "doc_name": "Nutzerzertifikat beantragen [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -31.850765228271484,
+            "y": -36.05100631713867,
+            "doc_name": "Zentrale Räume [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -36.548728942871094,
+            "y": -4.015291690826416,
+            "doc_name": "VPN [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 19.843732833862305,
+            "y": 9.711576461791992,
+            "doc_name": "Videokonferenz [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 20.50769805908203,
+            "y": 11.129085540771484,
+            "doc_name": "Cisco Webex Meetings [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -30.245939254760742,
+            "y": -37.390377044677734,
+            "doc_name": "Fachbereich Oecotrophologie [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 12.59910774230957,
+            "y": 34.41500473022461,
+            "doc_name": "Zugriff per Microfocus Filr [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -16.297008514404297,
+            "y": 41.04241943359375,
+            "doc_name": "horstl für Beschäftigte, Lehrbeauftragte [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -15.487130165100098,
+            "y": 44.1309814453125,
+            "doc_name": "horstl für Lehrbeauftragte und Prüfende [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -20.38882827758789,
+            "y": 14.91431713104248,
+            "doc_name": "Zugriffsmöglichkeiten [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 30.90837860107422,
+            "y": -3.4467930793762207,
+            "doc_name": "E-Mail mit Groupwise [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -52.25456619262695,
+            "y": 20.277759552001953,
+            "doc_name": "Optionales Zubehör [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -57.44645309448242,
+            "y": 20.55158042907715,
+            "doc_name": "myPortal@work [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 4.193965911865234,
+            "y": -20.016855239868164,
+            "doc_name": "Office Suite [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -15.066484451293945,
+            "y": -13.42606258392334,
+            "doc_name": "Anmeldung im PC-Pool [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -30.875442504882812,
+            "y": -36.86311340332031,
+            "doc_name": "Fachbereich Lebensmittetechnologie [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 40.09693908691406,
+            "y": -40.6389274597168,
+            "doc_name": "Konfiguration MacOSX [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 8.14082145690918,
+            "y": -4.208993434906006,
+            "doc_name": "Intranet [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -16.803730010986328,
+            "y": 40.4813232421875,
+            "doc_name": "horstl [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -15.800280570983887,
+            "y": 45.8274040222168,
+            "doc_name": "Einloggen und Rollen [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 41.501407623291016,
+            "y": -44.194766998291016,
+            "doc_name": "Konfiguration Windows 10 / 11 [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -8.74267578125,
+            "y": -56.07096862792969,
+            "doc_name": "Zwei-Faktor-Authentifizierung (2FA) [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -8.239847183227539,
+            "y": -55.14622497558594,
+            "doc_name": "Selbstregistrierung Zwei-Faktor-Authentifizierung (2FA) [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -2.437255620956421,
+            "y": -0.14541129767894745,
+            "doc_name": "Domainnamen [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 20.152650833129883,
+            "y": -21.047550201416016,
+            "doc_name": "Hessenbox (Sync & Share) [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 39.66973114013672,
+            "y": -40.18715286254883,
+            "doc_name": "Konfiguration ChromeOS [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 12.218579292297363,
+            "y": 31.238737106323242,
+            "doc_name": "Gruppen-Laufwerke [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 7.5288615226745605,
+            "y": -36.31809616088867,
+            "doc_name": "iPrint: Vom Mobilgerät drucken [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 4.971537113189697,
+            "y": -8.57149600982666,
+            "doc_name": "SPSS [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -36.52482986450195,
+            "y": -6.899152755737305,
+            "doc_name": "Anleitung unter iOS [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -35.8629035949707,
+            "y": -6.691655158996582,
+            "doc_name": "Anleitung unter MacOS [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 9.929179191589355,
+            "y": -8.978514671325684,
+            "doc_name": "Teamviewer Remotesupport [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -18.08296012878418,
+            "y": 39.30137252807617,
+            "doc_name": "horstl im Überblick [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -23.097341537475586,
+            "y": 16.458415985107422,
+            "doc_name": "Nachrichtenarten [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": 13.746957778930664,
+            "y": -8.642247200012207,
+            "doc_name": "Allgemeine Fragen [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          },
+          {
+            "x": -7.8144731521606445,
+            "y": -52.778053283691406,
+            "doc_name": "Installation 2FA-App 2FAS [doku.rz.hs-fulda.de]",
+            "org_id": 1
+          }
+        ],
+        "color": "#142c96"
+      }
+    }
+  }
