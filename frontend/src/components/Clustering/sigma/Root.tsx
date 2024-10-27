@@ -17,7 +17,7 @@ import GraphEventsController from "./GraphEventsController";
 import GraphSettingsController from "./GraphSettingsController";
 import GraphTitle from "./GraphTitle";
 import SearchField from "./SearchField";
-import { VectorReturn } from "../../../client";
+import { VectorReturn, VectorService } from "../../../client";
 
 const Root: FC = () => {
   const [showContents, setShowContents] = useState(false);
@@ -99,17 +99,28 @@ Object.keys(vector.organizations).map((orgName, index) => (
     //     requestAnimationFrame(() => setDataReady(true));
     //   });
 
-      fetch(`./liveDataset.json`)
-      .then((res) => res.json())
-      .then((vectorDataset: VectorReturn) => {
+      // fetch(`./liveDataset.json`)
+      // .then((res) => res.json())
+      // .then((vectorDataset: VectorReturn) => {
+      //   const dataset: Dataset = parseDataSet(vectorDataset)
+      //   setDataset(dataset);
+      //   setFiltersState({
+      //     clusters: mapValues(keyBy(dataset.clusters, "key"), constant(true)),
+      //     tags: mapValues(keyBy(dataset.tags, "key"), constant(true)),
+      //   });
+      //   requestAnimationFrame(() => setDataReady(true));
+      // });
+
+      VectorService.getVectorNodes().then((vectorDataset: VectorReturn) => {
         const dataset: Dataset = parseDataSet(vectorDataset)
         setDataset(dataset);
         setFiltersState({
           clusters: mapValues(keyBy(dataset.clusters, "key"), constant(true)),
           tags: mapValues(keyBy(dataset.tags, "key"), constant(true)),
         });
-        requestAnimationFrame(() => setDataReady(true));
-      });
+      }).catch((error) => {
+        console.error("Error fetching vector nodes:", error);
+      });        
   }, []);
 
   if (!dataset) return null;

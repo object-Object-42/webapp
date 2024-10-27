@@ -18,9 +18,9 @@ import { Route as LoginImport } from './routes/login'
 import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutSettingsImport } from './routes/_layout/settings'
-import { Route as LayoutClusteringImport } from './routes/_layout/clustering'
 import { Route as LayoutOrganisationImport } from './routes/_layout/organisation'
 import { Route as LayoutImportImport } from './routes/_layout/import'
+import { Route as LayoutClusteringImport } from './routes/_layout/clustering'
 import { Route as LayoutChatImport } from './routes/_layout/chat'
 import { Route as LayoutAdminImport } from './routes/_layout/admin'
 
@@ -71,13 +71,13 @@ const LayoutImportRoute = LayoutImportImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutChatRoute = LayoutChatImport.update({
-  path: '/chat',
+const LayoutClusteringRoute = LayoutClusteringImport.update({
+  path: '/clustering',
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutClusteringRoute = LayoutClusteringImport.update({
-  path: '/clustering',
+const LayoutChatRoute = LayoutChatImport.update({
+  path: '/chat',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -114,12 +114,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAdminImport
       parentRoute: typeof LayoutImport
     }
-    '/_layout/clustering': {
-      preLoaderRoute: typeof LayoutClusteringImport
-      parentRoute: typeof LayoutImport
-    }
     '/_layout/chat': {
       preLoaderRoute: typeof LayoutChatImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/clustering': {
+      preLoaderRoute: typeof LayoutClusteringImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/import': {
@@ -146,8 +146,8 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   LayoutRoute.addChildren([
     LayoutAdminRoute,
-    LayoutClusteringRoute,
     LayoutChatRoute,
+    LayoutClusteringRoute,
     LayoutImportRoute,
     LayoutOrganisationRoute,
     LayoutSettingsRoute,
