@@ -1,11 +1,23 @@
 import uuid
-from typing import Any
+from typing import Any, List, Optional
+from datetime import datetime
 
 from sqlmodel import Session, select
 
 from app.core.security import get_password_hash, verify_password
-from app.models import Item, ItemCreate, User, UserCreate, UserUpdate
+from app.models import (
+    Item,
+    ItemCreate,
+    Organisation,
+    Content,
+    ContentBase,
+    Chat,
+    User,
+    UserCreate,
+    UserUpdate,
+)
 
+#### User functions ####
 
 def create_user(*, session: Session, user_create: UserCreate) -> User:
     db_obj = User.model_validate(
@@ -46,8 +58,82 @@ def authenticate(*, session: Session, email: str, password: str) -> User | None:
     return db_user
 
 
+#### Organisation functions ####
+
+def create_organisation(*, session: Session, org_name: str) -> Organisation:
+    organisation = Organisation(org_name=org_name)
+    session.add(organisation)
+    session.commit()
+    session.refresh(organisation)
+    return organisation
+
+
+def get_organisation_by_id(*, session: Session, org_id: int) -> Optional[Organisation]:
+    return session.get(Organisation, org_id)
+
+
+def get_organisations(*, session: Session) -> List[Organisation]:
+    statement = select(Organisation)
+    return session.exec(statement).all()
+
+
+#### Content functions ####
+
+def create_content(*, session: Session, content_data: ContentBase, org_id: int) -> Content:
+    content = Content(
+        doc_name=content_data.doc_name,
+        content_text=content_data.content_text,
+        url=content_data.url,
+        org_id=org_id,
+        created_at=datetime.utcnow()
+    )
+    session.add(content)
+    session.commit()
+    session.refresh(content)
+    return content
+
+
+def get_content_by_id(*, session: Session, doc_id: int) -> Optional[Content]:
+    return session.get(Content, doc_id)
+
+
+def get_contents_by_org(*, session: Session, org_id: int) -> List[Content]:
+    statement = select(Content).where(Content.org_id == org_id)
+    return session.exec(statement).all()
+
+
+#### Chat functions ####
+
+def create_chat(*, session: Session, message_text: str, user_id: uuid.UUID, referenced_doc_id: Optional[int] = None) -> Chat:
+    chat = Chat(
+        message_text=message_text,
+        user_id=user_id,
+        referenced_doc_id=referenced_doc_id,
+        created_at=datetime.now()
+    )
+    session.add(chat)
+    session.commit()
+    session.refresh(chat)
+    return chat
+
+
+def get_chat_by_id(*, session: Session, chat_id: uuid.UUID) -> Optional[Chat]:
+    return session.get(Chat, chat_id)
+
+
+def get_chats_by_user(*, session: Session, user_id: uuid.UUID) -> List[Chat]:
+    statement = select(Chat).where(Chat.user_id == user_id)
+    return session.exec(statement).all()
+
+
+#### Item functions ####
+
 def create_item(*, session: Session, item_in: ItemCreate, owner_id: uuid.UUID) -> Item:
-    db_item = Item.model_validate(item_in, update={"owner_id": owner_id})
+    db_item = Item(
+        title=item_in.title,
+        description=item_in.description,
+        owner_id=owner_id
+    )
     session.add(db_item)
     session.commit()
     session.refresh(db_item)

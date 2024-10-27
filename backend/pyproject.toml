@@ -23,7 +23,11 @@ dependencies = [
     "pyjwt<3.0.0,>=2.8.0",
     "bs4",
     "requests",
-    "markdownify"
+    "markdownify",
+    "groq",
+    "openai",
+    "elevenlabs",
+    "qdrant-client",
 ]
 
 [tool.uv]
