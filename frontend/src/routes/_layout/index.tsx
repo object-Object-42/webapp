@@ -32,6 +32,7 @@ function Dashboard() {
             image={<img src={clusteringImage} alt="clustering" width="350px" />}
             link="/clustering"
           />
+
           <DashboardCard
             title="Podcasts"
             subtitle="Keep yourself up to date"
