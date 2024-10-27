@@ -37,8 +37,8 @@ def create_chat(
     return chat
 
 
-@router.post("/{id}")
-def create_chat_message(*, chat_request: ChatRequest):
+@router.post("/{chat_id}")
+def create_chat_message(chat_id: uuid.UUID, chat_request: ChatRequest, session: SessionDep):
     """
     Create new chat message and generate response using Groq API.
     """
@@ -50,6 +50,16 @@ def create_chat_message(*, chat_request: ChatRequest):
     Frage: {chat_request.prompt}
     """
 
+    chat_message = ChatMessage(
+        chat_chat_id=chat_id,
+        referenced_doc_id=chat_request.organisation,
+        message_text=chat_request.prompt,
+        is_from_bot=False
+    )
+
+    session.add(chat_message)
+    session.commit()
+
     try:
         # Generate response using Groq API
         chat_completion = client.chat.completions.create(
@@ -57,6 +67,16 @@ def create_chat_message(*, chat_request: ChatRequest):
             model="llama3-8b-8192",
         )
         response_text = chat_completion.choices[0].message.content
+
+        bot_chat_message = ChatMessage(
+            chat_chat_id=chat_id,
+            referenced_doc_id=chat_request.organisation,
+            message_text=response_text,
+            is_from_bot=True
+        )
+
+        session.add(bot_chat_message)
+        session.commit()
 
         return {
             "message": response_text,
