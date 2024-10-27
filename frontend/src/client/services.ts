@@ -421,7 +421,7 @@ export type TDataDeleteOrganisation = {
 export type TImportDataWebsite = {
   url: string;
   url_path: string;
-  organisation_id: number;
+  organisation_id: string;
 };
 
 export class OrganisationsService {

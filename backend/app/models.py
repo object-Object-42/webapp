@@ -222,4 +222,4 @@ class NewPassword(SQLModel):
 class CrawlRequest(SQLModel):
     url: str
     url_path : str|None
-    organisation_id:int
+    organisation_id:str
